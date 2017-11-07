@@ -1,0 +1,48 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.7.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+group = 'me.DataSaver.api'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-aop')
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	runtime('mysql:mysql-connector-java')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	compile('com.auth0:java-jwt:3.2.0')
+	compile('io.springfox:springfox-swagger2:2.2.2')
+	compile('io.springfox:springfox-swagger-ui:2.2.2')
+	compile('com.google.code.gson:gson:2.7')
+}
+
+jar {
+    manifest {
+        attributes  'Title': 'DataSaver', 'Version': '1.0.0', 'Main-Class': 'me.datasaver.api.DataSaverApplication'
+    }
+    archiveName 'DataSaver.jar'
+    dependsOn configurations.runtime
+    from {
+        configurations.compile.collect {it.isDirectory()? it: zipTree(it)}
+    }
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
+}
