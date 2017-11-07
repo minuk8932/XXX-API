@@ -9,38 +9,28 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class DeviceBatteryLog {
+public class DeviceLocationLog {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idx")
 	private long idx;
 	
-	@Column(name = "type")
-	private type type;
+	@Column(name = "longitude")
+	private double longitude;
+	
+	@Column(name = "latitude")
+	private double latitude;
 	
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
-
-	public enum type {
-		CONNECTION(1), DISCONNECTION(0);
-
-		private int code;
-
-		private type(int code) {
-			this.code = code;
-		}
-
-		public int getCode() {
-			return code;
-		}
+	
+	public DeviceLocationLog() {
 	}
-
-	public DeviceBatteryLog() {
-	}
-
-	public DeviceBatteryLog(long idx, com.datasaver.api.domains.DeviceBatteryLog.type type, Timestamp ts) {
+	
+	public DeviceLocationLog(long idx, double longitude, double latitude, Timestamp ts) {
 		this.idx = idx;
-		this.type = type;
+		this.longitude = longitude;
+		this.latitude = latitude;
 		this.ts = ts;
 	}
 
@@ -52,12 +42,20 @@ public class DeviceBatteryLog {
 		this.idx = idx;
 	}
 
-	public type getType() {
-		return type;
+	public double getLongitude() {
+		return longitude;
 	}
 
-	public void setType(type type) {
-		this.type = type;
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
 	}
 
 	public Timestamp getTs() {
@@ -67,5 +65,5 @@ public class DeviceBatteryLog {
 	public void setTs(Timestamp ts) {
 		this.ts = ts;
 	}
-
+	
 }

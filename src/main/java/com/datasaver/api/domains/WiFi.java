@@ -33,7 +33,7 @@ public class WiFi {
 	@Column(name = "latitude")
 	private double latitude;
 
-	@Column(name = "ts")
+	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
 
 	public enum AuthType {
