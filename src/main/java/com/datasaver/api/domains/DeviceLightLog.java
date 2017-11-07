@@ -9,38 +9,24 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class DeviceBatteryLog {
+public class DeviceLightLog {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idx")
 	private long idx;
 	
-	@Column(name = "type")
-	private type type;
+	@Column(name = "lux")
+	private double lux;
 	
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
-
-	public enum type {
-		DISCONNECTION(0), CONNECTION(1);
-
-		private int code;
-
-		private type(int code) {
-			this.code = code;
-		}
-
-		public int getCode() {
-			return code;
-		}
+	
+	public DeviceLightLog() {		
 	}
-
-	public DeviceBatteryLog() {
-	}
-
-	public DeviceBatteryLog(long idx, type type, Timestamp ts) {
+	
+	public DeviceLightLog(long idx, double lux, Timestamp ts) {
 		this.idx = idx;
-		this.type = type;
+		this.lux = lux;
 		this.ts = ts;
 	}
 
@@ -52,12 +38,12 @@ public class DeviceBatteryLog {
 		this.idx = idx;
 	}
 
-	public type getType() {
-		return type;
+	public double getLux() {
+		return lux;
 	}
 
-	public void setType(type type) {
-		this.type = type;
+	public void setLux(double lux) {
+		this.lux = lux;
 	}
 
 	public Timestamp getTs() {
@@ -67,5 +53,6 @@ public class DeviceBatteryLog {
 	public void setTs(Timestamp ts) {
 		this.ts = ts;
 	}
-
+	
+	
 }

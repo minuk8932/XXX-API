@@ -9,20 +9,29 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class DeviceBatteryLog {
+public class PushQueue {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idx")
 	private long idx;
-	
+
 	@Column(name = "type")
 	private type type;
-	
+
+	@Column(name = "title")
+	private String title;
+
+	@Column(name = "content")
+	private String content;
+
+	@Column(name = "log")
+	private String log;
+
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
 
 	public enum type {
-		DISCONNECTION(0), CONNECTION(1);
+		FAILED(-1), SUCCESS(1), WAIT(0);
 
 		private int code;
 
@@ -35,12 +44,15 @@ public class DeviceBatteryLog {
 		}
 	}
 
-	public DeviceBatteryLog() {
+	public PushQueue() {
 	}
 
-	public DeviceBatteryLog(long idx, type type, Timestamp ts) {
+	public PushQueue(long idx, type type, String title, String content, String log, Timestamp ts) {
 		this.idx = idx;
 		this.type = type;
+		this.title = title;
+		this.content = content;
+		this.log = log;
 		this.ts = ts;
 	}
 
@@ -60,6 +72,30 @@ public class DeviceBatteryLog {
 		this.type = type;
 	}
 
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public String getLog() {
+		return log;
+	}
+
+	public void setLog(String log) {
+		this.log = log;
+	}
+
 	public Timestamp getTs() {
 		return ts;
 	}
@@ -67,5 +103,4 @@ public class DeviceBatteryLog {
 	public void setTs(Timestamp ts) {
 		this.ts = ts;
 	}
-
 }

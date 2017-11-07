@@ -7,9 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
-public class DeviceBatteryLog {
+public class WiFiConnectionLog {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idx")
@@ -20,28 +22,34 @@ public class DeviceBatteryLog {
 	
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
-
-	public enum type {
+	
+	@OneToOne
+	@JoinColumn(name = "widx")
+	private WiFi wifi;
+	
+	public enum type{
 		DISCONNECTION(0), CONNECTION(1);
-
+		
 		private int code;
-
+		
 		private type(int code) {
 			this.code = code;
 		}
-
+		
 		public int getCode() {
 			return code;
 		}
 	}
-
-	public DeviceBatteryLog() {
+	
+	public WiFiConnectionLog() {
 	}
 
-	public DeviceBatteryLog(long idx, type type, Timestamp ts) {
+	public WiFiConnectionLog(long idx, type type, Timestamp ts, WiFi wifi) {
+		super();
 		this.idx = idx;
 		this.type = type;
 		this.ts = ts;
+		this.wifi = wifi;
 	}
 
 	public long getIdx() {
@@ -68,4 +76,11 @@ public class DeviceBatteryLog {
 		this.ts = ts;
 	}
 
+	public WiFi getWifi() {
+		return wifi;
+	}
+
+	public void setWifi(WiFi wifi) {
+		this.wifi = wifi;
+	}
 }

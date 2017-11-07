@@ -7,41 +7,30 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
-public class DeviceBatteryLog {
+public class Friend {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idx")
 	private long idx;
 	
-	@Column(name = "type")
-	private type type;
-	
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
-
-	public enum type {
-		DISCONNECTION(0), CONNECTION(1);
-
-		private int code;
-
-		private type(int code) {
-			this.code = code;
-		}
-
-		public int getCode() {
-			return code;
-		}
+	
+	@OneToOne
+	@JoinColumn(name = "uidx")
+	private User user;
+	
+	public Friend() {
 	}
-
-	public DeviceBatteryLog() {
-	}
-
-	public DeviceBatteryLog(long idx, type type, Timestamp ts) {
+	
+	public Friend(long idx, Timestamp ts, User user) {
 		this.idx = idx;
-		this.type = type;
 		this.ts = ts;
+		this.user = user;
 	}
 
 	public long getIdx() {
@@ -52,14 +41,6 @@ public class DeviceBatteryLog {
 		this.idx = idx;
 	}
 
-	public type getType() {
-		return type;
-	}
-
-	public void setType(type type) {
-		this.type = type;
-	}
-
 	public Timestamp getTs() {
 		return ts;
 	}
@@ -68,4 +49,11 @@ public class DeviceBatteryLog {
 		this.ts = ts;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 }

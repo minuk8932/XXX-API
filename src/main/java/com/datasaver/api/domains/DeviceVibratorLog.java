@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class DeviceBatteryLog {
+public class DeviceVibratorLog {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idx")
@@ -22,7 +22,7 @@ public class DeviceBatteryLog {
 	private Timestamp ts;
 
 	public enum type {
-		DISCONNECTION(0), CONNECTION(1);
+		VIBRATION(0), RING(1);
 
 		private int code;
 
@@ -35,10 +35,10 @@ public class DeviceBatteryLog {
 		}
 	}
 
-	public DeviceBatteryLog() {
+	public DeviceVibratorLog() {
 	}
 
-	public DeviceBatteryLog(long idx, type type, Timestamp ts) {
+	public DeviceVibratorLog(long idx, type type, Timestamp ts) {
 		this.idx = idx;
 		this.type = type;
 		this.ts = ts;
@@ -67,5 +67,4 @@ public class DeviceBatteryLog {
 	public void setTs(Timestamp ts) {
 		this.ts = ts;
 	}
-
 }
