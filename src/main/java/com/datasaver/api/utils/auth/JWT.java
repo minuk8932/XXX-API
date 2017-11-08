@@ -11,26 +11,13 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
-/**
- * JWT class.
- * 
- * @author devetude
- */
 public class JWT {
 	private static final Logger LOG = Logger.getLogger(JWT.class.getSimpleName());
 
 	private static final String ISSUER = "hitit";
 	private static final String SECRET = "tmvmfld!";
 
-	/**
-	 * Methods to create json web token string object.
-	 * 
-	 * @param uidx
-	 * @return
-	 */
 	public static String create(final long uidx) {
-		LOG.debug("create");
-
 		try {
 			JWTCreator.Builder b = com.auth0.jwt.JWT.create();
 			b.withIssuer(ISSUER);
@@ -46,15 +33,7 @@ public class JWT {
 		return null;
 	}
 
-	/**
-	 * Methods to decode json web token and return token object.
-	 * 
-	 * @param token
-	 * @return
-	 */
 	public static Token decode(final String token) {
-		LOG.debug("decode");
-
 		try {
 			JWTVerifier v = com.auth0.jwt.JWT.require(Algorithm.HMAC256(SECRET)).withIssuer(ISSUER).build();
 			DecodedJWT djwt = v.verify(token);
@@ -71,42 +50,18 @@ public class JWT {
 		return null;
 	}
 
-	/**
-	 * Token class.
-	 * 
-	 * @author devetude
-	 */
 	public static class Token {
-		private static final Logger LOG = Logger.getLogger(Token.class.getSimpleName());
-
 		private long uidx;
 
-		/**
-		 * Constructor.
-		 */
 		public Token() {
 			// Not to use.
 		}
 
-		/**
-		 * Constructor.
-		 * 
-		 * @param uidx
-		 */
 		public Token(final long uidx) {
-			LOG.debug("Token");
-
 			this.uidx = uidx;
 		}
 
-		/**
-		 * Methods to get user index.
-		 * 
-		 * @return
-		 */
 		public long getUidx() {
-			LOG.debug("getUidx");
-
 			return uidx;
 		}
 	}

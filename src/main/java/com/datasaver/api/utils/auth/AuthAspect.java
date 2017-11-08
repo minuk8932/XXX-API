@@ -1,11 +1,25 @@
 package com.datasaver.api.utils.auth;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+
+import com.datasaver.api.controllers.responses.DefaultResponse;
+import com.datasaver.api.controllers.responses.DefaultResponse.Status;
+import com.datasaver.api.domains.User;
+import com.datasaver.api.services.UserService;
+import com.datasaver.api.utils.auth.JWT.Token;
+import com.datasaver.api.utils.res.Strings;
 
 @Component
 @Aspect
-public class AuthAspect {/*
+public class AuthAspect {
 	@Autowired
 	private HttpServletRequest hsr;
 
@@ -28,7 +42,7 @@ public class AuthAspect {/*
 			return new ResponseEntity<>(dr, HttpStatus.SERVICE_UNAVAILABLE);
 		}
 
-		User u = us.getUser(t.getUidx());
+		User u = us.getUserByIdx(t.getUidx());
 
 		if (u == null) {
 			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.CAN_NOT_FOUND_USER);
@@ -46,5 +60,5 @@ public class AuthAspect {/*
 		}
 
 		return pjp.proceed(params);
-	}*/
+	}
 }
