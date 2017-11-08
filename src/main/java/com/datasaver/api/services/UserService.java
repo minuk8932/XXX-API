@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.datasaver.api.domains.User;
 import com.datasaver.api.repositories.UserRepository;
+import com.datasaver.api.repositories.UserRepository.Friend;
 import com.datasaver.api.services.interfaces.UserServiceInterface;
 
 @Service("UserService")
@@ -50,7 +51,7 @@ public class UserService implements UserServiceInterface {
 	}
 
 	@Override
-	public Collection<User> findFriends(User user) {
-		return user.getFriends();
+	public Collection<Friend> findFriends(User user) {
+		return ur.findFriends(user.getIdx());
 	}
 }
