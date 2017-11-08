@@ -9,41 +9,31 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class DeviceVibratorLog {
+public class Notice {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idx")
 	private long idx;
 	
-	@Column(name = "type")
-	private type type;
+	@Column(name = "title")
+	private String title;
+	
+	@Column(name = "contents")
+	private String contents;
 	
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
-
-	public enum type {
-		VIBRATION(0), RING(1);
-
-		private int code;
-
-		private type(int code) {
-			this.code = code;
-		}
-
-		public int getCode() {
-			return code;
-		}
+	
+	public Notice() {
 	}
 
-	public DeviceVibratorLog() {
-	}
-
-	public DeviceVibratorLog(long idx, type type, Timestamp ts) {
+	public Notice(long idx, String title, String contents, Timestamp ts) {
 		this.idx = idx;
-		this.type = type;
+		this.title = title;
+		this.contents = contents;
 		this.ts = ts;
 	}
-
+	
 	public long getIdx() {
 		return idx;
 	}
@@ -52,12 +42,20 @@ public class DeviceVibratorLog {
 		this.idx = idx;
 	}
 
-	public type getType() {
-		return type;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setType(type type) {
-		this.type = type;
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getContents() {
+		return contents;
+	}
+
+	public void setContents(String contents) {
+		this.contents = contents;
 	}
 
 	public Timestamp getTs() {

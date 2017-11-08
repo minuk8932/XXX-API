@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class DeviceNoiseLog {
@@ -15,21 +17,26 @@ public class DeviceNoiseLog {
 	@Column(name = "idx")
 	private long idx;
 
-	@Column(name = "decibel")
-	private double decibel;
+	@Column(name = "db")
+	private double db;
 	
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
 	
+	@ManyToOne
+	@JoinColumn(name = "didx")
+	private Device device;
+	
 	public DeviceNoiseLog() {
 	}
-	
-	public DeviceNoiseLog(long idx, double decibel, Timestamp ts) {
-		this.idx = idx;
-		this.decibel = decibel;
-		this.ts = ts;
-	}
 
+	public DeviceNoiseLog(long idx, double db, Timestamp ts, Device device) {
+		this.idx = idx;
+		this.db = db;
+		this.ts = ts;
+		this.device = device;
+	}
+	
 	public long getIdx() {
 		return idx;
 	}
@@ -38,12 +45,12 @@ public class DeviceNoiseLog {
 		this.idx = idx;
 	}
 
-	public double getDecibel() {
-		return decibel;
+	public double getDb() {
+		return db;
 	}
 
-	public void setDecibel(double decibel) {
-		this.decibel = decibel;
+	public void setDb(double db) {
+		this.db = db;
 	}
 
 	public Timestamp getTs() {
@@ -52,5 +59,13 @@ public class DeviceNoiseLog {
 
 	public void setTs(Timestamp ts) {
 		this.ts = ts;
+	}
+
+	public Device getDevice() {
+		return device;
+	}
+
+	public void setDevice(Device device) {
+		this.device = device;
 	}
 }

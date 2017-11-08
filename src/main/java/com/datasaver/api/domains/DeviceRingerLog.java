@@ -11,33 +11,27 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class PushQueue {
+public class DeviceRingerLog {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idx")
 	private long idx;
-
+	
 	@Column(name = "type")
 	private Type type;
-
-	@Column(name = "title")
-	private String title;
-
-	@Column(name = "contents")
-	private String contents;
-
-	@Column(name = "log")
-	private String log;
-
+	
+	@Column(name = "volume")
+	private int volume;
+	
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
 
 	@ManyToOne
 	@JoinColumn(name = "didx")
 	private Device device;
-
+	
 	public enum Type {
-		FAIL(-1), SUCCESS(1), WAIT(0);
+		NORMAL(0), SILENT(1), VIBRATE(2);
 
 		private int code;
 
@@ -50,20 +44,16 @@ public class PushQueue {
 		}
 	}
 
-	public PushQueue() {
+	public DeviceRingerLog() {
 	}
 
-	public PushQueue(long idx, Type type, String title, String contents, String log, Timestamp ts,
-			Device device) {
+	public DeviceRingerLog(long idx, Type type, int volume, Timestamp ts) {
 		this.idx = idx;
 		this.type = type;
-		this.title = title;
-		this.contents = contents;
-		this.log = log;
+		this.volume = volume;
 		this.ts = ts;
-		this.device = device;
 	}
-
+	
 	public long getIdx() {
 		return idx;
 	}
@@ -80,28 +70,12 @@ public class PushQueue {
 		this.type = type;
 	}
 
-	public String getTitle() {
-		return title;
+	public int getVolume() {
+		return volume;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getContents() {
-		return contents;
-	}
-
-	public void setContents(String contents) {
-		this.contents = contents;
-	}
-
-	public String getLog() {
-		return log;
-	}
-
-	public void setLog(String log) {
-		this.log = log;
+	public void setVolume(int volume) {
+		this.volume = volume;
 	}
 
 	public Timestamp getTs() {
@@ -116,7 +90,7 @@ public class PushQueue {
 		return device;
 	}
 
-	public void setDevices(Device device) {
+	public void setDevice(Device device) {
 		this.device = device;
 	}
 }

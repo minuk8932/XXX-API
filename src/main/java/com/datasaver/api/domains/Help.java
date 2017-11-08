@@ -9,35 +9,31 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class DeviceXyroScopeLog {
+public class Help {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idx")
 	private long idx;
-
-	@Column(name = "x")
-	private double x;
-
-	@Column(name = "y")
-	private double y;
-
-	@Column(name = "z")
-	private double z;
-
+	
+	@Column(name = "title")
+	private String title;
+	
+	@Column(name = "contents")
+	private String contents;
+	
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
-
-	public DeviceXyroScopeLog() {
+	
+	public Help() {
 	}
 
-	public DeviceXyroScopeLog(long idx, double x, double y, double z, Timestamp ts) {
+	public Help(long idx, String title, String contents, Timestamp ts) {
 		this.idx = idx;
-		this.x = x;
-		this.y = y;
-		this.z = z;
+		this.title = title;
+		this.contents = contents;
 		this.ts = ts;
 	}
-
+	
 	public long getIdx() {
 		return idx;
 	}
@@ -46,28 +42,20 @@ public class DeviceXyroScopeLog {
 		this.idx = idx;
 	}
 
-	public double getX() {
-		return x;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setX(double x) {
-		this.x = x;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public double getY() {
-		return y;
+	public String getContents() {
+		return contents;
 	}
 
-	public void setY(double y) {
-		this.y = y;
-	}
-
-	public double getZ() {
-		return z;
-	}
-
-	public void setZ(double z) {
-		this.z = z;
+	public void setContents(String contents) {
+		this.contents = contents;
 	}
 
 	public Timestamp getTs() {
@@ -77,5 +65,4 @@ public class DeviceXyroScopeLog {
 	public void setTs(Timestamp ts) {
 		this.ts = ts;
 	}
-
 }

@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class DeviceLocationLog {
@@ -14,6 +16,9 @@ public class DeviceLocationLog {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idx")
 	private long idx;
+	
+	@Column(name = "sensorType")
+	private SensorType sensorType;
 	
 	@Column(name = "longitude")
 	private double longitude;
@@ -24,14 +29,35 @@ public class DeviceLocationLog {
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
 	
+	@ManyToOne
+	@JoinColumn(name = "didx")
+	private Device device;
+	
+	public enum SensorType{
+		GPS(0), NETWORK(1);
+		
+		private int code;
+		
+		private SensorType(int code) {
+			this.code = code;
+		}
+		
+		public int getCode() {
+			return code;
+		}
+	}
+	
 	public DeviceLocationLog() {
 	}
 	
-	public DeviceLocationLog(long idx, double longitude, double latitude, Timestamp ts) {
+	public DeviceLocationLog(long idx, SensorType sensorType, double longitude, double latitude, Timestamp ts,
+			Device device) {
 		this.idx = idx;
+		this.sensorType = sensorType;
 		this.longitude = longitude;
 		this.latitude = latitude;
 		this.ts = ts;
+		this.device = device;
 	}
 
 	public long getIdx() {
@@ -40,6 +66,14 @@ public class DeviceLocationLog {
 
 	public void setIdx(long idx) {
 		this.idx = idx;
+	}
+
+	public SensorType getSensorType() {
+		return sensorType;
+	}
+
+	public void setSensorType(SensorType sensorType) {
+		this.sensorType = sensorType;
 	}
 
 	public double getLongitude() {
@@ -65,5 +99,12 @@ public class DeviceLocationLog {
 	public void setTs(Timestamp ts) {
 		this.ts = ts;
 	}
-	
+
+	public Device getDevice() {
+		return device;
+	}
+
+	public void setDevice(Device device) {
+		this.device = device;
+	}
 }

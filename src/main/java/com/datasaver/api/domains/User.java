@@ -31,7 +31,7 @@ public class User {
 	@Column(name = "name")
 	private String name;
 
-	@Column(name = "phoneNumber")
+	@Column(name = "phoneNumber", unique = true)
 	private String phoneNumber;
 
 	@Column(name = "profileImg")

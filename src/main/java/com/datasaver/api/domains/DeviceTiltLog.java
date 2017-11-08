@@ -11,36 +11,39 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class DeviceBaseStationLog {
+public class DeviceTiltLog {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idx")
 	private long idx;
-	
-	@Column(name = "cid")
-	private int cid;
-	
-	@Column(name = "lac")
-	private int lac;
-	
+
+	@Column(name = "x")
+	private double x;
+
+	@Column(name = "y")
+	private double y;
+
+	@Column(name = "z")
+	private double z;
+
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
 	
 	@ManyToOne
 	@JoinColumn(name = "didx")
 	private Device device;
-	
-	public DeviceBaseStationLog() {
+
+	public DeviceTiltLog() {
 	}
 
-	public DeviceBaseStationLog(long idx, int cid, int lac, Timestamp ts, Device device) {
+	public DeviceTiltLog(long idx, double x, double y, double z, Timestamp ts) {
 		this.idx = idx;
-		this.cid = cid;
-		this.lac = lac;
+		this.x = x;
+		this.y = y;
+		this.z = z;
 		this.ts = ts;
-		this.device = device;
 	}
-	
+
 	public long getIdx() {
 		return idx;
 	}
@@ -49,20 +52,28 @@ public class DeviceBaseStationLog {
 		this.idx = idx;
 	}
 
-	public int getCid() {
-		return cid;
+	public double getX() {
+		return x;
 	}
 
-	public void setCid(int cid) {
-		this.cid = cid;
+	public void setX(double x) {
+		this.x = x;
 	}
 
-	public int getLac() {
-		return lac;
+	public double getY() {
+		return y;
 	}
 
-	public void setLac(int lac) {
-		this.lac = lac;
+	public void setY(double y) {
+		this.y = y;
+	}
+
+	public double getZ() {
+		return z;
+	}
+
+	public void setZ(double z) {
+		this.z = z;
 	}
 
 	public Timestamp getTs() {
