@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +20,8 @@ import com.datasaver.api.controllers.forms.SignOutForm;
 import com.datasaver.api.controllers.forms.SignUpForm;
 import com.datasaver.api.controllers.responses.DefaultResponse;
 import com.datasaver.api.controllers.responses.DefaultResponse.Status;
+import com.datasaver.api.controllers.responses.data.CheckEmailResponseData;
+import com.datasaver.api.controllers.responses.data.CheckPhoneNumberResponseData;
 import com.datasaver.api.controllers.responses.data.SignInResponseData;
 import com.datasaver.api.domains.User;
 import com.datasaver.api.services.UserService;
@@ -40,6 +44,16 @@ public class UserController {
 	@PostMapping("/sign/up")
 	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> signUp(@RequestBody SignUpForm suf) {
+		if (us.findByEmail(suf.getEmail()) != null) {
+			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.ALREADY_EXIST_EMAIL);
+			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.SERVICE_UNAVAILABLE);
+		}
+
+		if (us.findByPhoneNumber(suf.getPhoneNumber()) != null) {
+			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.ALREADY_EXIST_PHONE_NUMBER);
+			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.SERVICE_UNAVAILABLE);
+		}
+
 		User u = new User();
 		u.setName(suf.getName());
 		u.setPhoneNumber(suf.getPhoneNumber());
