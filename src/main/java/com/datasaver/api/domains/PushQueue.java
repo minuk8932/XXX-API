@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class PushQueue {
@@ -32,7 +32,7 @@ public class PushQueue {
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
 
-	@OneToMany
+	@ManyToOne
 	@JoinColumn(name = "didx")
 	private Device device;
 
@@ -53,7 +53,8 @@ public class PushQueue {
 	public PushQueue() {
 	}
 
-	public PushQueue(long idx, Type type, String title, String content, String log, Timestamp ts, Device device) {
+	public PushQueue(long idx, Type type, String title, String content, String log, Timestamp ts,
+			Device device) {
 		this.idx = idx;
 		this.type = type;
 		this.title = title;
@@ -115,7 +116,7 @@ public class PushQueue {
 		return device;
 	}
 
-	public void setDevice(Device device) {
+	public void setDevices(Device device) {
 		this.device = device;
 	}
 }

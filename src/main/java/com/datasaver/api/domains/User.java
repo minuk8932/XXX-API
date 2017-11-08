@@ -1,6 +1,7 @@
 package com.datasaver.api.domains;
 
 import java.sql.Timestamp;
+import java.util.Collection;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,6 +10,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -38,15 +42,16 @@ public class User {
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user")
 	private Device device;
-	
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user")
-	private Friend friend;
+
+	@ManyToMany
+	@JoinTable(name = "Friend", joinColumns = @JoinColumn(name = "uidx", referencedColumnName = "idx"), inverseJoinColumns = @JoinColumn(name = "fuidx", referencedColumnName = "idx"))
+	private Collection<User> friends;
 
 	public User() {
 	}
 
 	public User(long idx, String email, String password, String name, String phoneNumber, String profileImg,
-			Timestamp ts) {
+			Timestamp ts, Device device) {
 		this.idx = idx;
 		this.email = email;
 		this.password = password;
@@ -54,6 +59,7 @@ public class User {
 		this.phoneNumber = phoneNumber;
 		this.profileImg = profileImg;
 		this.ts = ts;
+		this.device = device;
 	}
 
 	public long getIdx() {
@@ -110,5 +116,21 @@ public class User {
 
 	public void setTs(Timestamp ts) {
 		this.ts = ts;
+	}
+
+	public Device getDevice() {
+		return device;
+	}
+
+	public void setDevice(Device device) {
+		this.device = device;
+	}
+
+	public Collection<User> getFriends() {
+		return friends;
+	}
+
+	public void setFriends(Collection<User> friends) {
+		this.friends = friends;
 	}
 }
