@@ -1,5 +1,7 @@
 package com.datasaver.api.services;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,5 +47,10 @@ public class UserService implements UserServiceInterface {
 	@Override
 	public void delete(User user) {
 		ur.delete(user);
+	}
+
+	@Override
+	public Collection<User> findFriends(User user) {
+		return user.getFriends();
 	}
 }

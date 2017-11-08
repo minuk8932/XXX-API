@@ -2,7 +2,7 @@ package com.datasaver.api.services.interfaces;
 
 import com.datasaver.api.domains.DeviceLightLog;
 
-public interface DeviceLightLogInterface {
+public interface DeviceLightLogServiceInterface {
 	public DeviceLightLog findByIdx(long idx);
 	
 	public void save(DeviceLightLog deviceLightLog);

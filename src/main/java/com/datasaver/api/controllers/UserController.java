@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,8 +19,6 @@ import com.datasaver.api.controllers.forms.SignOutForm;
 import com.datasaver.api.controllers.forms.SignUpForm;
 import com.datasaver.api.controllers.responses.DefaultResponse;
 import com.datasaver.api.controllers.responses.DefaultResponse.Status;
-import com.datasaver.api.controllers.responses.data.CheckEmailResponseData;
-import com.datasaver.api.controllers.responses.data.CheckPhoneNumberResponseData;
 import com.datasaver.api.controllers.responses.data.SignInResponseData;
 import com.datasaver.api.domains.User;
 import com.datasaver.api.services.UserService;
@@ -112,6 +109,15 @@ public class UserController {
 		// TODO : send email.
 
 		DefaultResponse dr = new DefaultResponse();
+		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
+	}
+
+	@GetMapping("/friends")
+	@Auth
+	@ControllerLog
+	public @ResponseBody ResponseEntity<DefaultResponse> friends(@RequestHeader("Authorization") String token,
+			@ApiIgnore User u) {
+		DefaultResponse dr = new DefaultResponse(us.findFriends(u));
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
 }
