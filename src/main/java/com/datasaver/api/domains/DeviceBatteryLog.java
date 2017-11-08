@@ -16,17 +16,17 @@ public class DeviceBatteryLog {
 	private long idx;
 	
 	@Column(name = "type")
-	private type type;
+	private Type type;
 	
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
 
-	public enum type {
+	public enum Type {
 		DISCONNECTION(0), CONNECTION(1);
 
 		private int code;
 
-		private type(int code) {
+		private Type(int code) {
 			this.code = code;
 		}
 
@@ -38,7 +38,7 @@ public class DeviceBatteryLog {
 	public DeviceBatteryLog() {
 	}
 
-	public DeviceBatteryLog(long idx, type type, Timestamp ts) {
+	public DeviceBatteryLog(long idx, Type type, Timestamp ts) {
 		this.idx = idx;
 		this.type = type;
 		this.ts = ts;
@@ -52,11 +52,11 @@ public class DeviceBatteryLog {
 		this.idx = idx;
 	}
 
-	public type getType() {
+	public Type getType() {
 		return type;
 	}
 
-	public void setType(type type) {
+	public void setType(Type type) {
 		this.type = type;
 	}
 

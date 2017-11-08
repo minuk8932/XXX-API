@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 @Entity
 public class PushQueue {
@@ -16,7 +18,7 @@ public class PushQueue {
 	private long idx;
 
 	@Column(name = "type")
-	private type type;
+	private Type type;
 
 	@Column(name = "title")
 	private String title;
@@ -30,12 +32,16 @@ public class PushQueue {
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
 
-	public enum type {
-		FAILED(-1), SUCCESS(1), WAIT(0);
+	@OneToMany
+	@JoinColumn(name = "didx")
+	private Device device;
+
+	public enum Type {
+		FAIL(-1), SUCCESS(1), WAIT(0);
 
 		private int code;
 
-		private type(int code) {
+		private Type(int code) {
 			this.code = code;
 		}
 
@@ -47,13 +53,14 @@ public class PushQueue {
 	public PushQueue() {
 	}
 
-	public PushQueue(long idx, type type, String title, String content, String log, Timestamp ts) {
+	public PushQueue(long idx, Type type, String title, String content, String log, Timestamp ts, Device device) {
 		this.idx = idx;
 		this.type = type;
 		this.title = title;
 		this.content = content;
 		this.log = log;
 		this.ts = ts;
+		this.device = device;
 	}
 
 	public long getIdx() {
@@ -64,11 +71,11 @@ public class PushQueue {
 		this.idx = idx;
 	}
 
-	public type getType() {
+	public Type getType() {
 		return type;
 	}
 
-	public void setType(type type) {
+	public void setType(Type type) {
 		this.type = type;
 	}
 
@@ -102,5 +109,13 @@ public class PushQueue {
 
 	public void setTs(Timestamp ts) {
 		this.ts = ts;
+	}
+
+	public Device getDevice() {
+		return device;
+	}
+
+	public void setDevice(Device device) {
+		this.device = device;
 	}
 }

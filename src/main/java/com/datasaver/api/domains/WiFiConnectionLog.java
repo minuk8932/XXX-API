@@ -18,7 +18,7 @@ public class WiFiConnectionLog {
 	private long idx;
 	
 	@Column(name = "type")
-	private type type;
+	private Type type;
 	
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
@@ -27,12 +27,12 @@ public class WiFiConnectionLog {
 	@JoinColumn(name = "widx")
 	private WiFi wifi;
 	
-	public enum type{
-		DISCONNECTION(0), CONNECTION(1);
+	public enum Type{
+		DISCONNECT(0), CONNECT(1);
 		
 		private int code;
 		
-		private type(int code) {
+		private Type(int code) {
 			this.code = code;
 		}
 		
@@ -44,8 +44,7 @@ public class WiFiConnectionLog {
 	public WiFiConnectionLog() {
 	}
 
-	public WiFiConnectionLog(long idx, type type, Timestamp ts, WiFi wifi) {
-		super();
+	public WiFiConnectionLog(long idx, Type type, Timestamp ts, WiFi wifi) {
 		this.idx = idx;
 		this.type = type;
 		this.ts = ts;
@@ -60,11 +59,11 @@ public class WiFiConnectionLog {
 		this.idx = idx;
 	}
 
-	public type getType() {
+	public Type getType() {
 		return type;
 	}
 
-	public void setType(type type) {
+	public void setType(Type type) {
 		this.type = type;
 	}
 
