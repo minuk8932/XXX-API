@@ -13,27 +13,37 @@ public class UserService implements UserServiceInterface {
 	private UserRepository ur;
 
 	@Override
-	public User getUserByEmailNPassword(String email, String password) {
-		return ur.getUserByEmailNPassword(email, password);
+	public User findByEmailNPassword(String email, String password) {
+		return ur.findByEmailNPassword(email, password);
 	}
 
 	@Override
-	public User getUserByIdx(long idx) {
+	public User findByIdx(long idx) {
 		return ur.findOne(idx);
 	}
 
 	@Override
-	public void addUser(User user) {
+	public User findByEmail(String email) {
+		return ur.findByEmail(email);
+	}
+
+	@Override
+	public User findByPhoneNumber(String phoneNumber) {
+		return ur.findByPhoneNumber(phoneNumber);
+	}
+
+	@Override
+	public User findByNameNPhoneNumberNEmail(String name, String phoneNumber, String email) {
+		return ur.findByNameNPhoneNumberNEmail(name, phoneNumber, email);
+	}
+
+	@Override
+	public void save(User user) {
 		ur.save(user);
 	}
 
 	@Override
-	public void deleteUser(User user) {
+	public void delete(User user) {
 		ur.delete(user);
-	}
-
-	@Override
-	public void updateUser(User user) {
-		ur.save(user);
 	}
 }

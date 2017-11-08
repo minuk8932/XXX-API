@@ -3,13 +3,17 @@ package com.datasaver.api.services.interfaces;
 import com.datasaver.api.domains.User;
 
 public interface UserServiceInterface {
-	public User getUserByEmailNPassword(String email, String password);
+	public User findByEmailNPassword(String email, String password);
 
-	public User getUserByIdx(long idx);
+	public User findByIdx(long idx);
 
-	public void addUser(User user);
+	public User findByEmail(String email);
 
-	public void deleteUser(User user);
+	public User findByPhoneNumber(String phoneNumber);
 
-	public void updateUser(User user);
+	public User findByNameNPhoneNumberNEmail(String name, String phoneNumber, String email);
+
+	public void save(User user);
+
+	public void delete(User user);
 }

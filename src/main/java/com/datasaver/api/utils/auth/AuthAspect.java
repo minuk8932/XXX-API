@@ -42,7 +42,7 @@ public class AuthAspect {
 			return new ResponseEntity<>(dr, HttpStatus.SERVICE_UNAVAILABLE);
 		}
 
-		User u = us.getUserByIdx(t.getUidx());
+		User u = us.findByIdx(t.getUidx());
 
 		if (u == null) {
 			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.CAN_NOT_FOUND_USER);

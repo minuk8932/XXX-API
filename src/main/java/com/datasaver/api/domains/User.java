@@ -43,7 +43,7 @@ public class User {
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user")
 	private Device device;
 
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "Friend", joinColumns = @JoinColumn(name = "uidx", referencedColumnName = "idx"), inverseJoinColumns = @JoinColumn(name = "fuidx", referencedColumnName = "idx"))
 	private Collection<User> friends;
 
@@ -51,7 +51,7 @@ public class User {
 	}
 
 	public User(long idx, String email, String password, String name, String phoneNumber, String profileImg,
-			Timestamp ts, Device device) {
+			Timestamp ts, Device device, Collection<User> friends) {
 		this.idx = idx;
 		this.email = email;
 		this.password = password;
@@ -60,6 +60,7 @@ public class User {
 		this.profileImg = profileImg;
 		this.ts = ts;
 		this.device = device;
+		this.friends = friends;
 	}
 
 	public long getIdx() {
