@@ -1,17 +1,13 @@
 package com.datasaver.api.domains;
 
 import java.sql.Timestamp;
-import java.util.Collection;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -37,9 +33,6 @@ public class Device {
 	@JoinColumn(name = "uidx")
 	private User user;
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "device")
-	private Collection<PushQueue> pushQueues;
-
 	public enum Type {
 		ANDROID(0), IOS(1);
 
@@ -57,15 +50,13 @@ public class Device {
 	public Device() {
 	}
 
-	public Device(long idx, Type type, String token, String uuid, Timestamp ts, User user,
-			Collection<PushQueue> pushQueues) {
+	public Device(long idx, Type type, String token, String uuid, Timestamp ts, User user) {
 		this.idx = idx;
 		this.type = type;
 		this.token = token;
 		this.uuid = uuid;
 		this.ts = ts;
 		this.user = user;
-		this.pushQueues = pushQueues;
 	}
 
 	public long getIdx() {
@@ -114,13 +105,5 @@ public class Device {
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	public Collection<PushQueue> getPushQueues() {
-		return pushQueues;
-	}
-
-	public void setPushQueues(Collection<PushQueue> pushQueues) {
-		this.pushQueues = pushQueues;
 	}
 }

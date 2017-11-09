@@ -6,14 +6,12 @@ import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 
 @Entity
 public class User {
@@ -40,9 +38,6 @@ public class User {
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
 
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user")
-	private Device device;
-
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "Friend", joinColumns = @JoinColumn(name = "uidx", referencedColumnName = "idx"), inverseJoinColumns = @JoinColumn(name = "fuidx", referencedColumnName = "idx"))
 	private Collection<User> friends;
@@ -51,7 +46,7 @@ public class User {
 	}
 
 	public User(long idx, String email, String password, String name, String phoneNumber, String profileImg,
-			Timestamp ts, Device device, Collection<User> friends) {
+			Timestamp ts, Collection<User> friends) {
 		this.idx = idx;
 		this.email = email;
 		this.password = password;
@@ -59,7 +54,6 @@ public class User {
 		this.phoneNumber = phoneNumber;
 		this.profileImg = profileImg;
 		this.ts = ts;
-		this.device = device;
 		this.friends = friends;
 	}
 
@@ -117,14 +111,6 @@ public class User {
 
 	public void setTs(Timestamp ts) {
 		this.ts = ts;
-	}
-
-	public Device getDevice() {
-		return device;
-	}
-
-	public void setDevice(Device device) {
-		this.device = device;
 	}
 
 	public Collection<User> getFriends() {

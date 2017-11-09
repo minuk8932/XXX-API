@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.datasaver.api.domains.Device;
+import com.datasaver.api.domains.User;
 import com.datasaver.api.repositories.DeviceRepository;
 import com.datasaver.api.services.interfaces.DeviceServiceInterface;
 
@@ -11,6 +12,9 @@ import com.datasaver.api.services.interfaces.DeviceServiceInterface;
 public class DeviceService implements DeviceServiceInterface {
 	@Autowired
 	DeviceRepository dr;
+
+	@Autowired
+	DeviceBaseStationLogService dbsls;
 
 	@Override
 	public Device findByIdx(long idx) {
@@ -25,5 +29,10 @@ public class DeviceService implements DeviceServiceInterface {
 	@Override
 	public void delete(Device device) {
 		dr.delete(device);
+	}
+
+	@Override
+	public Device findByUser(User user) {
+		return dr.findByUser(user);
 	}
 }

@@ -16,20 +16,20 @@ public class DeviceBaseStationLog {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idx")
 	private long idx;
-	
+
 	@Column(name = "cid")
 	private int cid;
-	
+
 	@Column(name = "lac")
 	private int lac;
-	
+
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "didx")
 	private Device device;
-	
+
 	public DeviceBaseStationLog() {
 	}
 
@@ -40,7 +40,7 @@ public class DeviceBaseStationLog {
 		this.ts = ts;
 		this.device = device;
 	}
-	
+
 	public long getIdx() {
 		return idx;
 	}

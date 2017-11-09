@@ -7,7 +7,7 @@ public class AddBaseStationLogForm {
 	public AddBaseStationLogForm() {
 	}
 
-	public AddBaseStationLogForm(long idx, int cid, int lac) {
+	public AddBaseStationLogForm(int cid, int lac) {
 		this.cid = cid;
 		this.lac = lac;
 	}

@@ -16,40 +16,40 @@ public class DeviceLocationLog {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idx")
 	private long idx;
-	
+
 	@Column(name = "sensorType")
 	private SensorType sensorType;
-	
+
 	@Column(name = "longitude")
 	private double longitude;
-	
+
 	@Column(name = "latitude")
 	private double latitude;
-	
+
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "didx")
 	private Device device;
-	
-	public enum SensorType{
+
+	public enum SensorType {
 		GPS(0), NETWORK(1);
-		
+
 		private int code;
-		
+
 		private SensorType(int code) {
 			this.code = code;
 		}
-		
+
 		public int getCode() {
 			return code;
 		}
 	}
-	
+
 	public DeviceLocationLog() {
 	}
-	
+
 	public DeviceLocationLog(long idx, SensorType sensorType, double longitude, double latitude, Timestamp ts,
 			Device device) {
 		this.idx = idx;

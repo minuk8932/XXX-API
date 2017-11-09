@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,11 +12,23 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.datasaver.api.controllers.forms.AddBaseStationLogForm;
+import com.datasaver.api.controllers.forms.AddBatteryLogForm;
 import com.datasaver.api.controllers.forms.AddDeviceForm;
+import com.datasaver.api.controllers.forms.AddLightLogForm;
+import com.datasaver.api.controllers.forms.AddLocationLogForm;
+import com.datasaver.api.controllers.forms.AddNoiseLogForm;
+import com.datasaver.api.controllers.forms.AddRingerLogForm;
+import com.datasaver.api.controllers.forms.AddTiltLogForm;
 import com.datasaver.api.controllers.responses.DefaultResponse;
 import com.datasaver.api.controllers.responses.DefaultResponse.Status;
 import com.datasaver.api.domains.Device;
 import com.datasaver.api.domains.DeviceBaseStationLog;
+import com.datasaver.api.domains.DeviceBatteryLog;
+import com.datasaver.api.domains.DeviceLightLog;
+import com.datasaver.api.domains.DeviceLocationLog;
+import com.datasaver.api.domains.DeviceNoiseLog;
+import com.datasaver.api.domains.DeviceRingerLog;
+import com.datasaver.api.domains.DeviceTiltLog;
 import com.datasaver.api.domains.User;
 import com.datasaver.api.services.DeviceBaseStationLogService;
 import com.datasaver.api.services.DeviceBatteryLogService;
@@ -60,17 +73,21 @@ public class DeviceController {
 	@Autowired
 	private DeviceTiltLogService dtls;
 
-	@PostMapping("")
+	@PutMapping("")
 	@Auth
 	@ControllerLog
-	public @ResponseBody ResponseEntity<DefaultResponse> addDevice(@RequestHeader("Authorization") String token,
+	public @ResponseBody ResponseEntity<DefaultResponse> updateDevice(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @RequestBody AddDeviceForm adf) {
-		Device d = new Device();
+		Device d = ds.findByUser(u);
+
+		if (d != null)
+			ds.delete(d);
+
+		d = new Device();
 		d.setToken(adf.getToken());
 		d.setType(adf.getType());
 		d.setUuid(adf.getUuid());
 		d.setUser(u);
-
 		ds.save(d);
 
 		DefaultResponse dr = new DefaultResponse();
@@ -82,7 +99,7 @@ public class DeviceController {
 	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> addBaseStationLog(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @RequestBody AddBaseStationLogForm abslf) {
-		Device d = u.getDevice();
+		Device d = ds.findByUser(u);
 
 		if (d == null) {
 			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.CAN_NOT_FOUND_ANY_DEVICES);
@@ -94,6 +111,137 @@ public class DeviceController {
 		dbsl.setLac(abslf.getLac());
 		dbsl.setDevice(d);
 		dbsls.save(dbsl);
+
+		DefaultResponse dr = new DefaultResponse();
+		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
+	}
+
+	@PostMapping("/log/battery")
+	@Auth
+	@ControllerLog
+	public @ResponseBody ResponseEntity<DefaultResponse> addBatteryLog(@RequestHeader("Authorization") String token,
+			@ApiIgnore User u, @RequestBody AddBatteryLogForm ablf) {
+		Device d = ds.findByUser(u);
+
+		if (d == null) {
+			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.CAN_NOT_FOUND_ANY_DEVICES);
+			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.SERVICE_UNAVAILABLE);
+		}
+
+		DeviceBatteryLog dbl = new DeviceBatteryLog();
+		dbl.setChargeType(ablf.getChargeType());
+		dbl.setPercent(ablf.getPercent());
+		dbl.setDevice(d);
+		dbls.save(dbl);
+
+		DefaultResponse dr = new DefaultResponse();
+		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
+	}
+
+	@PostMapping("/log/Light")
+	@Auth
+	@ControllerLog
+	public @ResponseBody ResponseEntity<DefaultResponse> addLightLog(@RequestHeader("Authorization") String token,
+			@ApiIgnore User u, @RequestBody AddLightLogForm alilf) {
+		Device d = ds.findByUser(u);
+
+		if (d == null) {
+			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.CAN_NOT_FOUND_ANY_DEVICES);
+			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.SERVICE_UNAVAILABLE);
+		}
+
+		DeviceLightLog dlil = new DeviceLightLog();
+		dlil.setLux(alilf.getLux());
+		dlil.setDevice(d);
+		dlils.save(dlil);
+
+		DefaultResponse dr = new DefaultResponse();
+		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
+	}
+
+	@PostMapping("/log/Location")
+	@Auth
+	@ControllerLog
+	public @ResponseBody ResponseEntity<DefaultResponse> addLocationLog(@RequestHeader("Authorization") String token,
+			@ApiIgnore User u, @RequestBody AddLocationLogForm alolf) {
+		Device d = ds.findByUser(u);
+
+		if (d == null) {
+			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.CAN_NOT_FOUND_ANY_DEVICES);
+			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.SERVICE_UNAVAILABLE);
+		}
+
+		DeviceLocationLog dlol = new DeviceLocationLog();
+		dlol.setSensorType(alolf.getSensorType());
+		dlol.setLongitude(alolf.getLongitude());
+		dlol.setLatitude(alolf.getLatitude());
+		dlol.setDevice(d);
+		dlols.save(dlol);
+
+		DefaultResponse dr = new DefaultResponse();
+		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
+	}
+
+	@PostMapping("/log/Noise")
+	@Auth
+	@ControllerLog
+	public @ResponseBody ResponseEntity<DefaultResponse> addNoiseLog(@RequestHeader("Authorization") String token,
+			@ApiIgnore User u, @RequestBody AddNoiseLogForm anlf) {
+		Device d = ds.findByUser(u);
+
+		if (d == null) {
+			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.CAN_NOT_FOUND_ANY_DEVICES);
+			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.SERVICE_UNAVAILABLE);
+		}
+
+		DeviceNoiseLog dnl = new DeviceNoiseLog();
+		dnl.setDb(dnl.getDb());
+		dnl.setDevice(d);
+		dnls.save(dnl);
+
+		DefaultResponse dr = new DefaultResponse();
+		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
+	}
+
+	@PostMapping("/log/Ringer")
+	@Auth
+	@ControllerLog
+	public @ResponseBody ResponseEntity<DefaultResponse> addRingerLog(@RequestHeader("Authorization") String token,
+			@ApiIgnore User u, @RequestBody AddRingerLogForm arf) {
+		Device d = ds.findByUser(u);
+
+		if (d == null) {
+			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.CAN_NOT_FOUND_ANY_DEVICES);
+			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.SERVICE_UNAVAILABLE);
+		}
+
+		DeviceRingerLog drl = new DeviceRingerLog();
+		drl.setType(drl.getType());
+		drl.setVolume(drl.getVolume());
+		drl.setDevice(d);
+		drls.save(drl);
+
+		DefaultResponse dr = new DefaultResponse();
+		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
+	}
+
+	@PostMapping("/log/Tilt")
+	@Auth
+	@ControllerLog
+	public @ResponseBody ResponseEntity<DefaultResponse> addTiltLog(@RequestHeader("Authorization") String token,
+			@ApiIgnore User u, @RequestBody AddTiltLogForm atlf) {
+		Device d = ds.findByUser(u);
+
+		if (d == null) {
+			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.CAN_NOT_FOUND_ANY_DEVICES);
+			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.SERVICE_UNAVAILABLE);
+		}
+
+		DeviceTiltLog dtl = new DeviceTiltLog();
+		dtl.setX(dtl.getX());
+		dtl.setY(dtl.getY());
+		dtl.setZ(dtl.getZ());
+		dtls.save(dtl);
 
 		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);

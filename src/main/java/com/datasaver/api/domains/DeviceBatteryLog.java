@@ -16,16 +16,16 @@ public class DeviceBatteryLog {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idx")
 	private long idx;
-	
+
 	@Column(name = "chargeType")
 	private ChargeType chargeType;
-	
+
 	@Column(name = "percent")
 	private float percent;
-	
+
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "didx")
 	private Device device;
@@ -54,7 +54,7 @@ public class DeviceBatteryLog {
 		this.ts = ts;
 		this.device = device;
 	}
-	
+
 	public long getIdx() {
 		return idx;
 	}

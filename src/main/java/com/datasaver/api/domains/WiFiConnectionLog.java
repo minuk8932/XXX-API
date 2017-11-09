@@ -16,31 +16,31 @@ public class WiFiConnectionLog {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idx")
 	private long idx;
-	
+
 	@Column(name = "type")
 	private Type type;
-	
+
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
-	
+
 	@OneToOne
 	@JoinColumn(name = "widx")
 	private WiFi wifi;
-	
-	public enum Type{
+
+	public enum Type {
 		DISCONNECT(0), CONNECT(1);
-		
+
 		private int code;
-		
+
 		private Type(int code) {
 			this.code = code;
 		}
-		
+
 		public int getCode() {
 			return code;
 		}
 	}
-	
+
 	public WiFiConnectionLog() {
 	}
 

@@ -14,16 +14,16 @@ public class Notice {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idx")
 	private long idx;
-	
+
 	@Column(name = "title")
 	private String title;
-	
+
 	@Column(name = "contents")
 	private String contents;
-	
+
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
-	
+
 	public Notice() {
 	}
 
@@ -33,7 +33,7 @@ public class Notice {
 		this.contents = contents;
 		this.ts = ts;
 	}
-	
+
 	public long getIdx() {
 		return idx;
 	}

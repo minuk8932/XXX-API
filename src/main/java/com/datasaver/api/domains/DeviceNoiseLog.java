@@ -19,14 +19,14 @@ public class DeviceNoiseLog {
 
 	@Column(name = "db")
 	private double db;
-	
+
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "didx")
 	private Device device;
-	
+
 	public DeviceNoiseLog() {
 	}
 
@@ -36,7 +36,7 @@ public class DeviceNoiseLog {
 		this.ts = ts;
 		this.device = device;
 	}
-	
+
 	public long getIdx() {
 		return idx;
 	}

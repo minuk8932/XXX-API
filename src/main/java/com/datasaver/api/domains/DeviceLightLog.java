@@ -16,20 +16,20 @@ public class DeviceLightLog {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idx")
 	private long idx;
-	
+
 	@Column(name = "lux")
 	private float lux;
-	
+
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "didx")
 	private Device device;
-	
-	public DeviceLightLog() {		
+
+	public DeviceLightLog() {
 	}
-	
+
 	public DeviceLightLog(long idx, float lux, Timestamp ts, Device device) {
 		this.idx = idx;
 		this.lux = lux;

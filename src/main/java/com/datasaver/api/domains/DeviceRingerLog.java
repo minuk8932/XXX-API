@@ -16,20 +16,20 @@ public class DeviceRingerLog {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idx")
 	private long idx;
-	
+
 	@Column(name = "type")
 	private Type type;
-	
+
 	@Column(name = "volume")
 	private int volume;
-	
+
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
 
 	@ManyToOne
 	@JoinColumn(name = "didx")
 	private Device device;
-	
+
 	public enum Type {
 		NORMAL(0), SILENT(1), VIBRATE(2);
 
@@ -53,7 +53,7 @@ public class DeviceRingerLog {
 		this.volume = volume;
 		this.ts = ts;
 	}
-	
+
 	public long getIdx() {
 		return idx;
 	}

@@ -53,8 +53,7 @@ public class PushQueue {
 	public PushQueue() {
 	}
 
-	public PushQueue(long idx, Type type, String title, String contents, String log, Timestamp ts,
-			Device device) {
+	public PushQueue(long idx, Type type, String title, String contents, String log, Timestamp ts, Device device) {
 		this.idx = idx;
 		this.type = type;
 		this.title = title;

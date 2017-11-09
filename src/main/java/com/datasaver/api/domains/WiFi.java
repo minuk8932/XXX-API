@@ -2,14 +2,11 @@ package com.datasaver.api.domains;
 
 import java.sql.Timestamp;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 @Entity
 public class WiFi {
@@ -38,9 +35,6 @@ public class WiFi {
 
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
-	
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "wifi")
-	private WiFiConnectionLog wifiConnectionLog;
 
 	public enum AuthType {
 		NO(0), WEP64(1), WEP128(2), TKIP(3), AES(4), TKIP_AES(5), WPA2PSK_AES(6);
