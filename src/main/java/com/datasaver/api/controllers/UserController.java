@@ -1,10 +1,13 @@
 package com.datasaver.api.controllers;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +20,7 @@ import com.datasaver.api.controllers.forms.FindPasswordForm;
 import com.datasaver.api.controllers.forms.SignInForm;
 import com.datasaver.api.controllers.forms.SignOutForm;
 import com.datasaver.api.controllers.forms.SignUpForm;
+import com.datasaver.api.controllers.forms.UpdateFriendsForm;
 import com.datasaver.api.controllers.responses.DefaultResponse;
 import com.datasaver.api.controllers.responses.DefaultResponse.Status;
 import com.datasaver.api.controllers.responses.data.SignInResponseData;
@@ -115,9 +119,42 @@ public class UserController {
 	@GetMapping("/friends")
 	@Auth
 	@ControllerLog
-	public @ResponseBody ResponseEntity<DefaultResponse> friends(@RequestHeader("Authorization") String token,
+	public @ResponseBody ResponseEntity<DefaultResponse> getFriends(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u) {
-		DefaultResponse dr = new DefaultResponse(us.findFriends(u));
+		DefaultResponse dr = new DefaultResponse(us.findFriendsByIdx(u.getIdx()));
+		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
+	}
+
+	@PutMapping("/friends")
+	@Auth
+	@ControllerLog
+	public @ResponseBody ResponseEntity<DefaultResponse> updateFriends(@RequestHeader("Authorization") String token,
+			@ApiIgnore User u, @RequestBody UpdateFriendsForm uff) {
+		Collection<User> friends = us.findByIdxs(uff.getFuidxs());
+
+		if (friends.size() == 0) {
+			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.CAN_NOT_FOUND_USER);
+			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.SERVICE_UNAVAILABLE);
+		}
+
+		u.setFriends(friends);
+		us.save(u);
+
+		DefaultResponse dr = new DefaultResponse();
+		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
+	}
+
+	@GetMapping("/info/{idx}")
+	@Auth
+	@ControllerLog
+	public @ResponseBody ResponseEntity<DefaultResponse> getInfo(@RequestHeader("Authorization") String token,
+			@ApiIgnore User u, @PathVariable("idx") long idx) {
+		if (!us.isFriend(u.getIdx(), idx)) {
+			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.ONLY_FRIEND_RELATION_CAN_GET_INFO);
+			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.UNAUTHORIZED);
+		}
+
+		DefaultResponse dr = new DefaultResponse(us.findInfoByIdx(idx));
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
 }

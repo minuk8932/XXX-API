@@ -9,4 +9,7 @@ public class Strings {
 	public static final String DELETE_OLD_DEVICE = "Delete old device.";
 	public static final String CAN_NOT_FOUND_DEVICE = "Can not found device.";
 	public static final String ALREADY_EXIST_PHONE_NUMBER = "Already exist phone number.";
+	public static final String ALREADY_EXIST_FRIEND_RELATION = "Already exist friend relation.";
+	public static final String ONLY_FRIEND_RELATION_CAN_GET_INFO = "Only friend relation can get info.";
+	public static final String CAN_NOT_FOUND_ANY_DEVICES = "Can not found any devices.";
 }
