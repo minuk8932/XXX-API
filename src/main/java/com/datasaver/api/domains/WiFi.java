@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class WiFi {
@@ -35,6 +37,10 @@ public class WiFi {
 
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
+	
+	@ManyToOne
+	@JoinColumn(name = "uidx")
+	private User user;
 
 	public enum AuthType {
 		NO(0), WEP64(1), WEP128(2), TKIP(3), AES(4), TKIP_AES(5), WPA2PSK_AES(6);

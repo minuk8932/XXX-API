@@ -195,7 +195,7 @@ public class DeviceController {
 		}
 
 		DeviceNoiseLog dnl = new DeviceNoiseLog();
-		dnl.setDb(dnl.getDb());
+		dnl.setDb(anlf.getDb());
 		dnl.setDevice(d);
 		dnls.save(dnl);
 
@@ -216,8 +216,8 @@ public class DeviceController {
 		}
 
 		DeviceRingerLog drl = new DeviceRingerLog();
-		drl.setType(drl.getType());
-		drl.setVolume(drl.getVolume());
+		drl.setType(arf.getType());
+		drl.setVolume(arf.getVolume());
 		drl.setDevice(d);
 		drls.save(drl);
 
@@ -238,9 +238,9 @@ public class DeviceController {
 		}
 
 		DeviceTiltLog dtl = new DeviceTiltLog();
-		dtl.setX(dtl.getX());
-		dtl.setY(dtl.getY());
-		dtl.setZ(dtl.getZ());
+		dtl.setX(atlf.getX());
+		dtl.setY(atlf.getY());
+		dtl.setZ(atlf.getZ());
 		dtls.save(dtl);
 
 		DefaultResponse dr = new DefaultResponse();
