@@ -18,5 +18,7 @@ public interface WiFiServiceInterface {
 
 	public WiFi findMostRecentlyUsedByUidx(long uidx);
 
-	public Collection<WiFi> findListByUser(User user);
+	public Collection<WiFi> findMyListByUser(User user);
+
+	public Collection<WiFi> findFriendListByUidx(long uidx);
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -13,11 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.datasaver.api.controllers.forms.AddWiFiConnectionLogForm;
 import com.datasaver.api.controllers.forms.AddWiFiForm;
+import com.datasaver.api.controllers.forms.RequestForm;
 import com.datasaver.api.controllers.responses.DefaultResponse;
 import com.datasaver.api.controllers.responses.DefaultResponse.Status;
 import com.datasaver.api.domains.User;
 import com.datasaver.api.domains.WiFi;
 import com.datasaver.api.domains.WiFiConnectionLog;
+import com.datasaver.api.payloads.WiFiRequestPayload;
+import com.datasaver.api.services.PushMessageService;
+import com.datasaver.api.services.UserService;
 import com.datasaver.api.services.WiFiConnectionLogService;
 import com.datasaver.api.services.WiFiService;
 import com.datasaver.api.utils.auth.Auth;
@@ -35,7 +40,13 @@ public class WiFiController {
 	private WiFiService ws;
 
 	@Autowired
+	private UserService us;
+
+	@Autowired
 	private WiFiConnectionLogService wcls;
+
+	@Autowired
+	private PushMessageService pms;
 
 	@PostMapping("")
 	@Auth
@@ -92,12 +103,55 @@ public class WiFiController {
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
 
-	@GetMapping("/list")
+	@GetMapping("/my/list")
 	@Auth
 	@ControllerLog
-	public @ResponseBody ResponseEntity<DefaultResponse> getWiFiList(@RequestHeader("Authorization") String token,
+	public @ResponseBody ResponseEntity<DefaultResponse> getMyWiFiList(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u) {
-		DefaultResponse dr = new DefaultResponse(ws.findListByUser(u));
+		DefaultResponse dr = new DefaultResponse(ws.findMyListByUser(u));
+		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
+	}
+
+	@GetMapping("/friend/{idx}/list")
+	@Auth
+	@ControllerLog
+	public @ResponseBody ResponseEntity<DefaultResponse> getFriendWiFiList(@RequestHeader("Authorization") String token,
+			@ApiIgnore User u, @PathVariable("idx") long idx) {
+		if (!us.isFriend(u.getIdx(), idx)) {
+			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.ONLY_FRIEND_RELATION_CAN_GET_INFO);
+			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.UNAUTHORIZED);
+		}
+
+		DefaultResponse dr = new DefaultResponse(ws.findFriendListByUidx(idx));
+		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
+	}
+
+	@PostMapping("/request")
+	@Auth
+	@ControllerLog
+	public @ResponseBody ResponseEntity<DefaultResponse> request(@RequestHeader("Authorization") String token,
+			@ApiIgnore User u, @RequestBody RequestForm rf) {
+		WiFi w = ws.findByIdx(rf.getRequestWidx());
+
+		if (w == null) {
+			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.CAN_NOT_FOUND_WIFI);
+			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.SERVICE_UNAVAILABLE);
+		}
+
+		long friendUidx = w.getUser().getIdx();
+		long myUidx = u.getIdx();
+
+		if (!us.isFriend(myUidx, friendUidx)) {
+			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.ONLY_FRIEND_RELATION_CAN_GET_INFO);
+			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.UNAUTHORIZED);
+		}
+
+		if (!pms.sendWiFiRequestMsg(new WiFiRequestPayload(myUidx, rf.getRequestWidx()))) {
+			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.FAIL_TO_SEND_PUSH_MESSAGE);
+			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.SERVICE_UNAVAILABLE);
+		}
+
+		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
 }

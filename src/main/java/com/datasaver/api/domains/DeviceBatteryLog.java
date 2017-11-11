@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class DeviceBatteryLog {
 	@Id
@@ -28,6 +30,7 @@ public class DeviceBatteryLog {
 
 	@ManyToOne
 	@JoinColumn(name = "didx")
+	@JsonIgnore
 	private Device device;
 
 	public enum ChargeType {

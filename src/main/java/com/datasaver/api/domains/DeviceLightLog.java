@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class DeviceLightLog {
 	@Id
@@ -25,6 +27,7 @@ public class DeviceLightLog {
 
 	@ManyToOne
 	@JoinColumn(name = "didx")
+	@JsonIgnore
 	private Device device;
 
 	public DeviceLightLog() {

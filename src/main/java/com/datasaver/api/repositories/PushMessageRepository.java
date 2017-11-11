@@ -3,8 +3,8 @@ package com.datasaver.api.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.datasaver.api.domains.PushQueue;
+import com.datasaver.api.domains.PushMessage;
 
 @Repository
-public interface PushQueueRepository extends JpaRepository<PushQueue, Long> {
+public interface PushMessageRepository extends JpaRepository<PushMessage, Long> {
 }

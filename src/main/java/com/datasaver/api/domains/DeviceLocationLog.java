@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class DeviceLocationLog {
 	@Id
@@ -31,6 +33,7 @@ public class DeviceLocationLog {
 
 	@ManyToOne
 	@JoinColumn(name = "didx")
+	@JsonIgnore
 	private Device device;
 
 	public enum SensorType {

@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class User {
 	@Id
@@ -40,6 +42,7 @@ public class User {
 
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "Friend", joinColumns = @JoinColumn(name = "uidx", referencedColumnName = "idx"), inverseJoinColumns = @JoinColumn(name = "fuidx", referencedColumnName = "idx"))
+	@JsonIgnore
 	private Collection<User> friends;
 
 	public User() {

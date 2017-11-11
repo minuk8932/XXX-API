@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class DeviceTiltLog {
 	@Id
@@ -31,6 +33,7 @@ public class DeviceTiltLog {
 
 	@ManyToOne
 	@JoinColumn(name = "didx")
+	@JsonIgnore
 	private Device device;
 
 	public DeviceTiltLog() {

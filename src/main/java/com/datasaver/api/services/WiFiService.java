@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.datasaver.api.domains.User;
 import com.datasaver.api.domains.WiFi;
+import com.datasaver.api.domains.views.FindFriendWiFiView;
 import com.datasaver.api.repositories.WiFiRepository;
 import com.datasaver.api.services.interfaces.WiFiServiceInterface;
 
@@ -62,7 +63,18 @@ public class WiFiService implements WiFiServiceInterface {
 	}
 
 	@Override
-	public Collection<WiFi> findListByUser(User user) {
-		return wr.findListByUser(user);
+	public Collection<WiFi> findMyListByUser(User user) {
+		return wr.findMyListByUser(user);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Collection<WiFi> findFriendListByUidx(long uidx) {
+		Query q = em.createNativeQuery(
+				"SELECT w.idx, w.ssid, w.longitude, w.latitude FROM WiFi AS w INNER JOIN WiFiConnectionLog AS wcl ON w.idx = wcl.widx WHERE w.uidx = ? AND wcl.type = 1 ORDER BY wcl.ts DESC LIMIT 1",
+				FindFriendWiFiView.class);
+		q.setParameter(1, uidx);
+
+		return (Collection<WiFi>) q.getResultList();
 	}
 }

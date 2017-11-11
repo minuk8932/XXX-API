@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class WiFi {
 	@Id
@@ -43,6 +45,7 @@ public class WiFi {
 
 	@ManyToOne
 	@JoinColumn(name = "uidx")
+	@JsonIgnore
 	private User user;
 
 	public enum AuthType {

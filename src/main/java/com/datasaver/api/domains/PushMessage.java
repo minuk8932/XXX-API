@@ -10,21 +10,23 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
-public class PushQueue {
+public class PushMessage {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idx")
 	private long idx;
 
+	@Column(name = "status")
+	private Status status;
+
 	@Column(name = "type")
 	private Type type;
 
-	@Column(name = "title")
-	private String title;
-
-	@Column(name = "contents")
-	private String contents;
+	@Column(name = "payload")
+	private String payload;
 
 	@Column(name = "log")
 	private String log;
@@ -33,11 +35,26 @@ public class PushQueue {
 	private Timestamp ts;
 
 	@ManyToOne
-	@JoinColumn(name = "didx")
-	private Device device;
+	@JoinColumn(name = "uidx")
+	@JsonIgnore
+	private User user;
+
+	public enum Status {
+		FAIL(0), SUCCESS(1);
+
+		private int code;
+
+		private Status(int code) {
+			this.code = code;
+		}
+
+		public int getCode() {
+			return code;
+		}
+	}
 
 	public enum Type {
-		FAIL(-1), SUCCESS(1), WAIT(0);
+		ADD_NOTICE(0), UPDATE_NOTICE(1), WIFI_REQUEST(2), WIFI_RESPONSE(3);
 
 		private int code;
 
@@ -50,17 +67,17 @@ public class PushQueue {
 		}
 	}
 
-	public PushQueue() {
+	public PushMessage() {
 	}
 
-	public PushQueue(long idx, Type type, String title, String contents, String log, Timestamp ts, Device device) {
+	public PushMessage(long idx, Status status, Type type, String payload, String log, Timestamp ts, User user) {
 		this.idx = idx;
+		this.status = status;
 		this.type = type;
-		this.title = title;
-		this.contents = contents;
+		this.payload = payload;
 		this.log = log;
 		this.ts = ts;
-		this.device = device;
+		this.user = user;
 	}
 
 	public long getIdx() {
@@ -71,6 +88,14 @@ public class PushQueue {
 		this.idx = idx;
 	}
 
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
 	public Type getType() {
 		return type;
 	}
@@ -79,20 +104,12 @@ public class PushQueue {
 		this.type = type;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getPayload() {
+		return payload;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getContents() {
-		return contents;
-	}
-
-	public void setContents(String contents) {
-		this.contents = contents;
+	public void setPayload(String payload) {
+		this.payload = payload;
 	}
 
 	public String getLog() {
@@ -111,11 +128,11 @@ public class PushQueue {
 		this.ts = ts;
 	}
 
-	public Device getDevice() {
-		return device;
+	public User getUser() {
+		return user;
 	}
 
-	public void setDevices(Device device) {
-		this.device = device;
+	public void setUser(User user) {
+		this.user = user;
 	}
 }

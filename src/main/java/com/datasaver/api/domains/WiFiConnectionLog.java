@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class WiFiConnectionLog {
 	@Id
@@ -25,6 +27,7 @@ public class WiFiConnectionLog {
 
 	@OneToOne
 	@JoinColumn(name = "widx")
+	@JsonIgnore
 	private WiFi wifi;
 
 	public enum Type {
