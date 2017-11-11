@@ -10,7 +10,7 @@ import com.datasaver.api.services.interfaces.WiFiConnectionLogServiceInterface;
 @Service("WiFiConnectionService")
 public class WiFiConnectionLogService implements WiFiConnectionLogServiceInterface{
 	@Autowired
-	WiFiConnectionLogRepository wclr;
+	private WiFiConnectionLogRepository wclr;
 
 	@Override
 	public WiFiConnectionLog findByIdx(long idx) {

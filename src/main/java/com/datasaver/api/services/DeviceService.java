@@ -11,10 +11,7 @@ import com.datasaver.api.services.interfaces.DeviceServiceInterface;
 @Service("DeviceService")
 public class DeviceService implements DeviceServiceInterface {
 	@Autowired
-	DeviceRepository dr;
-
-	@Autowired
-	DeviceBaseStationLogService dbsls;
+	private DeviceRepository dr;
 
 	@Override
 	public Device findByIdx(long idx) {

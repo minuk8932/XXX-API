@@ -13,4 +13,6 @@ public interface WiFiServiceInterface {
 	public WiFi findByUser(User user);
 
 	public WiFi findByMac(String mac);
+
+	public WiFi findMostRecentlyUsedByUidx(long uidx);
 }

@@ -13,5 +13,5 @@ public class Strings {
 	public static final String ONLY_FRIEND_RELATION_CAN_GET_INFO = "Only friend relation can get info.";
 	public static final String CAN_NOT_FOUND_ANY_DEVICES = "Can not found any devices.";
 	public static final String CAN_NOT_FOUND_ANY_WIFI = "Can not found any WiFi.";
-	public static final String ALREADY_EXIST_WIFI = "Already exist WiFi.";
+	public static final String CAN_NOT_MAKE_FRIEND_RELATION_YOURSELF = "Can not make friend relation yourself.";
 }

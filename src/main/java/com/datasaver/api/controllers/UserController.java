@@ -23,12 +23,20 @@ import com.datasaver.api.controllers.forms.SignUpForm;
 import com.datasaver.api.controllers.forms.UpdateFriendsForm;
 import com.datasaver.api.controllers.responses.DefaultResponse;
 import com.datasaver.api.controllers.responses.DefaultResponse.Status;
+import com.datasaver.api.controllers.responses.data.GetFriendsResponseData;
+import com.datasaver.api.controllers.responses.data.GetFriendsResponseData.Friend;
+import com.datasaver.api.controllers.responses.data.GetFriendsResponseData.Friend.MostRecentlyUsedWiFi;
+import com.datasaver.api.controllers.responses.data.GetFriendsResponseData.MyProfile;
 import com.datasaver.api.controllers.responses.data.SignInResponseData;
 import com.datasaver.api.domains.User;
+import com.datasaver.api.domains.WiFi;
+import com.datasaver.api.domains.views.FindFriendsView;
 import com.datasaver.api.services.UserService;
+import com.datasaver.api.services.WiFiService;
 import com.datasaver.api.utils.auth.Auth;
 import com.datasaver.api.utils.auth.JWT;
 import com.datasaver.api.utils.log.ControllerLog;
+import com.datasaver.api.utils.password.Encryptor;
 import com.datasaver.api.utils.password.PasswordGenerator;
 import com.datasaver.api.utils.res.Strings;
 
@@ -41,6 +49,9 @@ import springfox.documentation.annotations.ApiIgnore;
 public class UserController {
 	@Autowired
 	private UserService us;
+
+	@Autowired
+	private WiFiService ws;
 
 	@PostMapping("/sign/up")
 	@ControllerLog
@@ -59,7 +70,7 @@ public class UserController {
 		u.setName(suf.getName());
 		u.setPhoneNumber(suf.getPhoneNumber());
 		u.setEmail(suf.getEmail());
-		u.setPassword(suf.getPassword());
+		u.setPassword(Encryptor.process(suf.getPassword()));
 
 		us.save(u);
 
@@ -70,7 +81,7 @@ public class UserController {
 	@PostMapping("/sign/in")
 	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> signIn(@RequestBody SignInForm sif) {
-		User u = us.findByEmailNPassword(sif.getEmail(), sif.getPassword());
+		User u = us.findByEmailNPassword(sif.getEmail(), Encryptor.process(sif.getPassword()));
 
 		if (u == null) {
 			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.CAN_NOT_FOUND_USER);
@@ -86,7 +97,7 @@ public class UserController {
 	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> signOut(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @RequestBody SignOutForm sof) {
-		if (us.findByEmailNPassword(sof.getEmail(), sof.getPassword()) == null) {
+		if (us.findByEmailNPassword(sof.getEmail(), Encryptor.process(sof.getPassword())) == null) {
 			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.CAN_NOT_FOUND_USER);
 			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.UNAUTHORIZED);
 		}
@@ -107,7 +118,8 @@ public class UserController {
 			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.UNAUTHORIZED);
 		}
 
-		u.setPassword(PasswordGenerator.create());
+		String newPassword = PasswordGenerator.create();
+		u.setPassword(Encryptor.process(newPassword));
 		us.save(u);
 
 		// TODO : send email.
@@ -121,7 +133,32 @@ public class UserController {
 	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> getFriends(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u) {
-		DefaultResponse dr = new DefaultResponse(us.findFriendsByIdx(u.getIdx()));
+		u = us.findByIdx(u.getIdx());
+		MyProfile mp = new MyProfile(u.getIdx(), u.getName(), u.getProfileImg());
+
+		Collection<FindFriendsView> ffvs = us.findFriendsByIdx(u.getIdx());
+		int ffvsSize = ffvs.size();
+		Friend[] fs = new Friend[ffvsSize];
+		int i = 0;
+
+		for (FindFriendsView ffv : ffvs) {
+			WiFi w = ws.findMostRecentlyUsedByUidx(ffv.getIdx());
+
+			if (w == null) {
+				fs[i] = new Friend(ffv.getIdx(), ffv.getName(), ffv.getProfileImg(), null);
+			}
+
+			else {
+				fs[i] = new Friend(ffv.getIdx(), ffv.getName(), ffv.getProfileImg(),
+						new MostRecentlyUsedWiFi(w.getSsid(), w.getLatitude(), w.getLongitude()));
+			}
+
+			i++;
+		}
+
+		GetFriendsResponseData gfrd = new GetFriendsResponseData(mp, fs);
+
+		DefaultResponse dr = new DefaultResponse(gfrd);
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
 
@@ -130,6 +167,16 @@ public class UserController {
 	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> updateFriends(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @RequestBody UpdateFriendsForm uff) {
+		long[] fuidxs = uff.getFuidxs();
+		long uidx = u.getIdx();
+
+		for (long fuidx : fuidxs) {
+			if (fuidx == uidx) {
+				DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.CAN_NOT_MAKE_FRIEND_RELATION_YOURSELF);
+				return new ResponseEntity<DefaultResponse>(dr, HttpStatus.SERVICE_UNAVAILABLE);
+			}
+		}
+
 		Collection<User> friends = us.findByIdxs(uff.getFuidxs());
 
 		if (friends.size() == 0) {
