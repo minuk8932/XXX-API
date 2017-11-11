@@ -77,6 +77,7 @@ public class UserController {
 		u.setPhoneNumber(suf.getPhoneNumber());
 		u.setEmail(suf.getEmail());
 		u.setPassword(Encryptor.process(suf.getPassword()));
+		u.setType(User.Type.NORMAL);
 		us.save(u);
 
 		DefaultResponse dr = new DefaultResponse();
@@ -205,7 +206,9 @@ public class UserController {
 	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> getProfile(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @PathVariable("idx") long idx) {
-		if (!us.isFriend(u.getIdx(), idx)) {
+		long myIdx = u.getIdx();
+
+		if (idx != myIdx && !us.isFriend(myIdx, idx)) {
 			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.ONLY_FRIEND_RELATION_CAN_GET_INFO);
 			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.UNAUTHORIZED);
 		}

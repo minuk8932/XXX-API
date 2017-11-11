@@ -37,6 +37,9 @@ public class User {
 	@Column(name = "profileImg")
 	private String profileImg;
 
+	@Column(name = "type")
+	private Type type;
+
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
 
@@ -45,10 +48,24 @@ public class User {
 	@JsonIgnore
 	private Collection<User> friends;
 
+	public enum Type {
+		NORMAL(0), ADMINISTRATOR(1);
+
+		private int code;
+
+		private Type(int code) {
+			this.code = code;
+		}
+
+		public int getCode() {
+			return code;
+		}
+	}
+
 	public User() {
 	}
 
-	public User(long idx, String email, String password, String name, String phoneNumber, String profileImg,
+	public User(long idx, String email, String password, String name, String phoneNumber, String profileImg, Type type,
 			Timestamp ts, Collection<User> friends) {
 		this.idx = idx;
 		this.email = email;
@@ -56,6 +73,7 @@ public class User {
 		this.name = name;
 		this.phoneNumber = phoneNumber;
 		this.profileImg = profileImg;
+		this.type = type;
 		this.ts = ts;
 		this.friends = friends;
 	}
@@ -106,6 +124,14 @@ public class User {
 
 	public void setProfileImg(String profileImg) {
 		this.profileImg = profileImg;
+	}
+
+	public Type getType() {
+		return type;
+	}
+
+	public void setType(Type type) {
+		this.type = type;
 	}
 
 	public Timestamp getTs() {

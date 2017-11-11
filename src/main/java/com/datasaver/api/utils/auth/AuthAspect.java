@@ -26,8 +26,8 @@ public class AuthAspect {
 	@Autowired
 	private UserService us;
 
-	@Around("@annotation(com.datasaver.api.utils.auth.Auth)")
-	public Object around(ProceedingJoinPoint pjp) throws Throwable {
+	@Around("@annotation(com.datasaver.api.utils.auth.Auth) && @annotation(authAnotation)")
+	public Object around(ProceedingJoinPoint pjp, Auth authAnotation) throws Throwable {
 		String jwt = hsr.getHeader("Authorization");
 
 		if (jwt == null) {
@@ -47,6 +47,24 @@ public class AuthAspect {
 		if (u == null) {
 			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.CAN_NOT_FOUND_USER);
 			return new ResponseEntity<>(dr, HttpStatus.UNAUTHORIZED);
+		}
+
+		User.Type userType = u.getType();
+
+		if (userType != User.Type.ADMINISTRATOR) {
+			boolean isAllowedUser = false;
+
+			for (User.Type allowUserType : authAnotation.allowUserTypes()) {
+				if (userType == allowUserType) {
+					isAllowedUser = true;
+					break;
+				}
+			}
+
+			if (!isAllowedUser) {
+				DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.NEED_APPROPRIATE_AUTHORIZATION);
+				return new ResponseEntity<>(dr, HttpStatus.UNAUTHORIZED);
+			}
 		}
 
 		Object[] params = pjp.getArgs();

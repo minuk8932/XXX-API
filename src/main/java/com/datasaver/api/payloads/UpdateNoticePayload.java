@@ -2,12 +2,12 @@ package com.datasaver.api.payloads;
 
 public class UpdateNoticePayload {
 	private long idx;
-	private long title;
+	private String title;
 
 	public UpdateNoticePayload() {
 	}
 
-	public UpdateNoticePayload(long idx, long title) {
+	public UpdateNoticePayload(long idx, String title) {
 		this.idx = idx;
 		this.title = title;
 	}
@@ -20,11 +20,11 @@ public class UpdateNoticePayload {
 		this.idx = idx;
 	}
 
-	public long getTitle() {
+	public String getTitle() {
 		return title;
 	}
 
-	public void setTitle(long title) {
+	public void setTitle(String title) {
 		this.title = title;
 	}
 }

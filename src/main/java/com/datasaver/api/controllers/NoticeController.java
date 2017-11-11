@@ -20,7 +20,10 @@ import com.datasaver.api.controllers.responses.DefaultResponse;
 import com.datasaver.api.controllers.responses.DefaultResponse.Status;
 import com.datasaver.api.domains.Notice;
 import com.datasaver.api.domains.User;
+import com.datasaver.api.payloads.AddNoticePayload;
+import com.datasaver.api.payloads.UpdateNoticePayload;
 import com.datasaver.api.services.NoticeService;
+import com.datasaver.api.services.PushMessageService;
 import com.datasaver.api.utils.auth.Auth;
 import com.datasaver.api.utils.log.ControllerLog;
 import com.datasaver.api.utils.res.Strings;
@@ -35,15 +38,20 @@ public class NoticeController {
 	@Autowired
 	private NoticeService ns;
 
+	@Autowired
+	private PushMessageService pms;
+
 	@PostMapping("")
-	@Auth
+	@Auth(allowUserTypes = { User.Type.ADMINISTRATOR })
 	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> addNotice(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @RequestBody AddNoticeForm anf) {
 		Notice n = new Notice();
 		n.setTitle(anf.getTitle());
 		n.setContents(anf.getContents());
-		ns.save(n);
+		n = ns.save(n);
+
+		pms.sendAddNoticeMsg(new AddNoticePayload(n.getIdx(), n.getTitle()));
 
 		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
@@ -66,7 +74,7 @@ public class NoticeController {
 	}
 
 	@PutMapping("/{idx}")
-	@Auth
+	@Auth(allowUserTypes = { User.Type.ADMINISTRATOR })
 	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> updateNotice(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @PathVariable("idx") long idx, @RequestBody UpdateNoticeForm unf) {
@@ -79,14 +87,16 @@ public class NoticeController {
 
 		n.setTitle(unf.getTitle());
 		n.setContents(unf.getContents());
-		ns.save(n);
+		n = ns.save(n);
+
+		pms.sendUpdateNoticeMsg(new UpdateNoticePayload(n.getIdx(), n.getTitle()));
 
 		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{idx}")
-	@Auth
+	@Auth(allowUserTypes = { User.Type.ADMINISTRATOR })
 	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> deleteNotice(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @PathVariable("idx") long idx) {

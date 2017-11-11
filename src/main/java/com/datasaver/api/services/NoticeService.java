@@ -25,8 +25,8 @@ public class NoticeService implements NoticeServiceInterface {
 	}
 
 	@Override
-	public void save(Notice notice) {
-		nr.save(notice);
+	public Notice save(Notice notice) {
+		return nr.save(notice);
 	}
 
 	@Override
