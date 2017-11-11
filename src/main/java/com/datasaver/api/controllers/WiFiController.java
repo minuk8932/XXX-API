@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,25 +36,20 @@ public class WiFiController {
 	@Autowired
 	private WiFiConnectionLogService wcls;
 
-	@PutMapping("")
+	@PostMapping("")
 	@Auth
 	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> AddWiFi(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @RequestBody AddWiFiForm awf) {
-		WiFi w = ws.findBySsidNLongitudeNLatitude(awf.getSsid(), awf.getLongitude(), awf.getLatitude());
-
-		if (w != null) {
-			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.ALREADY_EXIST_WIFI);
-			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.ALREADY_REPORTED);
-		}
-
-		w = new WiFi();
+		WiFi w = new WiFi();
 		w.setSsid(awf.getSsid());
+		w.setMac(awf.getMac());
 		w.setPassword(awf.getPassword());
 		w.setAuthType(awf.getAuthType());
 		w.setChannel(awf.getChannel());
 		w.setLongitude(awf.getLongitude());
 		w.setLatitude(awf.getLatitude());
+		w.setUser(u);
 		ws.save(w);
 
 		DefaultResponse dr = new DefaultResponse();
@@ -68,12 +62,24 @@ public class WiFiController {
 	public @ResponseBody ResponseEntity<DefaultResponse> addWiFiConnectionLog(
 			@RequestHeader("Authorization") String token, @ApiIgnore User u,
 			@RequestBody AddWiFiConnectionLogForm awclf) {
-		WiFi w = ws.findByUser(u);
-		// TODO : fix how to recognize wifi, or uidx..
+		WiFi w = ws.findByMac(awclf.getMac());
 
 		if (w == null) {
 			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.CAN_NOT_FOUND_ANY_WIFI);
 			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.SERVICE_UNAVAILABLE);
+		}
+
+		WiFiConnectionLog.Type t = awclf.getType();
+
+		if (t == WiFiConnectionLog.Type.CONNECT) {
+			w.setSsid(awclf.getSsid());
+			w.setPassword(awclf.getPassword());
+			w.setAuthType(awclf.getAuthType());
+			w.setChannel(awclf.getChannel());
+			w.setLongitude(awclf.getLongitude());
+			w.setLatitude(awclf.getLatitude());
+			w.setUser(u);
+			ws.save(w);
 		}
 
 		WiFiConnectionLog wcl = new WiFiConnectionLog();

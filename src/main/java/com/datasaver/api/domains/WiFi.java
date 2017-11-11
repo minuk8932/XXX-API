@@ -20,6 +20,9 @@ public class WiFi {
 	@Column(name = "ssid")
 	private String ssid;
 
+	@Column(name = "mac")
+	private String mac;
+
 	@Column(name = "password")
 	private String password;
 
@@ -37,7 +40,7 @@ public class WiFi {
 
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "uidx")
 	private User user;
@@ -59,16 +62,19 @@ public class WiFi {
 	public WiFi() {
 	}
 
-	public WiFi(long idx, String ssid, String password, AuthType authType, String channel, double longitude,
-			double latitude, Timestamp ts) {
+	public WiFi(long idx, String ssid, String mac, String password, AuthType authType, String channel, double longitude,
+			double latitude, Timestamp ts, User user) {
+		super();
 		this.idx = idx;
 		this.ssid = ssid;
+		this.mac = mac;
 		this.password = password;
 		this.authType = authType;
 		this.channel = channel;
 		this.longitude = longitude;
 		this.latitude = latitude;
 		this.ts = ts;
+		this.user = user;
 	}
 
 	public long getIdx() {
@@ -85,6 +91,14 @@ public class WiFi {
 
 	public void setSsid(String ssid) {
 		this.ssid = ssid;
+	}
+
+	public String getMac() {
+		return mac;
+	}
+
+	public void setMac(String mac) {
+		this.mac = mac;
 	}
 
 	public String getPassword() {
@@ -133,5 +147,13 @@ public class WiFi {
 
 	public void setTs(Timestamp ts) {
 		this.ts = ts;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 }

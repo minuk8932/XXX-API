@@ -6,6 +6,8 @@ import com.datasaver.api.domains.WiFi.AuthType;
 public class AddWiFiForm {
 	private String ssid;
 
+	private String mac;
+
 	private String password;
 
 	private WiFi.AuthType authType;
@@ -15,13 +17,14 @@ public class AddWiFiForm {
 	private double longitude;
 
 	private double latitude;
-	
+
 	public AddWiFiForm() {
 	}
 
-	public AddWiFiForm(String ssid, String password, AuthType authType, String channel, double longitude,
+	public AddWiFiForm(String ssid, String mac, String password, AuthType authType, String channel, double longitude,
 			double latitude) {
 		this.ssid = ssid;
+		this.mac = mac;
 		this.password = password;
 		this.authType = authType;
 		this.channel = channel;
@@ -35,6 +38,14 @@ public class AddWiFiForm {
 
 	public void setSsid(String ssid) {
 		this.ssid = ssid;
+	}
+
+	public String getMac() {
+		return mac;
+	}
+
+	public void setMac(String mac) {
+		this.mac = mac;
 	}
 
 	public String getPassword() {
