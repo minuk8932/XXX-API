@@ -9,28 +9,28 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Help {
+public class QNA {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idx")
 	private long idx;
 
-	@Column(name = "title")
-	private String title;
+	@Column(name = "question")
+	private String question;
 
-	@Column(name = "contents")
-	private String contents;
+	@Column(name = "answer")
+	private String answer;
 
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
 
-	public Help() {
+	public QNA() {
 	}
 
-	public Help(long idx, String title, String contents, Timestamp ts) {
+	public QNA(long idx, String question, String answer, Timestamp ts) {
 		this.idx = idx;
-		this.title = title;
-		this.contents = contents;
+		this.question = question;
+		this.answer = answer;
 		this.ts = ts;
 	}
 
@@ -42,20 +42,20 @@ public class Help {
 		this.idx = idx;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getQuestion() {
+		return question;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setQuestion(String question) {
+		this.question = question;
 	}
 
-	public String getContents() {
-		return contents;
+	public String getAnswer() {
+		return answer;
 	}
 
-	public void setContents(String contents) {
-		this.contents = contents;
+	public void setAnswer(String answer) {
+		this.answer = answer;
 	}
 
 	public Timestamp getTs() {

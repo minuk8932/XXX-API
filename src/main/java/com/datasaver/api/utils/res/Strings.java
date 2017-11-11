@@ -22,6 +22,7 @@ public class Strings {
 	public static final String CAN_NOT_FOUND_PUSH_MESSAGE = "Can not found push message.";
 	public static final String ONLY_PUSH_MESSAGE_OWNER_CAN_READ = "Only push message owner can read.";
 	public static final String CAN_NOT_FOUND_ANY_NOTICE = "Can not found notice.";
+	public static final String CAN_NOT_FOUND_ANY_QNA = "Can not found QnA.";
 	public static final String ALREADY_EXIST_NOTICE = "Already exist notice.";
 	public static final String NEED_APPROPRIATE_AUTHORIZATION = "Need appropriate authorization.";
 }
