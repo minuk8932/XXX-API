@@ -4,17 +4,17 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class FindUserInfoView {
+public class FindUserProfileView {
 	@Id
 	private long idx;
 	private String name;
 	private String phoneNumber;
 	private String profileImg;
 
-	public FindUserInfoView() {
+	public FindUserProfileView() {
 	}
 
-	public FindUserInfoView(long idx, String name, String phoneNumber, String profileImg) {
+	public FindUserProfileView(long idx, String name, String phoneNumber, String profileImg) {
 		this.idx = idx;
 		this.name = name;
 		this.phoneNumber = phoneNumber;

@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import com.datasaver.api.domains.User;
 import com.datasaver.api.domains.views.FindFriendsView;
-import com.datasaver.api.domains.views.FindUserInfoView;
+import com.datasaver.api.domains.views.FindUserProfileView;
 
 public interface UserServiceInterface {
 	public User findByEmailNPassword(String email, String password);
@@ -25,7 +25,7 @@ public interface UserServiceInterface {
 
 	public Collection<FindFriendsView> findFriendsByIdx(long idx);
 
-	public FindUserInfoView findInfoByIdx(long idx);
+	public FindUserProfileView findUserProfileByIdx(long idx);
 
 	public boolean isFriend(long uidx, long fuidx);
 }

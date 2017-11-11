@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.datasaver.api.domains.User;
 import com.datasaver.api.domains.views.FindFriendsView;
-import com.datasaver.api.domains.views.FindUserInfoView;
+import com.datasaver.api.domains.views.FindUserProfileView;
 import com.datasaver.api.domains.views.IsFriendView;
 import com.datasaver.api.repositories.UserRepository;
 import com.datasaver.api.services.interfaces.UserServiceInterface;
@@ -25,7 +25,7 @@ public class UserService implements UserServiceInterface {
 
 	@Autowired
 	private EntityManager em;
-	
+
 	@Override
 	public User findByEmailNPassword(String email, String password) {
 		return ur.findByEmailNPassword(email, password);
@@ -78,13 +78,13 @@ public class UserService implements UserServiceInterface {
 	}
 
 	@Override
-	public FindUserInfoView findInfoByIdx(long idx) {
+	public FindUserProfileView findUserProfileByIdx(long idx) {
 		Query q = em.createNativeQuery(
 				"SELECT u.idx, u.name, u.phoneNumber, u.profileImg FROM User AS u WHERE u.idx = ?",
-				FindUserInfoView.class);
+				FindUserProfileView.class);
 		q.setParameter(1, idx);
 
-		return (FindUserInfoView) q.getSingleResult();
+		return (FindUserProfileView) q.getSingleResult();
 	}
 
 	@Override

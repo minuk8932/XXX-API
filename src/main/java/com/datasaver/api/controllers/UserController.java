@@ -25,12 +25,13 @@ import com.datasaver.api.controllers.responses.DefaultResponse;
 import com.datasaver.api.controllers.responses.DefaultResponse.Status;
 import com.datasaver.api.controllers.responses.data.GetFriendsResponseData;
 import com.datasaver.api.controllers.responses.data.GetFriendsResponseData.Friend;
-import com.datasaver.api.controllers.responses.data.GetFriendsResponseData.Friend.MostRecentlyUsedWiFi;
 import com.datasaver.api.controllers.responses.data.GetFriendsResponseData.MyProfile;
+import com.datasaver.api.controllers.responses.data.GetProfileResponseData;
 import com.datasaver.api.controllers.responses.data.SignInResponseData;
 import com.datasaver.api.domains.User;
 import com.datasaver.api.domains.WiFi;
 import com.datasaver.api.domains.views.FindFriendsView;
+import com.datasaver.api.domains.views.FindUserProfileView;
 import com.datasaver.api.services.UserService;
 import com.datasaver.api.services.WiFiService;
 import com.datasaver.api.utils.auth.Auth;
@@ -157,7 +158,7 @@ public class UserController {
 
 			else {
 				fs[i] = new Friend(ffv.getIdx(), ffv.getName(), ffv.getProfileImg(),
-						new MostRecentlyUsedWiFi(w.getSsid(), w.getLatitude(), w.getLongitude()));
+						new Friend.MostRecentlyUsedWiFi(w.getSsid(), w.getLatitude(), w.getLongitude()));
 			}
 
 			i++;
@@ -198,17 +199,29 @@ public class UserController {
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
 
-	@GetMapping("/info/{idx}")
+	@GetMapping("/profile/{idx}")
 	@Auth
 	@ControllerLog
-	public @ResponseBody ResponseEntity<DefaultResponse> getInfo(@RequestHeader("Authorization") String token,
+	public @ResponseBody ResponseEntity<DefaultResponse> getProfile(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @PathVariable("idx") long idx) {
 		if (!us.isFriend(u.getIdx(), idx)) {
 			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.ONLY_FRIEND_RELATION_CAN_GET_INFO);
 			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.UNAUTHORIZED);
 		}
 
-		DefaultResponse dr = new DefaultResponse(us.findInfoByIdx(idx));
+		WiFi w = ws.findMostRecentlyUsedByUidx(idx);
+		GetProfileResponseData.MostRecentlyUsedWiFi mruw = null;
+
+		if (w != null) {
+			mruw = new GetProfileResponseData.MostRecentlyUsedWiFi(w.getSsid(), w.getLatitude(), w.getLongitude());
+		}
+
+		FindUserProfileView fupv = us.findUserProfileByIdx(idx);
+
+		GetProfileResponseData gprd = new GetProfileResponseData(fupv.getIdx(), fupv.getName(), fupv.getPhoneNumber(),
+				fupv.getProfileImg(), mruw);
+
+		DefaultResponse dr = new DefaultResponse(gprd);
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
 }
