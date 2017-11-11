@@ -14,8 +14,8 @@ public interface WiFiRepository extends JpaRepository<WiFi, Long> {
 	@Query("SELECT w FROM WiFi AS w WHERE w.user = ?1")
 	public WiFi findByUser(User user);
 
-	@Query("SELECT w FROM WiFi AS w WHERE w.mac = ?1")
-	public WiFi findByMac(String mac);
+	@Query("SELECT w FROM WiFi AS w WHERE w.user = ?1 AND w.mac = ?2")
+	public WiFi findByUserNMac(User user, String mac);
 
 	@Query("SELECT w FROM WiFi AS w WHERE w.user = ?1")
 	public Collection<WiFi> findMyListByUser(User user);

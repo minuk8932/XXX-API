@@ -44,8 +44,8 @@ public class WiFiService implements WiFiServiceInterface {
 	}
 
 	@Override
-	public WiFi findByMac(String mac) {
-		return wr.findByMac(mac);
+	public WiFi findByUserNMac(User user, String mac) {
+		return wr.findByUserNMac(user, mac);
 	}
 
 	@Override

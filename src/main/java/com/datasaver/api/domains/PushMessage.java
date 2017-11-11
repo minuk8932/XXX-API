@@ -31,6 +31,9 @@ public class PushMessage {
 	@Column(name = "log")
 	private String log;
 
+	@Column(name = "isRead")
+	private boolean isRead;
+
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
 
@@ -70,12 +73,14 @@ public class PushMessage {
 	public PushMessage() {
 	}
 
-	public PushMessage(long idx, Status status, Type type, String payload, String log, Timestamp ts, User user) {
+	public PushMessage(long idx, Status status, Type type, String payload, String log, boolean isRead, Timestamp ts,
+			User user) {
 		this.idx = idx;
 		this.status = status;
 		this.type = type;
 		this.payload = payload;
 		this.log = log;
+		this.isRead = isRead;
 		this.ts = ts;
 		this.user = user;
 	}
@@ -118,6 +123,14 @@ public class PushMessage {
 
 	public void setLog(String log) {
 		this.log = log;
+	}
+
+	public boolean getIsRead() {
+		return isRead;
+	}
+
+	public void setIsRead(boolean isRead) {
+		this.isRead = isRead;
 	}
 
 	public Timestamp getTs() {

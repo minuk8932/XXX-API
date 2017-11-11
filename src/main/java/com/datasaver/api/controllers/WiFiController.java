@@ -55,15 +55,29 @@ public class WiFiController {
 	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> AddWiFi(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @RequestBody AddWiFiForm awf) {
-		WiFi w = new WiFi();
-		w.setSsid(awf.getSsid());
-		w.setMac(awf.getMac());
-		w.setPassword(awf.getPassword());
-		w.setAuthType(awf.getAuthType());
-		w.setChannel(awf.getChannel());
-		w.setLongitude(awf.getLongitude());
-		w.setLatitude(awf.getLatitude());
-		w.setUser(u);
+		WiFi w = ws.findByUserNMac(u, awf.getMac());
+
+		if (w != null) {
+			w.setSsid(awf.getSsid());
+			w.setPassword(awf.getPassword());
+			w.setAuthType(awf.getAuthType());
+			w.setChannel(awf.getChannel());
+			w.setLongitude(awf.getLongitude());
+			w.setLatitude(awf.getLatitude());
+		}
+
+		else {
+			w = new WiFi();
+			w.setSsid(awf.getSsid());
+			w.setMac(awf.getMac());
+			w.setPassword(awf.getPassword());
+			w.setAuthType(awf.getAuthType());
+			w.setChannel(awf.getChannel());
+			w.setLongitude(awf.getLongitude());
+			w.setLatitude(awf.getLatitude());
+			w.setUser(u);
+		}
+
 		ws.save(w);
 
 		DefaultResponse dr = new DefaultResponse();
@@ -76,7 +90,7 @@ public class WiFiController {
 	public @ResponseBody ResponseEntity<DefaultResponse> addWiFiConnectionLog(
 			@RequestHeader("Authorization") String token, @ApiIgnore User u,
 			@RequestBody AddWiFiConnectionLogForm awclf) {
-		WiFi w = ws.findByMac(awclf.getMac());
+		WiFi w = ws.findByUserNMac(u, awclf.getMac());
 
 		if (w == null) {
 			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.CAN_NOT_FOUND_ANY_WIFI);
@@ -183,15 +197,29 @@ public class WiFiController {
 		}
 
 		else {
-			WiFi sharedWiFi = new WiFi();
-			sharedWiFi.setSsid(w.getSsid());
-			sharedWiFi.setMac(w.getMac());
-			sharedWiFi.setPassword(w.getPassword());
-			sharedWiFi.setAuthType(w.getAuthType());
-			sharedWiFi.setChannel(w.getChannel());
-			sharedWiFi.setLongitude(w.getLongitude());
-			sharedWiFi.setLatitude(w.getLatitude());
-			sharedWiFi.setUser(requester);
+			WiFi sharedWiFi = ws.findByUserNMac(requester, w.getMac());
+
+			if (sharedWiFi != null) {
+				sharedWiFi.setSsid(w.getSsid());
+				sharedWiFi.setPassword(w.getPassword());
+				sharedWiFi.setAuthType(w.getAuthType());
+				sharedWiFi.setChannel(w.getChannel());
+				sharedWiFi.setLongitude(w.getLongitude());
+				sharedWiFi.setLatitude(w.getLatitude());
+			}
+
+			else {
+				sharedWiFi = new WiFi();
+				sharedWiFi.setSsid(w.getSsid());
+				sharedWiFi.setMac(w.getMac());
+				sharedWiFi.setPassword(w.getPassword());
+				sharedWiFi.setAuthType(w.getAuthType());
+				sharedWiFi.setChannel(w.getChannel());
+				sharedWiFi.setLongitude(w.getLongitude());
+				sharedWiFi.setLatitude(w.getLatitude());
+				sharedWiFi.setUser(requester);
+			}
+
 			ws.save(sharedWiFi);
 
 			wrrp = new WiFiRequestResultPayload(status, sharedWiFi);

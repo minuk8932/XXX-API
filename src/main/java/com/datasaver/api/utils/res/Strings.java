@@ -19,4 +19,6 @@ public class Strings {
 	public static final String FAIL_TO_SEND_PUSH_MESSAGE = "Fail to send push message.";
 	public static final String ONLY_WIFI_OWNER_CAN_PERMIT = "Only WiFi owner can permit.";
 	public static final String OLD_PASSWORD_IS_NOT_CORRECT = "Old password is not correct.";
+	public static final String CAN_NOT_FOUND_PUSH_MESSAGE = "Can not found push message.";
+	public static final String ONLY_PUSH_MESSAGE_OWNER_CAN_READ = "Only push message owner can read.";
 }
