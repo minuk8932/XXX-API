@@ -1,7 +1,11 @@
 package com.datasaver.api.controllers;
 
+import java.io.File;
 import java.util.Collection;
 
+import javax.servlet.ServletContext;
+
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +17,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.datasaver.api.controllers.forms.FindPasswordForm;
 import com.datasaver.api.controllers.forms.SignInForm;
@@ -37,6 +43,8 @@ import com.datasaver.api.services.UserService;
 import com.datasaver.api.services.WiFiService;
 import com.datasaver.api.utils.auth.Auth;
 import com.datasaver.api.utils.auth.JWT;
+import com.datasaver.api.utils.aws.AmazonConfig;
+import com.datasaver.api.utils.aws.S3;
 import com.datasaver.api.utils.log.ControllerLog;
 import com.datasaver.api.utils.mail.Mail;
 import com.datasaver.api.utils.password.Encryptor;
@@ -58,6 +66,12 @@ public class UserController {
 
 	@Autowired
 	private Mail m;
+
+	@Autowired
+	private AmazonConfig ac;
+
+	@Autowired
+	ServletContext sc;
 
 	@PostMapping("/sign/up")
 	@ControllerLog
@@ -221,9 +235,16 @@ public class UserController {
 		}
 
 		FindUserProfileView fupv = us.findUserProfileByIdx(idx);
+		String profileImg = fupv.getProfileImg();
+		String profileImgUrl = null;
+
+		if (profileImg != null) {
+			S3 s3 = new S3(ac.getAccessKeyId(), ac.getAccessSecretKey(), ac.getEndPoint());
+			profileImgUrl = s3.getFileUrl(ac.getUserProfileImgBucketName(), profileImg).toString();
+		}
 
 		GetProfileResponseData gprd = new GetProfileResponseData(fupv.getIdx(), fupv.getName(), fupv.getPhoneNumber(),
-				fupv.getProfileImg(), mruw);
+				profileImgUrl, mruw);
 
 		DefaultResponse dr = new DefaultResponse(gprd);
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
@@ -241,6 +262,46 @@ public class UserController {
 
 		u.setPassword(Encryptor.process(upf.getNewPassword()));
 		us.save(u);
+
+		DefaultResponse dr = new DefaultResponse();
+		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
+	}
+
+	@PostMapping("/profileImg")
+	@Auth
+	@ControllerLog
+	public @ResponseBody ResponseEntity<DefaultResponse> updateProfileImg(@RequestHeader("Authorization") String token,
+			@ApiIgnore User u, @RequestPart MultipartFile mf) {
+		if (!mf.getContentType().startsWith("image/")) {
+			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.NOT_IMAGE_FILE_IS_PROHIBITED);
+			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.SERVICE_UNAVAILABLE);
+		}
+
+		String pi = u.getProfileImg();
+		S3 s3 = new S3(ac.getAccessKeyId(), ac.getAccessSecretKey(), ac.getEndPoint());
+		String uupibn = ac.getUserProfileImgBucketName();
+
+		if (pi != null) {
+			s3.deleteFile(uupibn, pi);
+		}
+
+		StringBuilder sb = new StringBuilder();
+		sb.append(System.currentTimeMillis()).append(mf.getOriginalFilename());
+		String newProfileImgName = Encryptor.process(sb.toString());
+
+		File profileImgFile = new File(newProfileImgName);
+
+		try {
+			FileUtils.writeByteArrayToFile(profileImgFile, mf.getBytes());
+			s3.uploadFile(uupibn, newProfileImgName, profileImgFile);
+			profileImgFile.delete();
+
+			u.setProfileImg(newProfileImgName);
+			us.save(u);
+		} catch (Exception e) {
+			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.NOT_IMAGE_FILE_IS_PROHIBITED);
+			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.SERVICE_UNAVAILABLE);
+		}
 
 		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);

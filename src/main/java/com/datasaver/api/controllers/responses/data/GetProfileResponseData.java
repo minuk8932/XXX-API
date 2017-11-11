@@ -4,18 +4,18 @@ public class GetProfileResponseData {
 	private long idx;
 	private String name;
 	private String phoneNumber;
-	private String profileImg;
+	private String profileImgUrl;
 	private MostRecentlyUsedWiFi mostRecentlyUsedWiFi;
 
 	public GetProfileResponseData() {
 	}
 
-	public GetProfileResponseData(long idx, String name, String phoneNumber, String profileImg,
+	public GetProfileResponseData(long idx, String name, String phoneNumber, String profileImgUrl,
 			MostRecentlyUsedWiFi mostRecentlyUsedWiFi) {
 		this.idx = idx;
 		this.name = name;
 		this.phoneNumber = phoneNumber;
-		this.profileImg = profileImg;
+		this.profileImgUrl = profileImgUrl;
 		this.mostRecentlyUsedWiFi = mostRecentlyUsedWiFi;
 	}
 
@@ -43,12 +43,12 @@ public class GetProfileResponseData {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public String getProfileImg() {
-		return profileImg;
+	public String getProfileImgUrl() {
+		return profileImgUrl;
 	}
 
-	public void setProfileImg(String profileImg) {
-		this.profileImg = profileImg;
+	public void setProfileImgUr(String profileImgUrl) {
+		this.profileImgUrl = profileImgUrl;
 	}
 
 	public MostRecentlyUsedWiFi getMostRecentlyUsedWiFi() {
