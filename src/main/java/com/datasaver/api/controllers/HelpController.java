@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -62,7 +61,7 @@ public class HelpController {
 		Help h = new Help();
 		
 		if(hs.findByIdx(h.getIdx()) == null) {
-			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.CAN_NOT_FOUND_ANY_NOTICES);
+			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.CAN_NOT_FOUND_ANY_NOTICE);
 			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.SERVICE_UNAVAILABLE);
 		}
 		
@@ -76,7 +75,7 @@ public class HelpController {
 	public @ResponseBody ResponseEntity<DefaultResponse> updateHelp(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @RequestBody UpdateHelpForm uhf) {
 		if (hs.findByTitleNContents(uhf.getTitle(), uhf.getContents()) == null) {
-			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.CAN_NOT_FOUND_ANY_NOTICES);
+			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.CAN_NOT_FOUND_ANY_NOTICE);
 			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.NOT_FOUND);
 		}
 
@@ -97,7 +96,7 @@ public class HelpController {
 		Help h = new Help();
 		
 		if (hs.findByIdx(h.getIdx()) == null) {
-			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.CAN_NOT_FOUND_ANY_NOTICES);
+			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.CAN_NOT_FOUND_ANY_NOTICE);
 			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.NOT_FOUND);
 		}
 		
