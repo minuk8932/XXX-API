@@ -21,6 +21,7 @@ import com.datasaver.api.controllers.forms.SignInForm;
 import com.datasaver.api.controllers.forms.SignOutForm;
 import com.datasaver.api.controllers.forms.SignUpForm;
 import com.datasaver.api.controllers.forms.UpdateFriendsForm;
+import com.datasaver.api.controllers.forms.UpdatePasswordForm;
 import com.datasaver.api.controllers.responses.DefaultResponse;
 import com.datasaver.api.controllers.responses.DefaultResponse.Status;
 import com.datasaver.api.controllers.responses.data.GetFriendsResponseData;
@@ -222,6 +223,23 @@ public class UserController {
 				fupv.getProfileImg(), mruw);
 
 		DefaultResponse dr = new DefaultResponse(gprd);
+		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
+	}
+
+	@PutMapping("/password")
+	@Auth
+	@ControllerLog
+	public @ResponseBody ResponseEntity<DefaultResponse> updatePassword(@RequestHeader("Authorization") String token,
+			@ApiIgnore User u, @RequestBody UpdatePasswordForm upf) {
+		if (!Encryptor.process(upf.getOldPassword()).equals(u.getPassword())) {
+			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.OLD_PASSWORD_IS_NOT_CORRECT);
+			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.SERVICE_UNAVAILABLE);
+		}
+
+		u.setPassword(Encryptor.process(upf.getNewPassword()));
+		us.save(u);
+
+		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
 }

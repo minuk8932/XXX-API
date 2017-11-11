@@ -28,4 +28,6 @@ public interface UserServiceInterface {
 	public FindUserProfileView findUserProfileByIdx(long idx);
 
 	public boolean isFriend(long uidx, long fuidx);
+
+	public Collection<User> findAll();
 }

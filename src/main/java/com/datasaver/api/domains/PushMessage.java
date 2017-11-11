@@ -25,7 +25,7 @@ public class PushMessage {
 	@Column(name = "type")
 	private Type type;
 
-	@Column(name = "payload")
+	@Column(name = "payload", columnDefinition = "TEXT")
 	private String payload;
 
 	@Column(name = "log")
@@ -54,7 +54,7 @@ public class PushMessage {
 	}
 
 	public enum Type {
-		ADD_NOTICE(0), UPDATE_NOTICE(1), WIFI_REQUEST(2), WIFI_RESPONSE(3);
+		ADD_NOTICE(0), UPDATE_NOTICE(1), WIFI_REQUEST(2), WIFI_REQUEST_RESULT(3);
 
 		private int code;
 

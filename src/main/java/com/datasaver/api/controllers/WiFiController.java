@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.datasaver.api.controllers.forms.AddWiFiConnectionLogForm;
 import com.datasaver.api.controllers.forms.AddWiFiForm;
 import com.datasaver.api.controllers.forms.RequestForm;
+import com.datasaver.api.controllers.forms.ResponseForm;
 import com.datasaver.api.controllers.responses.DefaultResponse;
 import com.datasaver.api.controllers.responses.DefaultResponse.Status;
 import com.datasaver.api.domains.User;
 import com.datasaver.api.domains.WiFi;
 import com.datasaver.api.domains.WiFiConnectionLog;
 import com.datasaver.api.payloads.WiFiRequestPayload;
+import com.datasaver.api.payloads.WiFiRequestResultPayload;
 import com.datasaver.api.services.PushMessageService;
 import com.datasaver.api.services.UserService;
 import com.datasaver.api.services.WiFiConnectionLogService;
@@ -146,7 +148,56 @@ public class WiFiController {
 			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.UNAUTHORIZED);
 		}
 
-		if (!pms.sendWiFiRequestMsg(new WiFiRequestPayload(myUidx, rf.getRequestWidx()))) {
+		if (!pms.sendWiFiRequestMsg(w.getUser(), new WiFiRequestPayload(myUidx, rf.getRequestWidx()))) {
+			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.FAIL_TO_SEND_PUSH_MESSAGE);
+			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.SERVICE_UNAVAILABLE);
+		}
+
+		DefaultResponse dr = new DefaultResponse();
+		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
+	}
+
+	@PostMapping("/response")
+	@Auth
+	@ControllerLog
+	public @ResponseBody ResponseEntity<DefaultResponse> response(@RequestHeader("Authorization") String token,
+			@ApiIgnore User u, @RequestBody ResponseForm rf) {
+		WiFi w = ws.findByIdx(rf.getRequestWidx());
+
+		if (w == null) {
+			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.CAN_NOT_FOUND_WIFI);
+			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.SERVICE_UNAVAILABLE);
+		}
+
+		if (w.getUser().getIdx() == u.getIdx()) {
+			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.ONLY_WIFI_OWNER_CAN_PERMIT);
+			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.UNAUTHORIZED);
+		}
+
+		User requester = us.findByIdx(rf.getRequesterUidx());
+		boolean status = rf.getStatus();
+		WiFiRequestResultPayload wrrp;
+
+		if (!status) {
+			wrrp = new WiFiRequestResultPayload(status, null);
+		}
+
+		else {
+			WiFi sharedWiFi = new WiFi();
+			sharedWiFi.setSsid(w.getSsid());
+			sharedWiFi.setMac(w.getMac());
+			sharedWiFi.setPassword(w.getPassword());
+			sharedWiFi.setAuthType(w.getAuthType());
+			sharedWiFi.setChannel(w.getChannel());
+			sharedWiFi.setLongitude(w.getLongitude());
+			sharedWiFi.setLatitude(w.getLatitude());
+			sharedWiFi.setUser(requester);
+			ws.save(sharedWiFi);
+
+			wrrp = new WiFiRequestResultPayload(status, sharedWiFi);
+		}
+
+		if (!pms.sendWiFiRequestResultMsg(requester, wrrp)) {
 			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.FAIL_TO_SEND_PUSH_MESSAGE);
 			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.SERVICE_UNAVAILABLE);
 		}

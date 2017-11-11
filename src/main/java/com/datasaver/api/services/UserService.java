@@ -102,4 +102,9 @@ public class UserService implements UserServiceInterface {
 			return false;
 		}
 	}
+
+	@Override
+	public Collection<User> findAll() {
+		return ur.findAll();
+	}
 }
