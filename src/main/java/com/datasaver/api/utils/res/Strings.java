@@ -21,4 +21,6 @@ public class Strings {
 	public static final String OLD_PASSWORD_IS_NOT_CORRECT = "Old password is not correct.";
 	public static final String CAN_NOT_FOUND_PUSH_MESSAGE = "Can not found push message.";
 	public static final String ONLY_PUSH_MESSAGE_OWNER_CAN_READ = "Only push message owner can read.";
+	public static final String CAN_NOT_FOUND_ANY_NOTICES = "Can not found any notices.";
+	public static final String ALREADY_EXIST_NOTICE = "Already exist notice.";
 }
