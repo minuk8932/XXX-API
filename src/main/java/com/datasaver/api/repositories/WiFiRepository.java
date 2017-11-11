@@ -1,5 +1,7 @@
 package com.datasaver.api.repositories;
 
+import java.util.Collection;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -14,4 +16,7 @@ public interface WiFiRepository extends JpaRepository<WiFi, Long> {
 
 	@Query("SELECT w FROM WiFi AS w WHERE w.mac = ?1")
 	public WiFi findByMac(String mac);
+
+	@Query("SELECT w FROM WiFi AS w WHERE w.user = ?1")
+	public Collection<WiFi> findListByUser(User user);
 }

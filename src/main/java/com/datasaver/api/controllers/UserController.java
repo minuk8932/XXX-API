@@ -135,10 +135,10 @@ public class UserController {
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
 
-	@GetMapping("/friends")
+	@GetMapping("/friend/list")
 	@Auth
 	@ControllerLog
-	public @ResponseBody ResponseEntity<DefaultResponse> getFriends(@RequestHeader("Authorization") String token,
+	public @ResponseBody ResponseEntity<DefaultResponse> getFriendList(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u) {
 		u = us.findByIdx(u.getIdx());
 		MyProfile mp = new MyProfile(u.getIdx(), u.getName(), u.getProfileImg());
@@ -169,10 +169,10 @@ public class UserController {
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
 
-	@PutMapping("/friends")
+	@PutMapping("/friend/list")
 	@Auth
 	@ControllerLog
-	public @ResponseBody ResponseEntity<DefaultResponse> updateFriends(@RequestHeader("Authorization") String token,
+	public @ResponseBody ResponseEntity<DefaultResponse> updateFriendList(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @RequestBody UpdateFriendsForm uff) {
 		long[] fuidxs = uff.getFuidxs();
 		long uidx = u.getIdx();

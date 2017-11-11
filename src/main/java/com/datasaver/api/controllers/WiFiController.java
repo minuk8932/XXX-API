@@ -3,6 +3,7 @@ package com.datasaver.api.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -88,6 +89,15 @@ public class WiFiController {
 		wcls.save(wcl);
 
 		DefaultResponse dr = new DefaultResponse();
+		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
+	}
+
+	@GetMapping("/list")
+	@Auth
+	@ControllerLog
+	public @ResponseBody ResponseEntity<DefaultResponse> getWiFiList(@RequestHeader("Authorization") String token,
+			@ApiIgnore User u) {
+		DefaultResponse dr = new DefaultResponse(ws.findListByUser(u));
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
 }

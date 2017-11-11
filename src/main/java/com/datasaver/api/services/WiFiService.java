@@ -1,5 +1,7 @@
 package com.datasaver.api.services;
 
+import java.util.Collection;
+
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -57,5 +59,10 @@ public class WiFiService implements WiFiServiceInterface {
 		} catch (NoResultException nre) {
 			return null;
 		}
+	}
+
+	@Override
+	public Collection<WiFi> findListByUser(User user) {
+		return wr.findListByUser(user);
 	}
 }

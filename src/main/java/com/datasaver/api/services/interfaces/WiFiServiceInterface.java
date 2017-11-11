@@ -1,5 +1,7 @@
 package com.datasaver.api.services.interfaces;
 
+import java.util.Collection;
+
 import com.datasaver.api.domains.User;
 import com.datasaver.api.domains.WiFi;
 
@@ -15,4 +17,6 @@ public interface WiFiServiceInterface {
 	public WiFi findByMac(String mac);
 
 	public WiFi findMostRecentlyUsedByUidx(long uidx);
+
+	public Collection<WiFi> findListByUser(User user);
 }
