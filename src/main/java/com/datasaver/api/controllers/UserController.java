@@ -36,6 +36,7 @@ import com.datasaver.api.services.WiFiService;
 import com.datasaver.api.utils.auth.Auth;
 import com.datasaver.api.utils.auth.JWT;
 import com.datasaver.api.utils.log.ControllerLog;
+import com.datasaver.api.utils.mail.Mail;
 import com.datasaver.api.utils.password.Encryptor;
 import com.datasaver.api.utils.password.PasswordGenerator;
 import com.datasaver.api.utils.res.Strings;
@@ -52,6 +53,9 @@ public class UserController {
 
 	@Autowired
 	private WiFiService ws;
+
+	@Autowired
+	private Mail m;
 
 	@PostMapping("/sign/up")
 	@ControllerLog
@@ -71,7 +75,6 @@ public class UserController {
 		u.setPhoneNumber(suf.getPhoneNumber());
 		u.setEmail(suf.getEmail());
 		u.setPassword(Encryptor.process(suf.getPassword()));
-
 		us.save(u);
 
 		DefaultResponse dr = new DefaultResponse();
@@ -119,10 +122,14 @@ public class UserController {
 		}
 
 		String newPassword = PasswordGenerator.create();
+
+		if (!m.sendFromNoRely("[DataSaver] 비밀번호 찾기", "임시 비밀번호 : " + newPassword, u.getEmail())) {
+			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.FAIL_TO_SEND_EMAIL);
+			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.SERVICE_UNAVAILABLE);
+		}
+
 		u.setPassword(Encryptor.process(newPassword));
 		us.save(u);
-
-		// TODO : send email.
 
 		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);

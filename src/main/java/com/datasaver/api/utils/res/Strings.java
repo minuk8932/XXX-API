@@ -14,4 +14,5 @@ public class Strings {
 	public static final String CAN_NOT_FOUND_ANY_DEVICES = "Can not found any devices.";
 	public static final String CAN_NOT_FOUND_ANY_WIFI = "Can not found any WiFi.";
 	public static final String CAN_NOT_MAKE_FRIEND_RELATION_YOURSELF = "Can not make friend relation yourself.";
+	public static final String FAIL_TO_SEND_EMAIL = "Fail to send email.";
 }
