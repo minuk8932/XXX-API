@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.datasaver.api.domains.QNA;
-import com.datasaver.api.domains.Notice;
 
 @Repository
 public interface QNARepository extends JpaRepository<QNA, Long> {

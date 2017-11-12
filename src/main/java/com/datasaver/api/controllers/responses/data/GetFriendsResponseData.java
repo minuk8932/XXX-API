@@ -31,15 +31,15 @@ public class GetFriendsResponseData {
 	public static class MyProfile {
 		private long idx;
 		private String name;
-		private String profileImg;
+		private String profileImgUrl;
 
 		public MyProfile() {
 		}
 
-		public MyProfile(long idx, String name, String profileImg) {
+		public MyProfile(long idx, String name, String profileImgUrl) {
 			this.idx = idx;
 			this.name = name;
-			this.profileImg = profileImg;
+			this.profileImgUrl = profileImgUrl;
 		}
 
 		public long getIdx() {
@@ -58,28 +58,28 @@ public class GetFriendsResponseData {
 			this.name = name;
 		}
 
-		public String getProfileImg() {
-			return profileImg;
+		public String getProfileImgUrl() {
+			return profileImgUrl;
 		}
 
-		public void setProfileImg(String profileImg) {
-			this.profileImg = profileImg;
+		public void setProfileImgUrl(String profileImgUrl) {
+			this.profileImgUrl = profileImgUrl;
 		}
 	}
 
 	public static class Friend {
 		private long idx;
 		private String name;
-		private String profileImg;
+		private String profileImgUrl;
 		private MostRecentlyUsedWiFi mostRecentlyUsedWiFi;
 
 		public Friend() {
 		}
 
-		public Friend(long idx, String name, String profileImg, MostRecentlyUsedWiFi mostRecentlyUsedWiFi) {
+		public Friend(long idx, String name, String profileImgUrl, MostRecentlyUsedWiFi mostRecentlyUsedWiFi) {
 			this.idx = idx;
 			this.name = name;
-			this.profileImg = profileImg;
+			this.profileImgUrl = profileImgUrl;
 			this.mostRecentlyUsedWiFi = mostRecentlyUsedWiFi;
 		}
 
@@ -99,12 +99,12 @@ public class GetFriendsResponseData {
 			this.name = name;
 		}
 
-		public String getProfileImg() {
-			return profileImg;
+		public String getProfileImgUrl() {
+			return profileImgUrl;
 		}
 
-		public void setProfileImg(String profileImg) {
-			this.profileImg = profileImg;
+		public void setProfileImgUrl(String profileImgUrl) {
+			this.profileImgUrl = profileImgUrl;
 		}
 
 		public MostRecentlyUsedWiFi getMostRecentlyUsedWiFi() {

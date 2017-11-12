@@ -158,7 +158,17 @@ public class UserController {
 	public @ResponseBody ResponseEntity<DefaultResponse> getFriendList(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u) {
 		u = us.findByIdx(u.getIdx());
-		MyProfile mp = new MyProfile(u.getIdx(), u.getName(), u.getProfileImg());
+
+		S3 s3 = new S3(ac.getAccessKeyId(), ac.getAccessSecretKey(), ac.getEndPoint());
+
+		String myProfileImg = u.getProfileImg();
+		String myProfileImgUrl = null;
+
+		if (myProfileImg != null) {
+			myProfileImgUrl = s3.getFileUrl(ac.getUserProfileImgBucketName(), myProfileImg).toString();
+		}
+
+		MyProfile mp = new MyProfile(u.getIdx(), u.getName(), myProfileImgUrl);
 
 		Collection<FindFriendsView> ffvs = us.findFriendsByIdx(u.getIdx());
 		int ffvsSize = ffvs.size();
@@ -167,13 +177,19 @@ public class UserController {
 
 		for (FindFriendsView ffv : ffvs) {
 			WiFi w = ws.findMostRecentlyUsedByUidx(ffv.getIdx());
+			String profileImg = ffv.getProfileImg();
+			String profileImgUrl = null;
+
+			if (profileImg != null) {
+				profileImgUrl = s3.getFileUrl(ac.getUserProfileImgBucketName(), profileImg).toString();
+			}
 
 			if (w == null) {
-				fs[i] = new Friend(ffv.getIdx(), ffv.getName(), ffv.getProfileImg(), null);
+				fs[i] = new Friend(ffv.getIdx(), ffv.getName(), profileImgUrl, null);
 			}
 
 			else {
-				fs[i] = new Friend(ffv.getIdx(), ffv.getName(), ffv.getProfileImg(),
+				fs[i] = new Friend(ffv.getIdx(), ffv.getName(), profileImgUrl,
 						new Friend.MostRecentlyUsedWiFi(w.getSsid(), w.getLatitude(), w.getLongitude()));
 			}
 
