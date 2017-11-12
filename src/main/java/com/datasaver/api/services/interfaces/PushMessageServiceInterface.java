@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import com.datasaver.api.domains.PushMessage;
 import com.datasaver.api.domains.User;
+import com.datasaver.api.domains.WiFi;
 import com.datasaver.api.payloads.AddNoticePayload;
 import com.datasaver.api.payloads.UpdateNoticePayload;
 import com.datasaver.api.payloads.WiFiRequestPayload;
@@ -14,9 +15,10 @@ public interface PushMessageServiceInterface {
 
 	public void sendUpdateNoticeMsg(UpdateNoticePayload updateNoticePayload);
 
-	public boolean sendWiFiRequestMsg(User user, WiFiRequestPayload wifiRequestPayload);
+	public boolean sendWiFiRequestMsg(User owner, User requester, WiFi wifi, WiFiRequestPayload wifiRequesPayload);
 
-	public boolean sendWiFiRequestResultMsg(User user, WiFiRequestResultPayload wifiRequestResultPayload);
+	public boolean sendWiFiRequestResultMsg(User requester, WiFi wifi,
+			WiFiRequestResultPayload wifiRequestResultPayload);
 
 	public void save(PushMessage pushMessage);
 

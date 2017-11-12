@@ -14,7 +14,7 @@ public class WiFiRequestResultPayload {
 		this.wifi = wifi;
 	}
 
-	public boolean isStatus() {
+	public boolean getStatus() {
 		return status;
 	}
 

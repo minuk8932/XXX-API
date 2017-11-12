@@ -1,4 +1,4 @@
-package com.datasaver.api.utils.config;
+package com.datasaver.api.utils.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

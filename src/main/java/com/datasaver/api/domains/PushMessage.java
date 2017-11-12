@@ -28,7 +28,7 @@ public class PushMessage {
 	@Column(name = "payload", columnDefinition = "TEXT")
 	private String payload;
 
-	@Column(name = "log")
+	@Column(name = "log", columnDefinition = "TEXT")
 	private String log;
 
 	@Column(name = "isRead")

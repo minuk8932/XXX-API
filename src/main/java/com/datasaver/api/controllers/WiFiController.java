@@ -162,7 +162,7 @@ public class WiFiController {
 			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.UNAUTHORIZED);
 		}
 
-		if (!pms.sendWiFiRequestMsg(w.getUser(), new WiFiRequestPayload(myUidx, rf.getRequestWidx()))) {
+		if (!pms.sendWiFiRequestMsg(w.getUser(), u, w, new WiFiRequestPayload(myUidx, rf.getRequestWidx()))) {
 			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.FAIL_TO_SEND_PUSH_MESSAGE);
 			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.SERVICE_UNAVAILABLE);
 		}
@@ -194,6 +194,11 @@ public class WiFiController {
 
 		if (!status) {
 			wrrp = new WiFiRequestResultPayload(status, null);
+
+			if (!pms.sendWiFiRequestResultMsg(requester, w, wrrp)) {
+				DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.FAIL_TO_SEND_PUSH_MESSAGE);
+				return new ResponseEntity<DefaultResponse>(dr, HttpStatus.SERVICE_UNAVAILABLE);
+			}
 		}
 
 		else {
@@ -223,11 +228,11 @@ public class WiFiController {
 			ws.save(sharedWiFi);
 
 			wrrp = new WiFiRequestResultPayload(status, sharedWiFi);
-		}
 
-		if (!pms.sendWiFiRequestResultMsg(requester, wrrp)) {
-			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.FAIL_TO_SEND_PUSH_MESSAGE);
-			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.SERVICE_UNAVAILABLE);
+			if (!pms.sendWiFiRequestResultMsg(requester, sharedWiFi, wrrp)) {
+				DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.FAIL_TO_SEND_PUSH_MESSAGE);
+				return new ResponseEntity<DefaultResponse>(dr, HttpStatus.SERVICE_UNAVAILABLE);
+			}
 		}
 
 		DefaultResponse dr = new DefaultResponse();
