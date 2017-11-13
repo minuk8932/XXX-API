@@ -138,7 +138,7 @@ public class DeviceController {
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
 
-	@PostMapping("/log/Light")
+	@PostMapping("/log/light")
 	@Auth
 	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> addLightLog(@RequestHeader("Authorization") String token,
@@ -159,7 +159,7 @@ public class DeviceController {
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
 
-	@PostMapping("/log/Location")
+	@PostMapping("/log/location")
 	@Auth
 	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> addLocationLog(@RequestHeader("Authorization") String token,
@@ -182,7 +182,7 @@ public class DeviceController {
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
 
-	@PostMapping("/log/Noise")
+	@PostMapping("/log/noise")
 	@Auth
 	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> addNoiseLog(@RequestHeader("Authorization") String token,
@@ -203,7 +203,7 @@ public class DeviceController {
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
 
-	@PostMapping("/log/Ringer")
+	@PostMapping("/log/ringer")
 	@Auth
 	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> addRingerLog(@RequestHeader("Authorization") String token,
@@ -225,7 +225,7 @@ public class DeviceController {
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
 
-	@PostMapping("/log/Tilt")
+	@PostMapping("/log/tilt")
 	@Auth
 	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> addTiltLog(@RequestHeader("Authorization") String token,
