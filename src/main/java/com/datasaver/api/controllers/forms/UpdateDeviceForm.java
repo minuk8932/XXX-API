@@ -3,15 +3,15 @@ package com.datasaver.api.controllers.forms;
 import com.datasaver.api.domains.Device;
 import com.datasaver.api.domains.Device.Type;
 
-public class AddDeviceForm {
+public class UpdateDeviceForm {
 	private String token;
 	private Device.Type type;
 	private String uuid;
 
-	public AddDeviceForm() {
+	public UpdateDeviceForm() {
 	}
 
-	public AddDeviceForm(String token, Type type, String uuid) {
+	public UpdateDeviceForm(String token, Type type, String uuid) {
 		this.token = token;
 		this.type = type;
 		this.uuid = uuid;

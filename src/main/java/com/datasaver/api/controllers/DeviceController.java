@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.datasaver.api.controllers.forms.AddBaseStationLogForm;
 import com.datasaver.api.controllers.forms.AddBatteryLogForm;
-import com.datasaver.api.controllers.forms.AddDeviceForm;
+import com.datasaver.api.controllers.forms.UpdateDeviceForm;
 import com.datasaver.api.controllers.forms.AddLightLogForm;
 import com.datasaver.api.controllers.forms.AddLocationLogForm;
 import com.datasaver.api.controllers.forms.AddNoiseLogForm;
@@ -77,16 +77,16 @@ public class DeviceController {
 	@Auth
 	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> updateDevice(@RequestHeader("Authorization") String token,
-			@ApiIgnore User u, @RequestBody AddDeviceForm adf) {
+			@ApiIgnore User u, @RequestBody UpdateDeviceForm udf) {
 		Device d = ds.findByUser(u);
 
 		if (d != null)
 			ds.delete(d);
 
 		d = new Device();
-		d.setToken(adf.getToken());
-		d.setType(adf.getType());
-		d.setUuid(adf.getUuid());
+		d.setToken(udf.getToken());
+		d.setType(udf.getType());
+		d.setUuid(udf.getUuid());
 		d.setUser(u);
 		ds.save(d);
 
