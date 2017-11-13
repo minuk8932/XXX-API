@@ -53,7 +53,7 @@ public class WiFiController {
 	@PostMapping("")
 	@Auth
 	@ControllerLog
-	public @ResponseBody ResponseEntity<DefaultResponse> AddWiFi(@RequestHeader("Authorization") String token,
+	public @ResponseBody ResponseEntity<DefaultResponse> addWiFi(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @RequestBody AddWiFiForm awf) {
 		WiFi w = ws.findByUserNMac(u, awf.getMac());
 
