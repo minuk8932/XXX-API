@@ -84,7 +84,7 @@ public class WiFiController {
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
 
-	@PostMapping("/log/Connection")
+	@PostMapping("/log/connection")
 	@Auth
 	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> addWiFiConnectionLog(
