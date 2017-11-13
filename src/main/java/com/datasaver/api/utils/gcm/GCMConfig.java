@@ -1,4 +1,4 @@
-package com.datasaver.api.utils.fcm;
+package com.datasaver.api.utils.gcm;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -6,8 +6,8 @@ import org.springframework.context.annotation.PropertySource;
 
 @Configuration
 @PropertySource("classpath:application.properties")
-@ConfigurationProperties(prefix = "fcm")
-public class FCMConfig {
+@ConfigurationProperties(prefix = "gcm")
+public class GCMConfig {
 	private String apiKey;
 
 	public String getApiKey() {

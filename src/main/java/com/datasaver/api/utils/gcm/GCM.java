@@ -1,4 +1,4 @@
-package com.datasaver.api.utils.fcm;
+package com.datasaver.api.utils.gcm;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -11,12 +11,12 @@ import org.json.JSONObject;
 import com.datasaver.api.utils.res.Strings;
 import com.google.gson.Gson;
 
-public class FCM {
+public class GCM {
 	private static final String SERVER_URL = "https://gcm-http.googleapis.com/gcm/send";
 
 	private HttpURLConnection huc;
 
-	public FCM(String apiKey) {
+	public GCM(String apiKey) {
 		try {
 			huc = (HttpURLConnection) new URL(SERVER_URL).openConnection();
 			huc.setRequestProperty("Authorization", "key=" + apiKey);

@@ -19,8 +19,8 @@ import com.datasaver.api.payloads.WiFiRequestPayload;
 import com.datasaver.api.payloads.WiFiRequestResultPayload;
 import com.datasaver.api.repositories.PushMessageRepository;
 import com.datasaver.api.services.interfaces.PushMessageServiceInterface;
-import com.datasaver.api.utils.fcm.FCM;
-import com.datasaver.api.utils.fcm.FCMConfig;
+import com.datasaver.api.utils.gcm.GCM;
+import com.datasaver.api.utils.gcm.GCMConfig;
 import com.google.gson.Gson;
 
 @Service("PushMessageService")
@@ -34,7 +34,7 @@ public class PushMessageService implements PushMessageServiceInterface {
 	private UserService us;
 
 	@Autowired
-	private FCMConfig fc;
+	private GCMConfig fc;
 
 	@Autowired
 	private DeviceService ds;
@@ -48,7 +48,7 @@ public class PushMessageService implements PushMessageServiceInterface {
 			pm.setUser(u);
 			pm.setIsRead(false);
 
-			FCM fcm = new FCM(fc.getApiKey());
+			GCM gcm = new GCM(fc.getApiKey());
 			Device d = ds.findByUser(u);
 
 			if (d == null) {
@@ -56,7 +56,7 @@ public class PushMessageService implements PushMessageServiceInterface {
 			}
 
 			else {
-				JSONObject resJO = fcm.send("[DataSaver] 새로운 공지사항이 있어요.", addNoticePayload.getTitle(), addNoticePayload,
+				JSONObject resJO = gcm.send("[DataSaver] 새로운 공지사항이 있어요.", addNoticePayload.getTitle(), addNoticePayload,
 						d.getToken());
 
 				if (resJO != null) {
@@ -79,10 +79,23 @@ public class PushMessageService implements PushMessageServiceInterface {
 			pm.setUser(u);
 			pm.setIsRead(false);
 
-			FCM fcm = new FCM(fc.getApiKey());
-			String token = ds.findByUser(u).getToken();
-			pm.setLog(fcm.send("[DataSaver] 공지사항이 변경되었어요.", updateNoticePayload.getTitle(), updateNoticePayload, token)
-					.toString());
+			GCM gcm = new GCM(fc.getApiKey());
+			Device d = ds.findByUser(u);
+
+			if (d == null) {
+				pm.setStatus(Status.FAIL);
+			}
+
+			else {
+				JSONObject resJO = gcm.send("[DataSaver] 공지사항이 변경되었어요.", updateNoticePayload.getTitle(),
+						updateNoticePayload, d.getToken());
+
+				if (resJO != null) {
+					pm.setLog(resJO.toString());
+				}
+
+				pm.setStatus(Status.SUCCESS);
+			}
 
 			pm.setStatus(Status.SUCCESS);
 
@@ -98,12 +111,23 @@ public class PushMessageService implements PushMessageServiceInterface {
 		pm.setUser(owner);
 		pm.setIsRead(false);
 
-		FCM fcm = new FCM(fc.getApiKey());
-		String token = ds.findByUser(owner).getToken();
-		pm.setLog(fcm
-				.send("[DataSaver] WiFi 정보 공유 요청이 있어요.",
-						requester.getName() + "님이 " + wifi.getSsid() + " 정보 공유를 요청했어요.", wifiRequestPayload, token)
-				.toString());
+		GCM gcm = new GCM(fc.getApiKey());
+		Device d = ds.findByUser(owner);
+
+		if (d == null) {
+			pm.setStatus(Status.FAIL);
+		}
+
+		else {
+			JSONObject resJO = gcm.send("[DataSaver] WiFi 정보 공유 요청이 있어요.",
+					requester.getName() + "님이 " + wifi.getSsid() + " 정보 공유를 요청했어요.", wifiRequestPayload, d.getToken());
+
+			if (resJO != null) {
+				pm.setLog(resJO.toString());
+			}
+
+			pm.setStatus(Status.SUCCESS);
+		}
 
 		pm.setStatus(Status.SUCCESS);
 
@@ -121,17 +145,31 @@ public class PushMessageService implements PushMessageServiceInterface {
 		pm.setUser(requester);
 		pm.setIsRead(false);
 
-		FCM fcm = new FCM(fc.getApiKey());
-		String token = ds.findByUser(requester).getToken();
+		GCM gcm = new GCM(fc.getApiKey());
+		Device d = ds.findByUser(requester);
+
+		if (d == null) {
+			pm.setStatus(Status.FAIL);
+		}
 
 		if (wifiRequestResultPayload.getStatus()) {
-			pm.setLog(fcm.send("[DataSaver] WiFi 정보 공유를 허락 받았어요.", wifi.getSsid() + " 정보를 추가했어요.",
-					wifiRequestResultPayload, token).toString());
+			JSONObject resJO = gcm.send("[DataSaver] WiFi 정보 공유를 허락 받았어요.", wifi.getSsid() + " 정보를 추가했어요.",
+					wifiRequestResultPayload, d.getToken());
+
+			if (resJO != null) {
+				pm.setLog(resJO.toString());
+			}
+
+			pm.setStatus(Status.SUCCESS);
 		}
 
 		else {
-			pm.setLog(fcm.send("[DataSaver] WiFi 정보 공유를 거절당했어요.", wifi.getSsid() + " 정보 공유를 거절당했어요.",
-					wifiRequestResultPayload, token).toString());
+			JSONObject resJO = gcm.send("[DataSaver] WiFi 정보 공유를 거절당했어요.", wifi.getSsid() + " 정보 공유를 거절당했어요.",
+					wifiRequestResultPayload, d.getToken());
+
+			if (resJO != null) {
+				pm.setLog(resJO.toString());
+			}
 		}
 
 		pm.setStatus(Status.SUCCESS);
