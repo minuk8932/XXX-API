@@ -106,7 +106,7 @@ public class QNAController {
 	@GetMapping("/list/{page}")
 	@Auth
 	@ControllerLog
-	public @ResponseBody ResponseEntity<DefaultResponse> getNoticeList(@RequestHeader("Authorization") String token,
+	public @ResponseBody ResponseEntity<DefaultResponse> getQNAList(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @PathVariable("page") int page) {
 		DefaultResponse dr = new DefaultResponse(qs.findList(page));
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
