@@ -15,10 +15,10 @@ public class QNA {
 	@Column(name = "idx")
 	private long idx;
 
-	@Column(name = "question")
+	@Column(name = "question", columnDefinition = "TEXT")
 	private String question;
 
-	@Column(name = "answer")
+	@Column(name = "answer", columnDefinition = "TEXT")
 	private String answer;
 
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")

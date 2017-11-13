@@ -9,27 +9,23 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Notice {
+public class TermOfService {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idx")
 	private long idx;
-
-	@Column(name = "title")
-	private String title;
-
+	
 	@Column(name = "contents", columnDefinition = "TEXT")
 	private String contents;
-
+	
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
-
-	public Notice() {
+	
+	public TermOfService() {
 	}
 
-	public Notice(long idx, String title, String contents, Timestamp ts) {
+	public TermOfService(long idx, String contents, Timestamp ts) {
 		this.idx = idx;
-		this.title = title;
 		this.contents = contents;
 		this.ts = ts;
 	}
@@ -40,14 +36,6 @@ public class Notice {
 
 	public void setIdx(long idx) {
 		this.idx = idx;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
 	}
 
 	public String getContents() {
