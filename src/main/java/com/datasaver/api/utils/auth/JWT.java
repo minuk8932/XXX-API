@@ -14,8 +14,8 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 public class JWT {
 	private static final Logger LOG = Logger.getLogger(JWT.class.getSimpleName());
 
-	private static final String ISSUER = "hitit";
-	private static final String SECRET = "tmvmfld!";
+	private static final String ISSUER = "DataSaver";
+	private static final String SECRET = "DataSaver-JWT!";
 
 	public static String create(final long uidx) {
 		try {
