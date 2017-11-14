@@ -24,7 +24,7 @@ public class CheckController {
 	@Autowired
 	private UserService us;
 
-	@GetMapping("/email/{email}")
+	@GetMapping("/email/{email:.+}")
 	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> checkEmail(@PathVariable("email") String email) {
 		if (us.findByEmail(email) == null) {

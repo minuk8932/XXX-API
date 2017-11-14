@@ -15,7 +15,7 @@ apply plugin: 'application'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 
-group = 'me.DataSaver.api'
+group = 'com.datasaver.api'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
@@ -44,7 +44,7 @@ dependencies {
 
 jar {
     manifest {
-        attributes  'Title': 'DataSaver', 'Version': '1.0.0', 'Main-Class': 'me.datasaver.api.DataSaverApplication'
+        attributes  'Title': 'DataSaver', 'Version': '1.0.0', 'Main-Class': 'com.datasaver.api.DataSaverApplication'
     }
     archiveName 'DataSaver.jar'
     dependsOn configurations.runtime
