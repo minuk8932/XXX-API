@@ -1,13 +1,11 @@
 package com.datasaver.api.services;
 
-import java.util.Arrays;
 import java.util.Collection;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -73,11 +71,6 @@ public class UserService implements UserServiceInterface {
 	}
 
 	@Override
-	public Collection<User> findByIdxs(long[] idxs) {
-		return ur.findByIdxs(Arrays.asList(ArrayUtils.toObject(idxs)));
-	}
-
-	@Override
 	public FindUserProfileView findUserProfileByIdx(long idx) {
 		Query q = em.createNativeQuery(
 				"SELECT u.idx, u.name, u.phoneNumber, u.profileImg FROM User AS u WHERE u.idx = ?",
@@ -106,5 +99,10 @@ public class UserService implements UserServiceInterface {
 	@Override
 	public Collection<User> findAll() {
 		return ur.findAll();
+	}
+
+	@Override
+	public Collection<User> findListByPhoneNumbers(String[] phoneNumbers) {
+		return ur.findListByPhoneNumbers(phoneNumbers);
 	}
 }

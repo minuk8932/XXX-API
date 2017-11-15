@@ -25,6 +25,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	@Query("SELECT u FROM User AS u WHERE u.name = ?1 AND u.phoneNumber = ?2 AND u.email = ?3")
 	public User findByNameNPhoneNumberNEmail(String name, String phoneNumber, String email);
 
-	@Query("SELECT u FROM User AS u WHERE u.idx IN ?1")
-	public Collection<User> findByIdxs(Collection<Long> idxs);
+	@Query("SELECT u FROM User AS u WHERE u.phoneNumber IN ?1")
+	public Collection<User> findListByPhoneNumbers(String[] phoneNumbers);
 }

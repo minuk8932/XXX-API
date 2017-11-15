@@ -21,8 +21,6 @@ public interface UserServiceInterface {
 
 	public void delete(User user);
 
-	public Collection<User> findByIdxs(long[] idxs);
-
 	public Collection<FindFriendsView> findFriendsByIdx(long idx);
 
 	public FindUserProfileView findUserProfileByIdx(long idx);
@@ -30,4 +28,6 @@ public interface UserServiceInterface {
 	public boolean isFriend(long uidx, long fuidx);
 
 	public Collection<User> findAll();
+
+	public Collection<User> findListByPhoneNumbers(String[] phoneNumbers);
 }

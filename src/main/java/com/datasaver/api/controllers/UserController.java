@@ -207,17 +207,17 @@ public class UserController {
 	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> updateFriendList(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @RequestBody UpdateFriendsForm uff) {
-		long[] fuidxs = uff.getFuidxs();
-		long uidx = u.getIdx();
+		String myPhoneNumber = u.getPhoneNumber();
+		String[] phoneNumbers = uff.getPhoneNumbers();
 
-		for (long fuidx : fuidxs) {
-			if (fuidx == uidx) {
+		for (String phoneNumber : phoneNumbers) {
+			if (myPhoneNumber == phoneNumber) {
 				DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.CAN_NOT_MAKE_FRIEND_RELATION_YOURSELF);
 				return new ResponseEntity<DefaultResponse>(dr, HttpStatus.SERVICE_UNAVAILABLE);
 			}
 		}
 
-		Collection<User> friends = us.findByIdxs(uff.getFuidxs());
+		Collection<User> friends = us.findListByPhoneNumbers(phoneNumbers);
 
 		if (friends.size() == 0) {
 			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.CAN_NOT_FOUND_USER);

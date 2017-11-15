@@ -1,20 +1,20 @@
 package com.datasaver.api.controllers.forms;
 
 public class UpdateFriendsForm {
-	private long[] fuidxs;
+	private String[] phoneNumbers;
 
 	public UpdateFriendsForm() {
 	}
 
-	public UpdateFriendsForm(long[] fuidxs) {
-		this.fuidxs = fuidxs;
+	public UpdateFriendsForm(String[] phoneNumbers) {
+		this.phoneNumbers = phoneNumbers;
 	}
 
-	public long[] getFuidxs() {
-		return fuidxs;
+	public String[] getPhoneNumbers() {
+		return phoneNumbers;
 	}
 
-	public void setFuidxs(long[] fuidxs) {
-		this.fuidxs = fuidxs;
+	public void setPhoneNumbers(String[] phoneNumbers) {
+		this.phoneNumbers = phoneNumbers;
 	}
 }
