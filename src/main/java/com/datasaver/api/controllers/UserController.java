@@ -247,7 +247,8 @@ public class UserController {
 		GetProfileResponseData.MostRecentlyUsedWiFi mruw = null;
 
 		if (w != null) {
-			mruw = new GetProfileResponseData.MostRecentlyUsedWiFi(w.getSsid(), w.getLatitude(), w.getLongitude());
+			mruw = new GetProfileResponseData.MostRecentlyUsedWiFi(w.getIdx(), w.getSsid(), w.getLatitude(),
+					w.getLongitude());
 		}
 
 		FindUserProfileView fupv = us.findUserProfileByIdx(idx);

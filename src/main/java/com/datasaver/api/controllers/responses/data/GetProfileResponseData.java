@@ -60,6 +60,7 @@ public class GetProfileResponseData {
 	}
 
 	public static class MostRecentlyUsedWiFi {
+		private long idx;
 		private String ssid;
 		private double latitude;
 		private double longitude;
@@ -67,10 +68,19 @@ public class GetProfileResponseData {
 		public MostRecentlyUsedWiFi() {
 		}
 
-		public MostRecentlyUsedWiFi(String ssid, double latitude, double longitude) {
+		public MostRecentlyUsedWiFi(long idx, String ssid, double latitude, double longitude) {
+			this.idx = idx;
 			this.ssid = ssid;
 			this.latitude = latitude;
 			this.longitude = longitude;
+		}
+
+		public long getIdx() {
+			return idx;
+		}
+
+		public void setIdx(long idx) {
+			this.idx = idx;
 		}
 
 		public String getSsid() {
