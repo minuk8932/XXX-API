@@ -19,7 +19,8 @@ Total Link: [DataSaver](https://github.com/DataSaver-Dev)
 
 API
 ---
-현 프로젝트는 Eclipse 기반 개발환경 [STS](http://spring.io/tools/sts)(Spring Tool Suite)를 통해 RESTful API로 설계 되었습니다.
+
+현 프로젝트는 Eclipse 기반 개발환경 [STS](http://spring.io/tools/sts)(Spring Tool Suite)를 통해 RESTful API로 설계 되었습니다.<br><br>
 
 
 **Package 및 class 구성:**
