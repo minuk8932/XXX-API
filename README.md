@@ -5,7 +5,7 @@ DataSaver - API
 
 **DataSaver?** 
 
-* DataSaver는 server 에서 Log 정보를 받아와  **자동으로 WiFi를 연결** 시키는 스마트폰 앱으로, 사용자의 통신비 절감을 목적으로 고안되었습니다.
+* DataSaver는 server 에서 Log 정보를 받아와  **자동으로 WiFi를 연결** 시키는 스마트폰 앱으로,<br> 사용자의 통신비 절감을 목적으로 고안되었습니다.
 
 * 또한, 지인과의 WiFi 정보 공유 서비스를 제공합니다.
 
@@ -24,14 +24,14 @@ API
 
 **Package 및 class 구성:**
 
-패키지는 이와 같이 구성되어 있으며, 각 패키지 안에는 필요한
+패키지는 이와 같이 구성되어 있으며, 각 패키지 안에는 필요한<br>
 **form**, **response data**, **view** 등이 정의 되어있습니다.
 
 ![API-Structure](http://postfiles10.naver.net/MjAxNzExMTZfMjIz/MDAxNTEwODExNTA1NTQx.KTpnSqkJ0LVjlXwldaQkfwig7pPTvTw-tv_4_9bKvaUg.7Vucy-fZslidrdMgl0_WNfQ7_MMJBpyWZZFYQFIv9dYg.PNG.minuk8932/DataSaver_API_Structure.png?type=w773)
 
 <br>
 
-**Controller** 패키지 내의 **UserController** 일부 입니다.
+**Controller** 패키지 내의 **UserController** 일부 입니다.<br>
 각종 **annotation**을 이용해 **RESTful API**를 구성한 모습 입니다.
 
 ![DataSaver_codeEx](http://postfiles4.naver.net/MjAxNzExMTZfMTgy/MDAxNTEwODEzNzgzNTQw.Ac9G7KmVvkElH2Avy-G0a6ONY9eWADYufJAjpZJCOeEg.Ly_uidoRAr-p7Jg3169-JkgYzGvUnk5C0DHBZuxNwBcg.PNG.minuk8932/DataSaver_codeEx.png?type=w773)
