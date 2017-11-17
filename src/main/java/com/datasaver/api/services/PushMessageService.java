@@ -5,6 +5,8 @@ import java.util.Collection;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.datasaver.api.domains.Device;
@@ -191,6 +193,6 @@ public class PushMessageService implements PushMessageServiceInterface {
 
 	@Override
 	public Collection<PushMessage> findListByUser(User user, int page) {
-		return pmr.findListByUser(user, new PageRequest(page, PAGE_SIZE)).getContent();
+		return pmr.findListByUser(user, new PageRequest(page, PAGE_SIZE, new Sort(Direction.DESC, "ts"))).getContent();
 	}
 }
