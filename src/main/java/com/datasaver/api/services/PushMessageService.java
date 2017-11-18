@@ -2,6 +2,9 @@ package com.datasaver.api.services;
 
 import java.util.Collection;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -41,6 +44,9 @@ public class PushMessageService implements PushMessageServiceInterface {
 	@Autowired
 	private DeviceService ds;
 
+	@Autowired
+	private EntityManager em;
+
 	@Override
 	public void sendAddNoticeMsg(AddNoticePayload addNoticePayload) {
 		for (User u : us.findAll()) {
@@ -58,8 +64,8 @@ public class PushMessageService implements PushMessageServiceInterface {
 			}
 
 			else {
-				JSONObject resJO = gcm.send("[DataSaver] 새로운 공지사항이 있어요.", addNoticePayload.getTitle(), addNoticePayload,
-						d.getToken());
+				JSONObject resJO = gcm.send("[DataSaver] 새로운 공지사항이 있어요.", addNoticePayload.getTitle(),
+						getUnreadCounts(u), addNoticePayload, d.getToken());
 
 				if (resJO != null) {
 					pm.setLog(resJO.toString());
@@ -90,7 +96,7 @@ public class PushMessageService implements PushMessageServiceInterface {
 
 			else {
 				JSONObject resJO = gcm.send("[DataSaver] 공지사항이 변경되었어요.", updateNoticePayload.getTitle(),
-						updateNoticePayload, d.getToken());
+						getUnreadCounts(u), updateNoticePayload, d.getToken());
 
 				if (resJO != null) {
 					pm.setLog(resJO.toString());
@@ -122,7 +128,8 @@ public class PushMessageService implements PushMessageServiceInterface {
 
 		else {
 			JSONObject resJO = gcm.send("[DataSaver] WiFi 정보 공유 요청이 있어요.",
-					requester.getName() + "님이 " + wifi.getSsid() + " 정보 공유를 요청했어요.", wifiRequestPayload, d.getToken());
+					requester.getName() + "님이 " + wifi.getSsid() + " 정보 공유를 요청했어요.", getUnreadCounts(owner),
+					wifiRequestPayload, d.getToken());
 
 			if (resJO != null) {
 				pm.setLog(resJO.toString());
@@ -156,7 +163,7 @@ public class PushMessageService implements PushMessageServiceInterface {
 
 		if (wifiRequestResultPayload.getStatus()) {
 			JSONObject resJO = gcm.send("[DataSaver] WiFi 정보 공유를 허락 받았어요.", wifi.getSsid() + " 정보를 추가했어요.",
-					wifiRequestResultPayload, d.getToken());
+					getUnreadCounts(requester), wifiRequestResultPayload, d.getToken());
 
 			if (resJO != null) {
 				pm.setLog(resJO.toString());
@@ -167,7 +174,7 @@ public class PushMessageService implements PushMessageServiceInterface {
 
 		else {
 			JSONObject resJO = gcm.send("[DataSaver] WiFi 정보 공유를 거절당했어요.", wifi.getSsid() + " 정보 공유를 거절당했어요.",
-					wifiRequestResultPayload, d.getToken());
+					getUnreadCounts(requester), wifiRequestResultPayload, d.getToken());
 
 			if (resJO != null) {
 				pm.setLog(resJO.toString());
@@ -194,5 +201,13 @@ public class PushMessageService implements PushMessageServiceInterface {
 	@Override
 	public Collection<PushMessage> findListByUser(User user, int page) {
 		return pmr.findListByUser(user, new PageRequest(page, PAGE_SIZE, new Sort(Direction.DESC, "ts"))).getContent();
+	}
+
+	@Override
+	public int getUnreadCounts(User user) {
+		Query q = em.createNativeQuery("SELECT * FROM PushMessage WHERE uidx = ? AND isRead = 0", PushMessage.class);
+		q.setParameter(1, user.getIdx());
+
+		return q.getResultList().size();
 	}
 }

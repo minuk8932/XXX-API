@@ -25,4 +25,6 @@ public interface PushMessageServiceInterface {
 	public PushMessage findByIdx(long idx);
 
 	public Collection<PushMessage> findListByUser(User user, int page);
+
+	public int getUnreadCounts(User user);
 }

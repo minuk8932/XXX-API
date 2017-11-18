@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.datasaver.api.controllers.responses.DefaultResponse;
 import com.datasaver.api.controllers.responses.DefaultResponse.Status;
 import com.datasaver.api.controllers.responses.data.GetPushMessageResponseData;
+import com.datasaver.api.controllers.responses.data.ReadResponseData;
 import com.datasaver.api.domains.PushMessage;
 import com.datasaver.api.domains.User;
 import com.datasaver.api.payloads.AddNoticePayload;
@@ -96,7 +97,7 @@ public class PushMessageController {
 		pm.setIsRead(true);
 		pms.save(pm);
 
-		DefaultResponse dr = new DefaultResponse();
+		DefaultResponse dr = new DefaultResponse(new ReadResponseData(pms.getUnreadCounts(u)));
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
 }

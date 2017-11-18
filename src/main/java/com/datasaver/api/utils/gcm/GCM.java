@@ -28,7 +28,7 @@ public class GCM {
 		}
 	}
 
-	public JSONObject send(String title, String contents, Object payload, String token) {
+	public JSONObject send(String title, String contents, int unreadCounts, Object payload, String token) {
 		if (huc == null) {
 			System.out.println(Strings.CAN_NOT_CREATE_HTTP_URL_CONNECTION);
 
@@ -36,7 +36,7 @@ public class GCM {
 		}
 
 		try {
-			requestToServer(createMsg(title, contents, payload, token));
+			requestToServer(createMsg(title, contents, unreadCounts, payload, token));
 
 			return responseFromServer();
 		} catch (Exception e) {
@@ -75,30 +75,27 @@ public class GCM {
 		}
 	}
 
-	private JSONObject createDataJO(String title, String contents, Object payload) {
+	private JSONObject createDataJO(String title, String contents, int unreadCounts, Object payload) {
 		try {
 			JSONObject dataJO = new JSONObject(new Gson().toJson(payload));
 			dataJO.put("title", title);
 			dataJO.put("contents", contents);
+			dataJO.put("unreadCounts", unreadCounts);
 
 			return dataJO;
 		} catch (Exception e) {
-			System.out.println("에러 에바야3..." + e.getMessage());
-
 			return null;
 		}
 	}
 
-	private JSONObject createMsg(String title, String contents, Object payload, String token) {
+	private JSONObject createMsg(String title, String contents, int unreadCounts, Object payload, String token) {
 		try {
 			JSONObject msgJO = new JSONObject();
-			msgJO.put("data", createDataJO(title, contents, payload));
+			msgJO.put("data", createDataJO(title, contents, unreadCounts, payload));
 			msgJO.put("to", token);
 
 			return msgJO;
 		} catch (Exception e) {
-			System.out.println("에러 에바야4..." + e.getMessage());
-
 			return null;
 		}
 	}
