@@ -13,7 +13,6 @@ import com.datasaver.api.controllers.responses.DefaultResponse;
 import com.datasaver.api.controllers.responses.data.CheckEmailResponseData;
 import com.datasaver.api.controllers.responses.data.CheckPhoneNumberResponseData;
 import com.datasaver.api.services.UserService;
-import com.datasaver.api.utils.log.ControllerLog;
 
 import io.swagger.annotations.Api;
 
@@ -25,7 +24,6 @@ public class CheckController {
 	private UserService us;
 
 	@GetMapping("/email/{email:.+}")
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> checkEmail(@PathVariable("email") String email) {
 		if (us.findByEmail(email) == null) {
 			DefaultResponse dr = new DefaultResponse(new CheckEmailResponseData(false));
@@ -37,7 +35,6 @@ public class CheckController {
 	}
 
 	@GetMapping("/phoneNumber/{phoneNumber}")
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> checkPhoneNumber(
 			@PathVariable("phoneNumber") String phoneNumber) {
 		if (us.findByPhoneNumber(phoneNumber) == null) {

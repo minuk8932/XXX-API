@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.datasaver.api.controllers.responses.DefaultResponse;
 import com.datasaver.api.services.TermOfServiceService;
-import com.datasaver.api.utils.log.ControllerLog;
 
 import io.swagger.annotations.Api;
 
@@ -22,7 +21,6 @@ public class TermOfServiceController {
 	private TermOfServiceService ts;
 
 	@GetMapping("/lastest")
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> getLastestTermOfService() {
 		DefaultResponse dr = new DefaultResponse(ts.findLastest());
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);

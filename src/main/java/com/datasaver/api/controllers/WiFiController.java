@@ -28,7 +28,6 @@ import com.datasaver.api.services.UserService;
 import com.datasaver.api.services.WiFiConnectionLogService;
 import com.datasaver.api.services.WiFiService;
 import com.datasaver.api.utils.auth.Auth;
-import com.datasaver.api.utils.log.ControllerLog;
 import com.datasaver.api.utils.res.Strings;
 
 import io.swagger.annotations.Api;
@@ -52,7 +51,6 @@ public class WiFiController {
 
 	@PostMapping("")
 	@Auth
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> addWiFi(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @RequestBody AddWiFiForm awf) {
 		WiFi w = ws.findByUserNMac(u, awf.getMac());
@@ -86,7 +84,6 @@ public class WiFiController {
 
 	@PostMapping("/log/connection")
 	@Auth
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> addWiFiConnectionLog(
 			@RequestHeader("Authorization") String token, @ApiIgnore User u,
 			@RequestBody AddWiFiConnectionLogForm awclf) {
@@ -121,7 +118,6 @@ public class WiFiController {
 
 	@GetMapping("/my/list")
 	@Auth
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> getMyWiFiList(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u) {
 		DefaultResponse dr = new DefaultResponse(ws.findMyListByUser(u));
@@ -130,7 +126,6 @@ public class WiFiController {
 
 	@GetMapping("/friend/{idx}/list")
 	@Auth
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> getFriendWiFiList(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @PathVariable("idx") long idx) {
 		if (!us.isFriend(u.getIdx(), idx)) {
@@ -144,7 +139,6 @@ public class WiFiController {
 
 	@PostMapping("/request")
 	@Auth
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> request(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @RequestBody RequestForm rf) {
 		WiFi w = ws.findByIdx(rf.getRequestWidx());
@@ -173,7 +167,6 @@ public class WiFiController {
 
 	@PostMapping("/response")
 	@Auth
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> response(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @RequestBody ResponseForm rf) {
 		WiFi w = ws.findByIdx(rf.getRequestWidx());

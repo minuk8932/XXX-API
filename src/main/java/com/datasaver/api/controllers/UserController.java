@@ -45,7 +45,6 @@ import com.datasaver.api.utils.auth.Auth;
 import com.datasaver.api.utils.auth.JWT;
 import com.datasaver.api.utils.aws.AmazonConfig;
 import com.datasaver.api.utils.aws.S3;
-import com.datasaver.api.utils.log.ControllerLog;
 import com.datasaver.api.utils.mail.Mail;
 import com.datasaver.api.utils.password.Encryptor;
 import com.datasaver.api.utils.password.PasswordGenerator;
@@ -74,7 +73,6 @@ public class UserController {
 	ServletContext sc;
 
 	@PostMapping("/sign/up")
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> signUp(@RequestBody SignUpForm suf) {
 		if (us.findByEmail(suf.getEmail()) != null) {
 			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.ALREADY_EXIST_EMAIL);
@@ -99,7 +97,6 @@ public class UserController {
 	}
 
 	@PostMapping("/sign/in")
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> signIn(@RequestBody SignInForm sif) {
 		User u = us.findByEmailNPassword(sif.getEmail(), Encryptor.process(sif.getPassword()));
 
@@ -114,7 +111,6 @@ public class UserController {
 
 	@DeleteMapping("/sign/out")
 	@Auth
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> signOut(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @RequestBody SignOutForm sof) {
 		if (us.findByEmailNPassword(sof.getEmail(), Encryptor.process(sof.getPassword())) == null) {
@@ -129,7 +125,6 @@ public class UserController {
 	}
 
 	@PutMapping("/find/password")
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> findPassword(@RequestBody FindPasswordForm fpf) {
 		User u = us.findByNameNPhoneNumberNEmail(fpf.getName(), fpf.getPhoneNumber(), fpf.getEmail());
 
@@ -203,7 +198,6 @@ public class UserController {
 
 	@PutMapping("/friend/list")
 	@Auth
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> updateFriendList(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @RequestBody UpdateFriendsForm uff) {
 		String myPhoneNumber = u.getPhoneNumber();
@@ -232,7 +226,6 @@ public class UserController {
 
 	@GetMapping("/profile/{idx}")
 	@Auth
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> getProfile(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @PathVariable("idx") long idx) {
 		long myIdx = u.getIdx();
@@ -268,7 +261,6 @@ public class UserController {
 
 	@PutMapping("/password")
 	@Auth
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> updatePassword(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @RequestBody UpdatePasswordForm upf) {
 		if (!Encryptor.process(upf.getOldPassword()).equals(u.getPassword())) {
@@ -285,7 +277,6 @@ public class UserController {
 
 	@PostMapping("/profileImg")
 	@Auth
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> updateProfileImg(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @RequestPart MultipartFile mf) {
 		if (!mf.getContentType().startsWith("image/")) {

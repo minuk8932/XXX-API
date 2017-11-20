@@ -25,7 +25,6 @@ import com.datasaver.api.payloads.UpdateNoticePayload;
 import com.datasaver.api.services.NoticeService;
 import com.datasaver.api.services.PushMessageService;
 import com.datasaver.api.utils.auth.Auth;
-import com.datasaver.api.utils.log.ControllerLog;
 import com.datasaver.api.utils.res.Strings;
 
 import io.swagger.annotations.Api;
@@ -43,7 +42,6 @@ public class NoticeController {
 
 	@PostMapping("")
 	@Auth(allowUserTypes = { User.Type.ADMINISTRATOR })
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> addNotice(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @RequestBody AddNoticeForm anf) {
 		Notice n = new Notice();
@@ -59,7 +57,6 @@ public class NoticeController {
 
 	@GetMapping("/{idx}")
 	@Auth
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> getNotice(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @PathVariable("idx") long idx) {
 		Notice n = ns.findByIdx(idx);
@@ -75,7 +72,6 @@ public class NoticeController {
 
 	@PutMapping("/{idx}")
 	@Auth(allowUserTypes = { User.Type.ADMINISTRATOR })
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> updateNotice(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @PathVariable("idx") long idx, @RequestBody UpdateNoticeForm unf) {
 		Notice n = ns.findByIdx(idx);
@@ -97,7 +93,6 @@ public class NoticeController {
 
 	@DeleteMapping("/{idx}")
 	@Auth(allowUserTypes = { User.Type.ADMINISTRATOR })
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> deleteNotice(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @PathVariable("idx") long idx) {
 		Notice n = ns.findByIdx(idx);
@@ -115,7 +110,6 @@ public class NoticeController {
 
 	@GetMapping("/list/{page}")
 	@Auth
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> getNoticeList(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @PathVariable("page") int page) {
 		DefaultResponse dr = new DefaultResponse(ns.findList(page));

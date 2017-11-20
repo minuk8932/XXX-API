@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.datasaver.api.controllers.forms.AddBaseStationLogForm;
 import com.datasaver.api.controllers.forms.AddBatteryLogForm;
-import com.datasaver.api.controllers.forms.UpdateDeviceForm;
 import com.datasaver.api.controllers.forms.AddLightLogForm;
 import com.datasaver.api.controllers.forms.AddLocationLogForm;
 import com.datasaver.api.controllers.forms.AddNoiseLogForm;
 import com.datasaver.api.controllers.forms.AddRingerLogForm;
 import com.datasaver.api.controllers.forms.AddTiltLogForm;
+import com.datasaver.api.controllers.forms.UpdateDeviceForm;
 import com.datasaver.api.controllers.responses.DefaultResponse;
 import com.datasaver.api.controllers.responses.DefaultResponse.Status;
 import com.datasaver.api.domains.Device;
@@ -39,7 +39,6 @@ import com.datasaver.api.services.DeviceRingerLogService;
 import com.datasaver.api.services.DeviceService;
 import com.datasaver.api.services.DeviceTiltLogService;
 import com.datasaver.api.utils.auth.Auth;
-import com.datasaver.api.utils.log.ControllerLog;
 import com.datasaver.api.utils.res.Strings;
 
 import io.swagger.annotations.Api;
@@ -75,7 +74,6 @@ public class DeviceController {
 
 	@PutMapping("")
 	@Auth
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> updateDevice(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @RequestBody UpdateDeviceForm udf) {
 		Device d = ds.findByUser(u);
@@ -96,7 +94,6 @@ public class DeviceController {
 
 	@PostMapping("/log/baseStation")
 	@Auth
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> addBaseStationLog(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @RequestBody AddBaseStationLogForm abslf) {
 		Device d = ds.findByUser(u);
@@ -118,7 +115,6 @@ public class DeviceController {
 
 	@PostMapping("/log/battery")
 	@Auth
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> addBatteryLog(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @RequestBody AddBatteryLogForm ablf) {
 		Device d = ds.findByUser(u);
@@ -140,7 +136,6 @@ public class DeviceController {
 
 	@PostMapping("/log/light")
 	@Auth
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> addLightLog(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @RequestBody AddLightLogForm alilf) {
 		Device d = ds.findByUser(u);
@@ -161,7 +156,6 @@ public class DeviceController {
 
 	@PostMapping("/log/location")
 	@Auth
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> addLocationLog(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @RequestBody AddLocationLogForm alolf) {
 		Device d = ds.findByUser(u);
@@ -184,7 +178,6 @@ public class DeviceController {
 
 	@PostMapping("/log/noise")
 	@Auth
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> addNoiseLog(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @RequestBody AddNoiseLogForm anlf) {
 		Device d = ds.findByUser(u);
@@ -205,7 +198,6 @@ public class DeviceController {
 
 	@PostMapping("/log/ringer")
 	@Auth
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> addRingerLog(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @RequestBody AddRingerLogForm arf) {
 		Device d = ds.findByUser(u);
@@ -227,7 +219,6 @@ public class DeviceController {
 
 	@PostMapping("/log/tilt")
 	@Auth
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> addTiltLog(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @RequestBody AddTiltLogForm atlf) {
 		Device d = ds.findByUser(u);

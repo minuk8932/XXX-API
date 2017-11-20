@@ -22,7 +22,6 @@ import com.datasaver.api.domains.QNA;
 import com.datasaver.api.domains.User;
 import com.datasaver.api.services.QNAService;
 import com.datasaver.api.utils.auth.Auth;
-import com.datasaver.api.utils.log.ControllerLog;
 import com.datasaver.api.utils.res.Strings;
 
 import io.swagger.annotations.Api;
@@ -34,10 +33,9 @@ import springfox.documentation.annotations.ApiIgnore;
 public class QNAController {
 	@Autowired
 	private QNAService qs;
-	
+
 	@PostMapping("")
 	@Auth(allowUserTypes = { User.Type.ADMINISTRATOR })
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> addQNA(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @RequestBody AddQNAForm aqf) {
 		QNA q = new QNA();
@@ -48,30 +46,28 @@ public class QNAController {
 		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/{idx}")
 	@Auth
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> getQNA(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @PathVariable("idx") long idx) {
 		QNA q = qs.findByIdx(idx);
-		
-		if(q == null) {
+
+		if (q == null) {
 			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.CAN_NOT_FOUND_ANY_QNA);
 			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.SERVICE_UNAVAILABLE);
 		}
-		
+
 		DefaultResponse dr = new DefaultResponse(q);
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
-	
+
 	@PutMapping("/{idx}")
 	@Auth(allowUserTypes = { User.Type.ADMINISTRATOR })
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> updateQNA(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @PathVariable("idx") long idx, @RequestBody UpdateQNAForm uqf) {
 		QNA q = qs.findByIdx(idx);
-		
+
 		if (q == null) {
 			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.CAN_NOT_FOUND_ANY_QNA);
 			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.SERVICE_UNAVAILABLE);
@@ -84,28 +80,26 @@ public class QNAController {
 		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping("/{idx}")
 	@Auth(allowUserTypes = { User.Type.ADMINISTRATOR })
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> deleteQNA(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @PathVariable("idx") long idx) {
 		QNA q = qs.findByIdx(idx);
-		
+
 		if (q == null) {
 			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.CAN_NOT_FOUND_ANY_QNA);
 			return new ResponseEntity<DefaultResponse>(dr, HttpStatus.SERVICE_UNAVAILABLE);
 		}
-		
+
 		qs.delete(q);
 
 		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/list/{page}")
 	@Auth
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> getQNAList(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @PathVariable("page") int page) {
 		DefaultResponse dr = new DefaultResponse(qs.findList(page));

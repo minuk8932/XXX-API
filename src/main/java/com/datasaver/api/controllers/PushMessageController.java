@@ -26,7 +26,6 @@ import com.datasaver.api.payloads.WiFiRequestPayload;
 import com.datasaver.api.payloads.WiFiRequestResultPayload;
 import com.datasaver.api.services.PushMessageService;
 import com.datasaver.api.utils.auth.Auth;
-import com.datasaver.api.utils.log.ControllerLog;
 import com.datasaver.api.utils.res.Strings;
 import com.google.gson.Gson;
 
@@ -42,7 +41,6 @@ public class PushMessageController {
 
 	@GetMapping("/list/{page}")
 	@Auth
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> getPushMessageList(
 			@RequestHeader("Authorization") String token, @ApiIgnore User u, @PathVariable("page") int page) {
 		Collection<PushMessage> pushMessages = pms.findListByUser(u, page);
@@ -80,7 +78,6 @@ public class PushMessageController {
 
 	@PutMapping("/read/{idx}")
 	@Auth
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> read(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u, @PathVariable("idx") long idx) {
 		PushMessage pm = pms.findByIdx(idx);
