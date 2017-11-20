@@ -154,7 +154,6 @@ public class UserController {
 
 	@GetMapping("/friend/list")
 	@Auth
-	@ControllerLog
 	public @ResponseBody ResponseEntity<DefaultResponse> getFriendList(@RequestHeader("Authorization") String token,
 			@ApiIgnore User u) {
 		u = us.findByIdx(u.getIdx());

@@ -49,7 +49,7 @@ public class WiFi {
 	private User user;
 
 	public enum AuthType {
-		NO(0), WEP64(1), WEP128(2), TKIP(3), AES(4), TKIP_AES(5), WPA2PSK_AES(6);
+		OPEN(0), WEP(1), WPA(2), WPA2(3);
 
 		private int code;
 
