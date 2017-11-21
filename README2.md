@@ -19,7 +19,7 @@ DataSaver는 다음과 같은 특징이 있습니다.
 <br>버젼 : 5.5.57
 
 # 의존성 목록
-의존성 목록은 아래와 같습니다. (자세한 사항은 build.gradle을 확인해주세요.)
+자세한 사항은 프로젝트 소스 내 build.gradle 파일을 확인해주세요.
 ```build.gradle
 dependencies {
   // spring-boot-starter
@@ -59,13 +59,15 @@ dependencies {
 git clone "https://github.com/DataSaver-Dev/DataSaver-API.git"
 ```
 2) STS 임포트
- - STS를 실행 후 패키지 익스플로러에서 마우스 우측 버튼을 눌러 임포트를 선택합니다.
- - 이후 뜨는 창에서 Gradle (STS) 파일 내의 Gradle (STS) project 선택하신 후 다음을 선택합니다.
- - 마지막으로 아래의 이미지와 같은 창이 뜨면 빌드 모델을 반드시 누르고, 잠시 기다린 후 완료를 선택합니다.
+- 패키지 익스플로러에서 마우스 우측 버튼을 눌러 임포트를 선택합니다.
+- 'Gradle (STS) &gt; Gradle (STS) project'을 선택하고 다음을 누릅니다.
+- 아래와 같은 팝업에서 빌드 모델을 반드시 누른 후 완료를 누릅니다.
 ![](https://github.com/DataSaver-Dev/DataSaver-API/blob/master/images/build_gradle_ex.png)
-3) application.properties 생성
-- DataSaver-API > src/main/java에서 해당 파일에서 소스 폴더명를 resources로 생성합니다.<br>
-- resources에 파일명을 application.properties로 생성합니다.<br>
+3) application.properties 파일 생성
+- application.properties 파일은 API 연동에 필요한 귀중한 정보(데이터베이스, 구글 웹 메일, 아마존 서비스 등)를 포함합니다.
+- 'DataSaver-API > src/main/java'에서 해당 파일에서 소스 폴더명를 resources로 생성합니다.
+- resources에 파일명을 application.properties로 생성합니다.
+- 아래와 같은 application.properties 파일을 자신의 개발 환경에 맞게 수정해서 저장합니다.
 ```application.properties
 asdf
 ```
