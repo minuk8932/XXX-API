@@ -72,8 +72,8 @@ git clone "https://github.com/DataSaver-Dev/DataSaver-API.git"
 asdf
 ```
 4) 실행 및 테스트<br>
-최초 실행시
-- DataSaver-API > src/main/java > DataSaverApplication.java 로 이동해서 실행합니다.
+- 최초 실행시<br>
+DataSaver-API > src/main/java > DataSaverApplication.java 로 이동해서 실행합니다.
 - 실행 후 해당 스웨거 웹페이지 화면
 ![](https://github.com/DataSaver-Dev/DataSaver-API/blob/master/images/intro.png)
 
