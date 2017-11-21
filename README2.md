@@ -79,7 +79,7 @@ DataSaver-API > src/main/java > DataSaverApplication.java 로 이동해서 실�
 
 
 # 모델 설계
-![](https://github.com/DataSaver-Dev/DataSaver-API/blob/master/images/datasaver_api_diagram.png)
+![](https://raw.githubusercontent.com/DataSaver-Dev/DataSaver-API/master/images/datasaver_api_diagram.png)
 
 # 프로젝트 구성
 **DataSaver**는 다음과 같이 구성되어 있습니다. 전체 코드를 보시려면 [DataSaver-API](https://github.com/DataSaver-Dev/DataSaver-API)를 보시면 됩니다.
