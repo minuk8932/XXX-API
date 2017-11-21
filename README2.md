@@ -92,30 +92,30 @@ DataSaver-API
 ├── LICENSE (프로젝트 라이센스 파일)
 ├── README.md (프로젝트 설명서 파일)
 ├── resources (디렉토리)
-├── src
+├── src (디렉토리)
 ├── resources (디렉토리)
 ├── src/main/java (소스코드 디렉토리)
 │   ├── com.datasaver.api (소스코드 전체 패키지)
 │   │   ├── DataSaverApplication.java (실행 Java 파일)
-│   │   ├── controllers (소스코드 Java 파일)
-│   │   │   ├── forms
-│   │   │   ├── responses
-│   │   │   │   ├── data
-│   │   ├── domains
-│   │   │   ├── views
-│   │   ├── payloads
-│   │   ├── repositories
-│   │   ├── services
-│   │   │   ├── interfaces
-│   │   ├── utils
-│   │   │   ├── auth
-│   │   │   ├── aws
-│   │   │   ├── gcm
-│   │   │   ├── log
-│   │   │   ├── mail
-│   │   │   ├── password
-│   │   │   ├── res
-│   │   │   ├── swagger
+│   │   ├── controllers (패키지)
+│   │   │   ├── forms (패키지)
+│   │   │   ├── responses (패키지)
+│   │   │   │   ├── data (패키지)
+│   │   ├── domains (패키지)
+│   │   │   ├── views (패키지)
+│   │   ├── payloads (패키지)
+│   │   ├── repositories (패키지)
+│   │   ├── services (패키지)
+│   │   │   ├── interfaces (패키지)
+│   │   ├── utils (패키지)
+│   │   │   ├── auth (패키지)
+│   │   │   ├── aws (패키지)
+│   │   │   ├── gcm (패키지)
+│   │   │   ├── log (패키지)
+│   │   │   ├── mail (패키지)
+│   │   │   ├── password (패키지)
+│   │   │   ├── res (패키지)
+│   │   │   ├── swagger (패키지)
 ...
 ```
 
