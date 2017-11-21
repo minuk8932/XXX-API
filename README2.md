@@ -119,6 +119,12 @@ DataSaver-API
 ...
 ```
 
+##### **참고:**  사용된 Tool의 설치, 정보 등의 추가 사항은 해당 *link*를 참고해 주십시오.
+[STS](http://spring.io/tools/sts) (Spring Tool Suite)
+<br>
+[Swagger](https://swagger.io/swagger-ui/)
+ 
+
 # 라이센스
 본 프로젝트는 Apache 2.0 License를 따릅니다. http://www.apache.org/licenses/LICENSE-2.0
 
