@@ -58,7 +58,9 @@ git clone "https://github.com/DataSaver-Dev/DataSaver-API.git"
 - 패키지 익스플로러에서 마우스 우측 버튼을 눌러 임포트를 선택합니다.
 - 'Gradle (STS) &gt; Gradle (STS) project'을 선택하고 다음을 누릅니다.
 - 아래와 같은 팝업에서 빌드 모델을 반드시 누른 후 완료를 누릅니다.
+
 ![](https://github.com/DataSaver-Dev/DataSaver-API/blob/master/images/build_gradle_ex.png)
+
 3) application.properties 파일 생성
 - application.properties 파일은 API 연동에 필요한 귀중한 정보(데이터베이스, 구글 웹 메일, 아마존 서비스 등)를 포함합니다.
 - 'DataSaver-API > src/main/java'에서 해당 파일에서 소스 폴더명를 resources로 생성합니다.
