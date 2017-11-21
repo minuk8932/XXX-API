@@ -9,14 +9,10 @@ DataSaver는 다음과 같은 특징이 있습니다.
 
 # 개발 환경
 개발 환경은 아래와 같습니다.
-> - **STS**
-<br>버젼 : 3.9.0.RELEASE
-> - **Amazon EC2**
-<br>참고 : https://aws.amazon.com/ko/ec2/?nc2=h_m1
-> - **Amazon S3**
-<br>참고 : https://aws.amazon.com/ko/s3/?nc2=h_m1
-> - **MySQL**
-<br>버젼 : 5.5.57
+> - **STS** 3.9.0.RELEASE 
+> - **Amazon EC2** (https://aws.amazon.com/ko/ec2/?nc2=h_m1)
+> - **Amazon S3** (https://aws.amazon.com/ko/s3/?nc2=h_m1)
+> - **MySQL** 5.5.57
 
 # 의존성 목록
 자세한 사항은 프로젝트 소스 내 build.gradle 파일을 확인해주세요.
