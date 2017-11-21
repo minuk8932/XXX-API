@@ -11,14 +11,14 @@
 
 # 개발 환경
 **DataSaver**의 개발 환경은 아래와 같습니다.
-> **STS**
-> - 버젼 : **java version "1.8.0_91"**
-> **Amazon EC2**
-> - 버젼 : **java version "1.8.0_91"**
-> **Amazon S3**
-> - 버젼 : **java version "1.8.0_91"**
-> **MySQL**
-> - 버젼 : **java version "1.8.0_91"**
+> - **STS**
+<br>버젼 : **STS version "3.9.0.RELEASE"**
+> - **Amazon EC2**
+<br>버젼 : **EC2 version ""**
+> - **Amazon S3**
+<br>버젼 : **S3 version ""**
+> - **MySQL**
+<br>버젼 : **MySQL version ""**
 
 # 의존성 목록
 **DataSaver**의 의존성 목록은 아래와 같습니다.
@@ -61,13 +61,22 @@ dependencies {
 git clone "https://github.com/DataSaver-Dev/DataSaver-API.git"
 ```
 2) STS 임포트
+ - STS를 실행 후 패키지 익스플로러에서 마우스 우측 버튼을 눌러 임포트를 선택합니다.
+ - 이후 뜨는 창에서 Gradle (STS) 파일 내의 Gradle (STS) project 선택하신 후 다음을 선택합니다.
+ - 마지막으로 아래의 이미지와 같은 창이 뜨면 빌드 모델을 반드시 누르고, 잠시 기다린 후 완료를 선택합니다.
+![](https://github.com/DataSaver-Dev/DataSaver-API/blob/master/images/build_gradle_ex.png)
 3) application.properties 생성
 ```application.properties
 asdf
 ```
-4) 실행 및 테스트
+4) 실행 및 테스트<br>
+- DataSaver-API > src/main/java에서 해당 파일에서 소스 폴더명를 resources로 생성합니다.<br>
+- resources에 파일명을 application.properties로 생성합니다.<br>
+- 
+
 
 # 모델 설계
+![](https://github.com/DataSaver-Dev/DataSaver-API/blob/master/images/datasaver_api_diagram.png)
 
 # 프로젝트 구성
 **DataSaver**는 다음과 같이 구성되어 있습니다. 코드를 보시려면 **src > boj_문제번호 > Main.java**를 보시면 됩니다.
