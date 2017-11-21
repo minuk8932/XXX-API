@@ -1,26 +1,25 @@
 # DataSaver - API
 당신의 데이터 요금을 아껴주는 똑똑한 와이파이 도우미
-[![](https://github.com/DataSaver-Dev/DataSaver-API/blob/master/images/logo.png)](https://github.com/DataSaver-Dev/DataSaver-API)
 
-**DataSaver ?**
-> ## **특징:**
+**DataSaver 프로젝트 소개**
+특징은 아래와 같습니다.
 > - 사용자가 설정에서 와이파이를 연결 및 해제하는 번거로운 과정을 앱의 백그라운드 작업을 이용하여 자동으로 진행합니다.
-> - 와이파이의 품질이 매우 낮아 실제로 연결이 불가능하거나 신뢰할 수 없는 경우 제외시킵니다.
-> - 지인이 알고있는 와이파이 정보를 쉽게 공유할 수 있는 기능을 제공합니다.
+> - 와이파이의 품질이 매우 낮아 실제로 연결이 불가능하거나 신뢰할 수 없는 경우 자동으로 제외시킵니다.
+> - 지인이 알고있는 와이파이 정보를 쉽게 공유하거나 자신의 와이파이 정보를 백업하는 기능을 제공합니다.
 
 # 개발 환경
-**DataSaver**의 개발 환경은 아래와 같습니다.
+개발 환경은 아래와 같습니다.
 > - **STS**
-<br>버젼 : **STS version "3.9.0.RELEASE"**
+<br>버젼 : 3.9.0.RELEASE
 > - **Amazon EC2**
-<br>버젼 : **EC2 version ""**
+<br>참고 : https://aws.amazon.com/ko/ec2/?nc2=h_m1
 > - **Amazon S3**
-<br>버젼 : **S3 version ""**
+<br>참고 : https://aws.amazon.com/ko/s3/?nc2=h_m1
 > - **MySQL**
-<br>버젼 : **MySQL version ""**
+<br>버젼 : 5.5.57
 
 # 의존성 목록
-**DataSaver**의 의존성 목록은 아래와 같습니다.
+의존성 목록은 아래와 같습니다. (자세한 사항은 build.gradle을 확인해주세요.)
 ```build.gradle
 dependencies {
   // spring-boot-starter
