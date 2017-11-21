@@ -64,7 +64,6 @@ git clone "https://github.com/DataSaver-Dev/DataSaver-API.git"
 - 'DataSaver-API > src/main/java'에서 해당 파일에서 소스 폴더명를 resources로 생성합니다.
 - resources에 파일명을 application.properties로 생성합니다.
 - 아래와 같은 application.properties 파일을 자신의 개발 환경에 맞게 수정해서 저장합니다.
-<br>
 ```application.properties
 server.contextPath=/v1
 
@@ -146,6 +145,5 @@ DataSaver-API
 
 # 문의사항
 기타 문의사항이 있으실 경우 아래의 **문의 수단**으로 연락해주세요.
-> **문의 수단:**
-> - 메일 : **devetude@naver.com**, **quentin1992@naver.com**, **minuk8932@naver.com**
-> - github : **https://github.com/DataSaver-Dev/DataSaver-API/issues**
+- 메일 : **devetude@naver.com**, **quentin1992@naver.com**, **minuk8932@naver.com**
+- github : **https://github.com/DataSaver-Dev/DataSaver-API/issues**
