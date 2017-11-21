@@ -3,16 +3,16 @@
 
 # **DataSaver**
 DataSaver는 다음과 같은 특징이 있습니다.
-> - 사용자가 설정에서 와이파이를 연결 및 해제하는 번거로운 과정을 앱의 백그라운드 작업을 이용하여 자동으로 진행합니다.
-> - 와이파이의 품질이 매우 낮아 실제로 연결이 불가능하거나 신뢰할 수 없는 경우 자동으로 제외시킵니다.
-> - 지인이 알고있는 와이파이 정보를 쉽게 공유하거나 자신의 와이파이 정보를 백업하는 기능을 제공합니다.
+> 사용자가 설정에서 와이파이를 연결 및 해제하는 번거로운 과정을 앱의 백그라운드 작업을 이용하여 자동으로 진행합니다.
+> 와이파이의 품질이 매우 낮아 실제로 연결이 불가능하거나 신뢰할 수 없는 경우 자동으로 제외시킵니다.
+> 지인이 알고있는 와이파이 정보를 쉽게 공유하거나 자신의 와이파이 정보를 백업하는 기능을 제공합니다.
 
 # 개발 환경
 개발 환경은 아래와 같습니다.
-> - **STS** 3.9.0.RELEASE 
-> - **Amazon EC2** (https://aws.amazon.com/ko/ec2/?nc2=h_m1)
-> - **Amazon S3** (https://aws.amazon.com/ko/s3/?nc2=h_m1)
-> - **MySQL** 5.5.57
+> **STS** 3.9.0.RELEASE 
+> **Amazon EC2** (https://aws.amazon.com/ko/ec2/?nc2=h_m1)
+> **Amazon S3** (https://aws.amazon.com/ko/s3/?nc2=h_m1)
+> **MySQL** 5.5.57
 
 # 의존성 목록
 자세한 사항은 프로젝트 소스 내 build.gradle 파일을 확인해주세요.
@@ -65,7 +65,34 @@ git clone "https://github.com/DataSaver-Dev/DataSaver-API.git"
 - resources에 파일명을 application.properties로 생성합니다.
 - 아래와 같은 application.properties 파일을 자신의 개발 환경에 맞게 수정해서 저장합니다.
 ```application.properties
-asdf
+server.contextPath=/v1
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.database=mysql
+spring.jpa.show-sql=true
+spring.jpa.hibernate.naming.physical-strategy=org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+spring.datasource.url=jdbc:mysql://[데이터베이스 URL]:[데이터베이스 포트]/[데이터베이스 이름]?useUnicode=true&characterEncoding=utf8
+spring.datasource.username=[데이터베이스 계정]
+spring.datasource.password=[데이터베이스 비밀번호]
+
+logging.level.org.hibernate.SQL=DEBUG
+logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE
+
+spring.mail.host=smtp.gmail.com
+spring.mail.port=587
+spring.mail.username=[구글 계정]
+spring.mail.password=[구글 비밀번호]
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
+
+amazon.accessKeyId=[아마존 접근 키 아이디]
+amazon.accessSecretKey=[아마존 비밀 키]
+amazon.userProfileImgBucketName=[사용자 프로필 이미지 버킷 이름]
+amazon.endPoint=[아마존 엔드 포인트]
+
+gcm.apiKey=[구글 클라우드 메시지 API 키]
 ```
 4) 실행 및 테스트<br>
 - 최초 실행시<br>
