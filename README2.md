@@ -1,0 +1,94 @@
+# DataSaver - API
+[![](https://github.com/DataSaver-Dev/DataSaver-API/blob/master/images/logo.png)](https://github.com/DataSaver-Dev/DataSaver-API)
+
+**DataSaver**는 .
+> **특징:**
+> - 
+> - 
+> - 
+
+# 개발 환경
+**DataSaver**의 개발 환경은 아래와 같습니다.
+> **STS**
+> - 버젼 : **java version "1.8.0_91"**
+> **Amazon EC2**
+> - 버젼 : **java version "1.8.0_91"**
+> **Amazon S3**
+> - 버젼 : **java version "1.8.0_91"**
+> **MySQL**
+> - 버젼 : **java version "1.8.0_91"**
+
+# 의존성 목록
+**DataSaver**의 의존성 목록은 아래와 같습니다.
+```build.gradle
+dependencies {
+  // spring-boot-starter
+  compile('org.springframework.boot:spring-boot-starter-aop')
+  compile('org.springframework.boot:spring-boot-starter-data-jpa')
+  compile('org.springframework.boot:spring-boot-starter-web')
+  compile('org.springframework.boot:spring-boot-configuration-processor')
+  compile('org.springframework.boot:spring-boot-starter-mail')
+  testCompile('org.springframework.boot:spring-boot-starter-test')
+  
+  // mysql-connector-java
+  runtime('mysql:mysql-connector-java')
+	
+  // java-jwt
+  compile('com.auth0:java-jwt:3.2.0')
+  
+  // springfox-swagger2
+  compile('io.springfox:springfox-swagger2:2.2.2')
+  compile('io.springfox:springfox-swagger-ui:2.2.2')
+  
+  // gson
+  compile('com.google.code.gson:gson:2.7')
+  
+  // commons-lang3
+  compile('org.apache.commons:commons-lang3:3.0')
+  
+  // aws-java-sdk
+  compile('com.amazonaws:aws-java-sdk:1.11.66')
+  
+  // commons-io
+  compile('commons-io:commons-io:2.4')
+}
+```
+# 빠른 시작
+1) Git 클론
+```text
+git clone "https://github.com/DataSaver-Dev/DataSaver-API.git"
+```
+2) STS 임포트
+3) application.properties 생성
+```application.properties
+asdf
+```
+4) 실행 및 테스트
+
+# 모델 설계
+
+# 프로젝트 구성
+**DataSaver**는 다음과 같이 구성되어 있습니다. 코드를 보시려면 **src > boj_문제번호 > Main.java**를 보시면 됩니다.
+```text
+BOJ-PSJ
+├── .classpath (클래스패스 파일)
+├── .git (git 디렉토리)
+├── .project (프로젝트 파일)
+├── .settings (설정 디렉토리)
+├── LICENSE (프로젝트 라이센스 파일)
+├── README.md (프로젝트 설명서 파일)
+├── bin (컴파일 된 소스코드 디렉토리)
+├── src (소스코드 디렉토리)
+│   ├── boj_10156 (boj_문제번호 패키지)
+│   │   ├── Main.java (소스코드 Java 파일)
+...
+```
+
+# 라이센스
+본 프로젝트는 Apache 2.0 License를 따릅니다. http://www.apache.org/licenses/LICENSE-2.0
+
+# 문의사항
+기타 문의사항이 있으실 경우 아래의 **문의 수단**으로 연락해주세요.
+> **문의 수단:**
+> - 메일 : **devetude@naver.com**, **quentin1992@naver.com**, **minuk8932@naver.com**
+> - github : **https://github.com/DataSaver-Dev/DataSaver-API/issues**
