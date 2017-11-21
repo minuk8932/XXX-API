@@ -22,7 +22,7 @@ public class WiFi {
 	@Column(name = "ssid")
 	private String ssid;
 
-	@Column(name = "mac")
+	@Column(name = "mac", unique = true)
 	private String mac;
 
 	@Column(name = "password")
