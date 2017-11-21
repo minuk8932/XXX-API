@@ -1,75 +1,154 @@
-DataSaver - API
-===================
+# DataSaver - API
+당신의 데이터 요금을 아껴주는 똑똑한 와이파이 도우미
 
-<br>
+# **DataSaver**
+DataSaver는 다음과 같은 특징이 있습니다.
+- 사용자가 설정에서 와이파이를 연결 및 해제하는 번거로운 과정을 앱의 백그라운드 작업을 이용하여 자동으로 진행합니다.
+- 와이파이의 품질이 매우 낮아 실제로 연결이 불가능하거나 신뢰할 수 없는 경우 자동으로 제외시킵니다.
+- 지인이 알고있는 와이파이 정보를 쉽게 공유하거나 자신의 와이파이 정보를 백업하는 기능을 제공합니다.
 
-**DataSaver?** 
+# 개발 환경
+개발 환경은 아래와 같습니다.
+- STS 3.9.0.RELEASE 
+- Amazon EC2 (https://aws.amazon.com/ko/ec2/?nc2=h_m1)
+- Amazon S3 (https://aws.amazon.com/ko/s3/?nc2=h_m1)
+- MySQL 5.5.57
 
-* DataSaver는 server 에서 Log 정보를 받아와  **자동으로 WiFi를 연결** 시키는 스마트폰 앱으로,<br> 사용자의 통신비 절감을 목적으로 고안되었습니다.
+# 의존성 목록
+자세한 사항은 프로젝트 소스 내 build.gradle 파일을 확인해주세요.
+```build.gradle
+dependencies {
+  // spring-boot-starter
+  compile('org.springframework.boot:spring-boot-starter-aop')
+  compile('org.springframework.boot:spring-boot-starter-data-jpa')
+  compile('org.springframework.boot:spring-boot-starter-web')
+  compile('org.springframework.boot:spring-boot-configuration-processor')
+  compile('org.springframework.boot:spring-boot-starter-mail')
+  testCompile('org.springframework.boot:spring-boot-starter-test')
+  
+  // mysql-connector-java
+  runtime('mysql:mysql-connector-java')
+	
+  // java-jwt
+  compile('com.auth0:java-jwt:3.2.0')
+  
+  // springfox-swagger2
+  compile('io.springfox:springfox-swagger2:2.2.2')
+  compile('io.springfox:springfox-swagger-ui:2.2.2')
+  
+  // gson
+  compile('com.google.code.gson:gson:2.7')
+  
+  // commons-lang3
+  compile('org.apache.commons:commons-lang3:3.0')
+  
+  // aws-java-sdk
+  compile('com.amazonaws:aws-java-sdk:1.11.66')
+  
+  // commons-io
+  compile('commons-io:commons-io:2.4')
+}
+```
+# 빠른 시작
+1) Git 클론
+```text
+git clone "https://github.com/DataSaver-Dev/DataSaver-API.git"
+```
+2) STS 임포트
+- 패키지 익스플로러에서 마우스 우측 버튼을 눌러 임포트를 선택합니다.
+- 'Gradle (STS) &gt; Gradle (STS) project'을 선택하고 다음을 누릅니다.
+- 아래와 같은 팝업에서 빌드 모델을 반드시 누른 후 완료를 누릅니다.
 
-* 또한, 지인과의 WiFi 정보 공유 서비스를 제공합니다.
+![](https://raw.githubusercontent.com/DataSaver-Dev/DataSaver-API/master/images/build_gradle_ex.png)
 
-![DataSaver_UI](http://postfiles4.naver.net/MjAxNzExMTZfMTA2/MDAxNTEwODExNTE3NzY0.AuI1UgJwM6TGDzX0fwdXDcCj11L5j1S_FH0dhe4rBrAg.cNs8YzbzUg7kqZCx2yfEaJGukKkIrFLEAmpN3LqCOoEg.PNG.minuk8932/DataSaver_UI.png?type=w773)
+3) application.properties 파일 생성
+- application.properties 파일은 API 연동에 필요한 귀중한 정보(데이터베이스, 구글 웹 메일, 아마존 서비스 등)를 포함합니다.
+- 'DataSaver-API > src/main/java'에서 해당 파일에서 소스 폴더명를 resources로 생성합니다.
+- resources에 파일명을 application.properties로 생성합니다.
+- 아래와 같은 application.properties 파일을 자신의 개발 환경에 맞게 수정해서 저장합니다.
+```application.properties
+server.contextPath=/v1
 
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.database=mysql
+spring.jpa.show-sql=true
+spring.jpa.hibernate.naming.physical-strategy=org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
-- DataSaver의 전반적인 내용은 아래의 링크를 참고 바랍니다.
-Total Link: [DataSaver](https://github.com/DataSaver-Dev)
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+spring.datasource.url=jdbc:mysql://[데이터베이스 URL]:[데이터베이스 포트]/[데이터베이스 이름]?useUnicode=true&characterEncoding=utf8
+spring.datasource.username=[데이터베이스 계정]
+spring.datasource.password=[데이터베이스 비밀번호]
 
-<br><br>
+logging.level.org.hibernate.SQL=DEBUG
+logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE
 
-API
----
+spring.mail.host=smtp.gmail.com
+spring.mail.port=587
+spring.mail.username=[구글 계정]
+spring.mail.password=[구글 비밀번호]
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
 
-현 프로젝트는 Eclipse 기반 개발환경 [STS](http://spring.io/tools/sts)(Spring Tool Suite)를 통해 RESTful API로 설계 되었습니다.<br><br>
+amazon.accessKeyId=[아마존 접근 키 아이디]
+amazon.accessSecretKey=[아마존 비밀 키]
+amazon.userProfileImgBucketName=[사용자 프로필 이미지 버킷 이름]
+amazon.endPoint=[아마존 엔드 포인트]
 
+gcm.apiKey=[구글 클라우드 메시지 API 키]
+```
+4) 실행 및 테스트<br>
+- 최초 실행시 'DataSaver-API > src/main/java > DataSaverApplication.java'를 실행합니다.
+- 아래와 같이 스웨거를 통해 API 명세(http://127.0.0.1/v1/swagger-ui.html)를 확인할 수 있습니다.
 
-**Package 및 class 구성:**
+![](https://raw.githubusercontent.com/DataSaver-Dev/DataSaver-API/master/images/intro.png)
 
-패키지는 이와 같이 구성되어 있으며, 각 패키지 안에는 필요한<br>
-**form**, **response data**, **view** 등이 정의 되어있습니다.
+# 모델 설계
+클릭하시면 크게보실 수 있습니다.
 
-![API-Structure](http://postfiles10.naver.net/MjAxNzExMTZfMjIz/MDAxNTEwODExNTA1NTQx.KTpnSqkJ0LVjlXwldaQkfwig7pPTvTw-tv_4_9bKvaUg.7Vucy-fZslidrdMgl0_WNfQ7_MMJBpyWZZFYQFIv9dYg.PNG.minuk8932/DataSaver_API_Structure.png?type=w773)
+![](https://raw.githubusercontent.com/DataSaver-Dev/DataSaver-API/master/images/datasaver_api_diagram.png)
 
-<br>
+# 프로젝트 구성
+DataSaver는 다음과 같이 구성되어 있습니다.
+```text
+DataSaver-API
+├── build.gradle (클래스패스 파일)
+├── build (빌드 디렉토리)
+├── gradle (디렉토리)
+├── images (이미지 디렉토리)
+├── LICENSE (프로젝트 라이센스 파일)
+├── README.md (프로젝트 설명서 파일)
+├── resources (디렉토리)
+├── src (디렉토리)
+├── resources (디렉토리)
+├── src/main/java (소스코드 디렉토리)
+│   ├── com.datasaver.api (소스코드 전체 패키지)
+│   │   ├── DataSaverApplication.java (실행 Java 파일)
+│   │   ├── controllers (패키지)
+│   │   │   ├── forms (패키지)
+│   │   │   ├── responses (패키지)
+│   │   │   │   ├── data (패키지)
+│   │   ├── domains (패키지)
+│   │   │   ├── views (패키지)
+│   │   ├── payloads (패키지)
+│   │   ├── repositories (패키지)
+│   │   ├── services (패키지)
+│   │   │   ├── interfaces (패키지)
+│   │   ├── utils (패키지)
+│   │   │   ├── auth (패키지)
+│   │   │   ├── aws (패키지)
+│   │   │   ├── gcm (패키지)
+│   │   │   ├── log (패키지)
+│   │   │   ├── mail (패키지)
+│   │   │   ├── password (패키지)
+│   │   │   ├── res (패키지)
+│   │   │   ├── swagger (패키지)
+...
+```
 
-**Controller** 패키지 내의 **UserController** 일부 입니다.<br>
-각종 **annotation**을 이용해 **RESTful API**를 구성한 모습 입니다.
+# 라이센스
+본 프로젝트는 Apache 2.0 License를 따릅니다. http://www.apache.org/licenses/LICENSE-2.0
 
-![DataSaver_codeEx](http://postfiles4.naver.net/MjAxNzExMTZfMTgy/MDAxNTEwODEzNzgzNTQw.Ac9G7KmVvkElH2Avy-G0a6ONY9eWADYufJAjpZJCOeEg.Ly_uidoRAr-p7Jg3169-JkgYzGvUnk5C0DHBZuxNwBcg.PNG.minuk8932/DataSaver_codeEx.png?type=w773)
-
-<br>
-
-**User**가 완성 된 후 [Swagger](https://swagger.io/swagger-ui/)를 통해 구현한 모습 입니다.
-![DataSaver_swagger](http://postfiles5.naver.net/MjAxNzExMTZfNDgg/MDAxNTEwODEzNzgzNTUz.aflAmABzbKVxAuz9rEJOqcM8xBuIbG_eyGNEO3ejewQg.QqqSb8kqJF88y7whzSHZDuq3FbVh1J_1ofEFo4K_7aMg.PNG.minuk8932/DataSaver_swagger.png?type=w773)
-
-<br>
-
-##### **참고:**  사용된 Tool의 설치, 정보 등의 추가 사항은 해당 *link*를 참고해 주십시오.
- 
-----------
-
-<br><br>
-
-라이센스
----
-본 프로젝트는 [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0)를 따릅니다.
-
-<br><br>
-
-문의사항
----
-기타 문의사항이 있을 경우 아래의 **문의 수단**으로 연락 부탁드립니다.
-
-**문의 수단 :**
-
-*Tel.*
-<br>
-010-3103-8653<br>
-010-5554-6035<br> 
-010-8932-8585<br><br>
-
-*E-Mail*
-<br>
-<devetude@naver.com><br>
-<quentin1992@naver.com><br>
-<minuk8932@naver.com><br>
+# 문의사항
+기타 문의사항이 있으실 경우 아래의 **문의 수단**으로 연락해주세요.
+- 메일 : **devetude@naver.com**, **quentin1992@naver.com**, **minuk8932@naver.com**
+- github : **https://github.com/DataSaver-Dev/DataSaver-API/issues**
