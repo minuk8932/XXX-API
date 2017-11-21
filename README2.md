@@ -59,7 +59,7 @@ git clone "https://github.com/DataSaver-Dev/DataSaver-API.git"
 - 'Gradle (STS) &gt; Gradle (STS) project'을 선택하고 다음을 누릅니다.
 - 아래와 같은 팝업에서 빌드 모델을 반드시 누른 후 완료를 누릅니다.
 
-![](https://github.com/DataSaver-Dev/DataSaver-API/blob/master/images/build_gradle_ex.png)
+![](https://raw.githubusercontent.com/DataSaver-Dev/DataSaver-API/master/images/build_gradle_ex.png)
 
 3) application.properties 파일 생성
 - application.properties 파일은 API 연동에 필요한 귀중한 정보(데이터베이스, 구글 웹 메일, 아마존 서비스 등)를 포함합니다.
@@ -100,7 +100,7 @@ gcm.apiKey=[구글 클라우드 메시지 API 키]
 - 최초 실행시 'DataSaver-API > src/main/java > DataSaverApplication.java'를 실행합니다.
 - 아래와 같이 스웨거를 통해 API 명세(http://127.0.0.1/v1/swagger-ui.html)를 확인할 수 있습니다.
 
-![](https://github.com/DataSaver-Dev/DataSaver-API/blob/master/images/intro.png)
+![](https://raw.githubusercontent.com/DataSaver-Dev/DataSaver-API/master/images/intro.png)
 
 # 모델 설계
 클릭하시면 크게보실 수 있습니다.
