@@ -99,10 +99,12 @@ gcm.apiKey=[구글 클라우드 메시지 API 키]
 4) 실행 및 테스트<br>
 - 최초 실행시 'DataSaver-API > src/main/java > DataSaverApplication.java'를 실행합니다.
 - 아래와 같이 스웨거를 통해 API 명세(http://127.0.0.1/v1/swagger-ui.html)를 확인할 수 있습니다.
+
 ![](https://github.com/DataSaver-Dev/DataSaver-API/blob/master/images/intro.png)
 
 # 모델 설계
 클릭하시면 크게보실 수 있습니다.
+
 ![](https://raw.githubusercontent.com/DataSaver-Dev/DataSaver-API/master/images/datasaver_api_diagram.png)
 
 # 프로젝트 구성
