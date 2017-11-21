@@ -1,11 +1,13 @@
 # DataSaver - API
+
 [![](https://github.com/DataSaver-Dev/DataSaver-API/blob/master/images/logo.png)](https://github.com/DataSaver-Dev/DataSaver-API)
 
-**DataSaver**는 .
-> **특징:**
-> - 
-> - 
-> - 
+**DataSaver ?**
+> ## **특징:**
+> - 사용자가 설정에서 와이파이를 연결 및 해제하는 번거로운 과정을 앱의 백그라운드 작업을 이용하여 자동으로 진행합니다.
+> - 와이파이의 품질이 매우 낮아 실제로 연결이 불가능하거나 신뢰할 수 없는 경우 제외시킵니다.
+> - 지인이 알고있는 와이파이 정보를 쉽게 공유할 수 있는 기능을 제공합니다.
+
 
 # 개발 환경
 **DataSaver**의 개발 환경은 아래와 같습니다.
