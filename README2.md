@@ -66,32 +66,56 @@ git clone "https://github.com/DataSaver-Dev/DataSaver-API.git"
  - 마지막으로 아래의 이미지와 같은 창이 뜨면 빌드 모델을 반드시 누르고, 잠시 기다린 후 완료를 선택합니다.
 ![](https://github.com/DataSaver-Dev/DataSaver-API/blob/master/images/build_gradle_ex.png)
 3) application.properties 생성
+- DataSaver-API > src/main/java에서 해당 파일에서 소스 폴더명를 resources로 생성합니다.<br>
+- resources에 파일명을 application.properties로 생성합니다.<br>
 ```application.properties
 asdf
 ```
 4) 실행 및 테스트<br>
-- DataSaver-API > src/main/java에서 해당 파일에서 소스 폴더명를 resources로 생성합니다.<br>
-- resources에 파일명을 application.properties로 생성합니다.<br>
-- 
+최초 실행시
+- DataSaver-API > src/main/java > DataSaverApplication.java 로 이동해서 실행합니다.
+- 실행 후 해당 스웨거 웹페이지 화면
+![](https://github.com/DataSaver-Dev/DataSaver-API/blob/master/images/intro.png)
 
 
 # 모델 설계
 ![](https://github.com/DataSaver-Dev/DataSaver-API/blob/master/images/datasaver_api_diagram.png)
 
 # 프로젝트 구성
-**DataSaver**는 다음과 같이 구성되어 있습니다. 코드를 보시려면 **src > boj_문제번호 > Main.java**를 보시면 됩니다.
+**DataSaver**는 다음과 같이 구성되어 있습니다. 코드를 보시려면 [DataSaver-API](https://github.com/DataSaver-Dev/DataSaver-API)를 보시면 됩니다.
 ```text
-BOJ-PSJ
-├── .classpath (클래스패스 파일)
-├── .git (git 디렉토리)
-├── .project (프로젝트 파일)
-├── .settings (설정 디렉토리)
+DataSaver-API
+├── build.gradle (클래스패스 파일)
+├── build (빌드 디렉토리)
+├── gradle (디렉토리)
+├── images (이미지 디렉토리)
 ├── LICENSE (프로젝트 라이센스 파일)
 ├── README.md (프로젝트 설명서 파일)
-├── bin (컴파일 된 소스코드 디렉토리)
-├── src (소스코드 디렉토리)
-│   ├── boj_10156 (boj_문제번호 패키지)
-│   │   ├── Main.java (소스코드 Java 파일)
+├── resources (디렉토리)
+├── src
+├── resources (디렉토리)
+├── src/main/java (소스코드 디렉토리)
+│   ├── com.datasaver.api (소스코드 전체 패키지)
+│   │   ├── DataSaverApplication.java (실행 Java 파일)
+│   │   ├── controllers (소스코드 Java 파일)
+│   │   │   ├── forms
+│   │   │   ├── responses
+│   │   │   │   ├── data
+│   │   ├── domains
+│   │   │   ├── views
+│   │   ├── payloads
+│   │   ├── repositories
+│   │   ├── services
+│   │   │   ├── interfaces
+│   │   ├── utils
+│   │   │   ├── auth
+│   │   │   ├── aws
+│   │   │   ├── gcm
+│   │   │   ├── log
+│   │   │   ├── mail
+│   │   │   ├── password
+│   │   │   ├── res
+│   │   │   ├── swagger
 ...
 ```
 
