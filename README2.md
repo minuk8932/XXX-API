@@ -9,10 +9,10 @@ DataSaver는 다음과 같은 특징이 있습니다.
 
 # 개발 환경
 개발 환경은 아래와 같습니다.
-> **STS** 3.9.0.RELEASE 
-> **Amazon EC2** (https://aws.amazon.com/ko/ec2/?nc2=h_m1)
-> **Amazon S3** (https://aws.amazon.com/ko/s3/?nc2=h_m1)
-> **MySQL** 5.5.57
+- **STS** 3.9.0.RELEASE 
+- **Amazon EC2** (https://aws.amazon.com/ko/ec2/?nc2=h_m1)
+- **Amazon S3** (https://aws.amazon.com/ko/s3/?nc2=h_m1)
+- **MySQL** 5.5.57
 
 # 의존성 목록
 자세한 사항은 프로젝트 소스 내 build.gradle 파일을 확인해주세요.
@@ -64,6 +64,7 @@ git clone "https://github.com/DataSaver-Dev/DataSaver-API.git"
 - 'DataSaver-API > src/main/java'에서 해당 파일에서 소스 폴더명를 resources로 생성합니다.
 - resources에 파일명을 application.properties로 생성합니다.
 - 아래와 같은 application.properties 파일을 자신의 개발 환경에 맞게 수정해서 저장합니다.
+<br>
 ```application.properties
 server.contextPath=/v1
 
@@ -95,17 +96,15 @@ amazon.endPoint=[아마존 엔드 포인트]
 gcm.apiKey=[구글 클라우드 메시지 API 키]
 ```
 4) 실행 및 테스트<br>
-- 최초 실행시<br>
-DataSaver-API > src/main/java > DataSaverApplication.java 로 이동해서 실행합니다.
-- 실행 후 해당 스웨거 웹페이지 화면
+- 최초 실행시 'DataSaver-API > src/main/java > DataSaverApplication.java'를 실행합니다.
+- 아래와 같이 http://127.0.0.1/v1/swagger-ui.html에서 API 명세를 확인할 수 있습니다.
 ![](https://github.com/DataSaver-Dev/DataSaver-API/blob/master/images/intro.png)
-
 
 # 모델 설계
 ![](https://raw.githubusercontent.com/DataSaver-Dev/DataSaver-API/master/images/datasaver_api_diagram.png)
 
 # 프로젝트 구성
-**DataSaver**는 다음과 같이 구성되어 있습니다. 전체 코드를 보시려면 [DataSaver-API](https://github.com/DataSaver-Dev/DataSaver-API)를 보시면 됩니다.
+DataSaver는 다음과 같이 구성되어 있습니다.
 ```text
 DataSaver-API
 ├── build.gradle (클래스패스 파일)
@@ -141,12 +140,6 @@ DataSaver-API
 │   │   │   ├── swagger (패키지)
 ...
 ```
-
-##### **참고:**  사용된 Tool의 설치, 정보 등의 추가 사항은 해당 *link*를 참고해 주십시오.
-[STS](http://spring.io/tools/sts) (Spring Tool Suite)
-<br>
-[Swagger](https://swagger.io/swagger-ui/)
- 
 
 # 라이센스
 본 프로젝트는 Apache 2.0 License를 따릅니다. http://www.apache.org/licenses/LICENSE-2.0
