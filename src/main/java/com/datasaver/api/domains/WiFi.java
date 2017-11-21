@@ -65,8 +65,8 @@ public class WiFi {
 	public WiFi() {
 	}
 
-	public WiFi(long idx, String ssid, String mac, String password, AuthType authType, String channel, double longitude,
-			double latitude, Timestamp ts, User user) {
+	public WiFi(long idx, String ssid, String mac, String password, AuthType authType, String channel, double latitude,
+			double longitude, Timestamp ts, User user) {
 		super();
 		this.idx = idx;
 		this.ssid = ssid;
