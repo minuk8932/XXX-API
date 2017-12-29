@@ -44,9 +44,9 @@ dependencies {
 
 jar {
     manifest {
-        attributes  'Title': 'DataSaver', 'Version': '1.0.0', 'Main-Class': 'com.datasaver.api.DataSaverApplication'
+        attributes  'Title': 'XXX', 'Version': '1.0.0', 'Main-Class': 'com.XXX.api.XXXApplication'
     }
-    archiveName 'DataSaver.jar'
+    archiveName 'XXX.jar'
     dependsOn configurations.runtime
     from {
         configurations.compile.collect {it.isDirectory()? it: zipTree(it)}
