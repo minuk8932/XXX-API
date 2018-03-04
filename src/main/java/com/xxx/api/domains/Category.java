@@ -32,4 +32,43 @@ public class Category {
 	
 	public Category(){
 	}
+
+	public Category(long idx, String name, Collection<Product> product, Timestamp ts) {
+		this.idx = idx;
+		this.name = name;
+		this.product = product;
+		this.ts = ts;
+	}
+
+	public long getIdx() {
+		return idx;
+	}
+
+	public void setIdx(long idx) {
+		this.idx = idx;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Collection<Product> getProduct() {
+		return product;
+	}
+
+	public void setProduct(Collection<Product> product) {
+		this.product = product;
+	}
+
+	public Timestamp getTs() {
+		return ts;
+	}
+
+	public void setTs(Timestamp ts) {
+		this.ts = ts;
+	}
 }
