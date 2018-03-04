@@ -35,10 +35,9 @@ public class Product {
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
 	
-	@Column(name = "category")
 	@ManyToOne
-	@JoinColumn(name = "")	
-	private long category;
+	@JoinColumn(name = "pidx")	
+	private Category category;
 	
 	public enum Size {
 		SMALL("S"), MEDIUM("M"), LARGE("L"), X_LARGE("XL");
@@ -58,7 +57,7 @@ public class Product {
 	}
 
 	public Product(long idx, String productCode, String productName, Size size, String price, String contents,
-			Timestamp ts, long category) {
+			Timestamp ts, Category category) {
 		this.idx = idx;
 		this.productCode = productCode;
 		this.productName = productName;
@@ -125,11 +124,11 @@ public class Product {
 		this.ts = ts;
 	}
 
-	public long getCategory() {
+	public Category getCategory() {
 		return category;
 	}
 
-	public void setCategory(long category) {
+	public void setCategory(Category category) {
 		this.category = category;
 	}
 }
