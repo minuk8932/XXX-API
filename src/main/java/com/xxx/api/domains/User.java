@@ -33,6 +33,9 @@ public class User {
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
 	
+	public User() {
+	}
+	
 	public User(long idx, String id, String password, String address, String email, String phoneNumber, Timestamp ts) {
 		this.idx = idx;
 		this.id = id;
