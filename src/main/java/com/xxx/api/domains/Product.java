@@ -29,6 +29,9 @@ public class Product {
 	@Column(name = "price")
 	private String price;
 	
+	@Column(name = "stock")
+	private String stock;
+	
 	@Column(name = "contents")
 	private String contents;
 	
@@ -56,13 +59,14 @@ public class Product {
 	public Product(){
 	}
 
-	public Product(long idx, String productCode, String productName, Size size, String price, String contents,
-			Timestamp ts, Category category) {
+	public Product(long idx, String productCode, String productName, Size size, String price, String stock,
+			String contents, Timestamp ts, Category category) {
 		this.idx = idx;
 		this.productCode = productCode;
 		this.productName = productName;
 		this.size = size;
 		this.price = price;
+		this.stock = stock;
 		this.contents = contents;
 		this.ts = ts;
 		this.category = category;
@@ -106,6 +110,14 @@ public class Product {
 
 	public void setPrice(String price) {
 		this.price = price;
+	}
+
+	public String getStock() {
+		return stock;
+	}
+
+	public void setStock(String stock) {
+		this.stock = stock;
 	}
 
 	public String getContents() {
