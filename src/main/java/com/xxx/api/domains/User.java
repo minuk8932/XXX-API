@@ -15,7 +15,7 @@ public class User {
 	@Column(name = "idx")
 	private long idx;
 
-	@Column(name = "id")
+	@Column(name = "id", unique = true)
 	private String id;
 	
 	@Column(name = "password")
@@ -24,7 +24,7 @@ public class User {
 	@Column(name = "address")
 	private String address;
 	
-	@Column(name = "email")
+	@Column(name = "email", unique = true)
 	private String email;
 	
 	@Column(name = "phoneNumber", unique = true)
