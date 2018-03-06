@@ -25,7 +25,7 @@ public class Category {
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "cidx")
-	private Collection<Product> product;
+	private Collection<Product> products;
 	
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
@@ -33,10 +33,10 @@ public class Category {
 	public Category(){
 	}
 
-	public Category(long idx, String name, Collection<Product> product, Timestamp ts) {
+	public Category(long idx, String name, Collection<Product> products, Timestamp ts) {
 		this.idx = idx;
 		this.name = name;
-		this.product = product;
+		this.products = products;
 		this.ts = ts;
 	}
 
@@ -57,11 +57,11 @@ public class Category {
 	}
 
 	public Collection<Product> getProduct() {
-		return product;
+		return products;
 	}
 
-	public void setProduct(Collection<Product> product) {
-		this.product = product;
+	public void setProduct(Collection<Product> products) {
+		this.products = products;
 	}
 
 	public Timestamp getTs() {
