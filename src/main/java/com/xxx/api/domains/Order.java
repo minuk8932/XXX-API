@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Order {
 	@Id
@@ -31,7 +33,10 @@ public class Order {
 	
 	@ManyToOne
 	@JoinColumn(name = "uid")
+	@JsonIgnore
 	private User uid;
+	
+	// TODO : delivery number OneToOne join, how to?
 	
 	public enum Type {
 		CREDIT_CARD(0), MASTER_CARD(1), ACCOUNT_TRANSFER(2), VIRTUAL_ACCOUNT(3), MOBILE(4), PAYCO(5);
