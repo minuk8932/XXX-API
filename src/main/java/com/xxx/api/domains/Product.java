@@ -39,7 +39,7 @@ public class Product {
 	private Timestamp ts;
 	
 	@ManyToOne
-	@JoinColumn(name = "pidx")	
+	@JoinColumn(name = "cidx")	
 	private Category category;
 	
 	public enum Size {
