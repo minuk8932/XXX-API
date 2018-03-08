@@ -34,7 +34,7 @@ public class Order {
 	@ManyToOne
 	@JoinColumn(name = "mid")
 	@JsonIgnore
-	private Member mid;
+	private Member mid;	
 	
 	// TODO : delivery number OneToOne join, how to?
 	
