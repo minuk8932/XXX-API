@@ -30,12 +30,12 @@ public class QNA {
 	@ManyToOne
 	@Column(name = "uid")
 	@JsonIgnore
-	private User uid;
+	private Member uid;
 	
 	public QNA() {
 	}
 
-	public QNA(long idx, String question, String answer, Timestamp ts, User uid) {
+	public QNA(long idx, String question, String answer, Timestamp ts, Member uid) {
 		this.idx = idx;
 		this.question = question;
 		this.answer = answer;
@@ -75,11 +75,11 @@ public class QNA {
 		this.ts = ts;
 	}
 
-	public User getUid() {
+	public Member getUid() {
 		return uid;
 	}
 
-	public void setUid(User uid) {
+	public void setUid(Member uid) {
 		this.uid = uid;
 	}
 }

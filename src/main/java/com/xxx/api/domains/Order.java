@@ -32,9 +32,9 @@ public class Order {
 	private Timestamp ts;
 	
 	@ManyToOne
-	@JoinColumn(name = "uid")
+	@JoinColumn(name = "mid")
 	@JsonIgnore
-	private User uid;
+	private Member mid;
 	
 	// TODO : delivery number OneToOne join, how to?
 	
@@ -55,13 +55,13 @@ public class Order {
 	public Order() {
 	}
 
-	public Order(long idx, String orderNumber, String deliveryAddress, Type payment, Timestamp ts, User uid) {
+	public Order(long idx, String orderNumber, String deliveryAddress, Type payment, Timestamp ts, Member mid) {
 		this.idx = idx;
 		this.orderNumber = orderNumber;
 		this.deliveryAddress = deliveryAddress;
 		this.payment = payment;
 		this.ts = ts;
-		this.uid = uid;
+		this.mid = mid;
 	}
 
 	public long getIdx() {
@@ -104,11 +104,11 @@ public class Order {
 		this.ts = ts;
 	}
 
-	public User getUid() {
-		return uid;
+	public Member getMid() {
+		return mid;
 	}
 
-	public void setUid(User uid) {
-		this.uid = uid;
+	public void setMid(Member mid) {
+		this.mid = mid;
 	}
 }

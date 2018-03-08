@@ -14,7 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 @Entity
-public class User {
+public class Member {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idx")
@@ -41,16 +41,16 @@ public class User {
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "oidx")
-	private Collection<User> orderList; 
+	private Collection<Member> orderList; 
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "qnaidx")
-	private Collection<User> qnaList;
+	private Collection<Member> qnaList;
 	
-	public User() {
+	public Member() {
 	}
 	
-	public User(long idx, String id, String password, String address, String email, String phoneNumber, Timestamp ts) {
+	public Member(long idx, String id, String password, String address, String email, String phoneNumber, Timestamp ts) {
 		this.idx = idx;
 		this.id = id;
 		this.password = password;
