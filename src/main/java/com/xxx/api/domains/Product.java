@@ -27,11 +27,11 @@ public class Product {
 	@Column(name = "size")
 	private Size size;
 	
-	@Column(name = "price")
-	private String price;
+	@Column(name = "price", nullable = false)
+	private int price;
 	
 	@Column(name = "stock")
-	private String stock;
+	private int stock;
 	
 	@Column(name = "contents")
 	private String contents;
@@ -70,7 +70,7 @@ public class Product {
 	public Product(){
 	}
 
-	public Product(long idx, String productCode, String productName, Size size, String price, String stock,
+	public Product(long idx, String productCode, String productName, Size size, int price, int stock,
 			String contents, Timestamp ts) {
 		this.idx = idx;
 		this.productCode = productCode;
@@ -114,19 +114,19 @@ public class Product {
 		this.size = size;
 	}
 
-	public String getPrice() {
+	public int getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(int price) {
 		this.price = price;
 	}
 
-	public String getStock() {
+	public int getStock() {
 		return stock;
 	}
 
-	public void setStock(String stock) {
+	public void setStock(int stock) {
 		this.stock = stock;
 	}
 

@@ -5,10 +5,15 @@ import com.xxx.api.domains.Product;
 public interface ProductServiceInterface {
 	public Product findByIdx(long idx);
 	
-	public Product findByName(String name);
+	public Product findByProductName(String productName);
 	
-	public void save(Product category);
+	public Product findByProductCode(String productCode);
 	
-	public void delete(Product category);
+	public Product findByPrice(int price);
 	
+	public Product findByStock(int stock);
+	
+	public void save(Product product);
+	
+	public void delete(Product product);
 }
