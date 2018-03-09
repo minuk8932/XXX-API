@@ -15,6 +15,9 @@ public class Product {
 	@Column(name = "idx")
 	private long idx;
 	
+	@Column(name = "category")
+	private Category category;
+	
 	@Column(name = "productCode")
 	private String productCode;
 	
@@ -36,6 +39,19 @@ public class Product {
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
 	
+	public enum Category {
+		TOP("Top"), BOTTOM("Bottom"), OUTER("Outer"), Accessory("accessory");
+
+		private String category;
+
+		private Category(String category) {
+			this.category = category;
+		}
+
+		public String getCategory() {
+			return category;
+		}
+	}
 	
 	public enum Size {
 		SMALL("S"), MEDIUM("M"), LARGE("L"), X_LARGE("XL");
