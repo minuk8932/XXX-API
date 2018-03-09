@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 @Entity
 public class Product {
@@ -38,9 +36,6 @@ public class Product {
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
 	
-	@ManyToOne
-	@JoinColumn(name = "cidx")	
-	private Category category;
 	
 	public enum Size {
 		SMALL("S"), MEDIUM("M"), LARGE("L"), X_LARGE("XL");
@@ -60,7 +55,7 @@ public class Product {
 	}
 
 	public Product(long idx, String productCode, String productName, Size size, String price, String stock,
-			String contents, Timestamp ts, Category category) {
+			String contents, Timestamp ts) {
 		this.idx = idx;
 		this.productCode = productCode;
 		this.productName = productName;
@@ -69,7 +64,6 @@ public class Product {
 		this.stock = stock;
 		this.contents = contents;
 		this.ts = ts;
-		this.category = category;
 	}
 
 	public long getIdx() {
@@ -134,13 +128,5 @@ public class Product {
 
 	public void setTs(Timestamp ts) {
 		this.ts = ts;
-	}
-
-	public Category getCategory() {
-		return category;
-	}
-
-	public void setCategory(Category category) {
-		this.category = category;
 	}
 }
