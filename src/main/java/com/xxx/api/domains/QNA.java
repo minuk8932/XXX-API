@@ -27,20 +27,14 @@ public class QNA {
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
 	
-	@ManyToOne
-	@Column(name = "mid")
-	@JsonIgnore
-	private Member mid;
-	
 	public QNA() {
 	}
 
-	public QNA(long idx, String question, String answer, Timestamp ts, Member mid) {
+	public QNA(long idx, String question, String answer, Timestamp ts) {
 		this.idx = idx;
 		this.question = question;
 		this.answer = answer;
 		this.ts = ts;
-		this.mid = mid;
 	}
 
 	public long getIdx() {
@@ -73,13 +67,5 @@ public class QNA {
 
 	public void setTs(Timestamp ts) {
 		this.ts = ts;
-	}
-
-	public Member getMid() {
-		return mid;
-	}
-
-	public void setMid(Member mid) {
-		this.mid = mid;
 	}
 }

@@ -43,10 +43,6 @@ public class Member {
 	@JoinColumn(name = "oidx")
 	private Collection<Order> orderList; 
 	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "qnaidx")
-	private Collection<QNA> qnaList;
-	
 	public Member() {
 	}
 	

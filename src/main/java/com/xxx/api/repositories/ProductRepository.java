@@ -8,7 +8,7 @@ import com.xxx.api.domains.Product;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long>{
-	@Query("SELECT m FROM Product AS p WHERE p.productName = ?1")
+	@Query("SELECT p FROM Product AS p WHERE p.productName = ?1")
 	public Product findByProductName(String productName);
 	
 	@Query("SELECT p FROM Product AS p WHERE p.productCode = ?1")

@@ -20,8 +20,4 @@ public interface MemberServiceInterface {
 	public Collection<Order> findOrderListAll();
 	
 	public Collection<Order> findOrderListByIdx(long[] idxs);
-	
-	public Collection<QNA> findQNAListAll();
-	
-	public Collection<QNA> findQNAListByIdx(long[] idxs);
 }

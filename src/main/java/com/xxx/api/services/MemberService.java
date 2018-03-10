@@ -56,15 +56,4 @@ public class MemberService implements MemberServiceInterface{
 	public Collection<Order> findOrderListByIdx(long[] idxs) {
 		return mr.findOrderListByIdx(idxs);
 	}
-	
-	@Override
-	public Collection<QNA> findQNAListAll() {
-//		return qr.findAll();
-		return null;
-	}
-
-	@Override
-	public Collection<QNA> findQNAListByIdx(long[] idxs) {
-		return mr.findQNAListByIdx(idxs);
-	}
 }

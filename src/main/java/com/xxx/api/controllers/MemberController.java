@@ -1,5 +1,5 @@
 package com.xxx.api.controllers;
 
-public class UserController {
+public class MemberController {
 
 }
