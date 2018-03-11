@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,8 +27,8 @@ public class Cart {
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "CartList", joinColumns = @JoinColumn(name = "cartIdx", referencedColumnName = "idx"), inverseJoinColumns = @JoinColumn(name = "pidx", referencedColumnName = "idx"))
+	@ManyToMany(fetch = FetchType.EAGER , cascade = CascadeType.ALL)
+	@JoinTable(name = "CartList")
 	private Collection<Product> cartList;
 	
 	public enum StatusSet {
