@@ -18,6 +18,6 @@ public interface MemberRepository extends JpaRepository<Member, Long>{
 	@Query("SELECT m FROM Member AS m WHERE m.phoneNumber = ?1")
 	public Member findByPhoneNumber(String phoneNumber);
 	
-	@Query("SELECT o FROM Order AS o WHERE o.idx = ?1")
-	public Collection<Order> findOrderListByIdx(long[] idxs);
+//	@Query("SELECT o FROM Order AS o WHERE o.idx = ?1")
+//	public Collection<Order> findOrderListByIdx(long[] idxs);
 }

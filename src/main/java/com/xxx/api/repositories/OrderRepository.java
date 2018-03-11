@@ -13,6 +13,4 @@ public interface OrderRepository extends JpaRepository<Order, Long>{
 	
 	@Query("SELECT o FROM Order AS o WHERE o.deliveryAddress = ?1")
 	public Order findByDeliveryAddress(String deliveryAddress);
-	
-	// how to orderList..
 }

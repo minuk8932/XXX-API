@@ -4,7 +4,6 @@ import java.util.Collection;
 
 import com.xxx.api.domains.Member;
 import com.xxx.api.domains.Order;
-import com.xxx.api.domains.QNA;
 
 public interface MemberServiceInterface {
 	public Member fingByIdx(long idx);
@@ -17,7 +16,5 @@ public interface MemberServiceInterface {
 	
 	public void delete(Member member);
 	
-	public Collection<Order> findOrderListAll();
-	
-	public Collection<Order> findOrderListByIdx(long[] idxs);
+//	public Collection<Order> findOrderListByIdx(long[] idxs, int page);
 }

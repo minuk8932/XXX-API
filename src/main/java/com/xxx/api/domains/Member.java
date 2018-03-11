@@ -40,7 +40,7 @@ public class Member {
 	private Timestamp ts;
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "oidx")
+	@JoinColumn(name = "mid")
 	private Collection<Order> orderList; 
 	
 	public Member() {

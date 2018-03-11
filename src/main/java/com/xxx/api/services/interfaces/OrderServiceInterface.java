@@ -12,6 +12,4 @@ public interface OrderServiceInterface {
 	public void save(Order order);
 	
 	public void delete(Order order);
-	
-	// how to orderList....
 }

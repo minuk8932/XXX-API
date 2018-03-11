@@ -5,6 +5,7 @@ import java.util.Collection;
 import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.xxx.api.domains.Member;
@@ -15,6 +16,8 @@ import com.xxx.api.services.interfaces.MemberServiceInterface;
 
 @Service("MemberService")
 public class MemberService implements MemberServiceInterface{
+	private static final int PAGE_SIZE = 10;
+	
 	@Autowired
 	MemberRepository mr;
 	
@@ -45,15 +48,9 @@ public class MemberService implements MemberServiceInterface{
 	public void delete(Member member) {
 		mr.delete(member);
 	}
-	
-	@Override
-	public Collection<Order> findOrderListAll() {
-//		return or.findAll();
-		return null;
-	}
 
-	@Override
-	public Collection<Order> findOrderListByIdx(long[] idxs) {
-		return mr.findOrderListByIdx(idxs);
-	}
+//	@Override
+//	public Collection<Order> findOrderListByIdx(long[] idxs, int page) {
+//		return mr.findOrderList(idxs, new PageRequest(page, PAGE_SIZE));
+//	}
 }

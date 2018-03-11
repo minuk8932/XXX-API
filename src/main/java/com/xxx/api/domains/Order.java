@@ -32,7 +32,7 @@ public class Order {
 	private Timestamp ts;
 	
 	@ManyToOne
-	@JoinColumn(name = "mid")
+	@JoinColumn(name = "oid")
 	@JsonIgnore
 	private Member mid;	
 	
