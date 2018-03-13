@@ -8,11 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.stereotype.Service;
 
 import com.xxx.api.domains.Notice;
 import com.xxx.api.repositories.NoticeRepository;
 import com.xxx.api.services.interfaces.NoticeServiceInterface;
 
+@Service("NoticeService")
 public class NoticeService implements NoticeServiceInterface{
 	private static final int PAGE_SIZE = 10;
 	

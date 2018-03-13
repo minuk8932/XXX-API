@@ -1,9 +1,6 @@
 package com.xxx.api.services.interfaces;
 
-import java.util.Collection;
-
 import com.xxx.api.domains.Member;
-import com.xxx.api.domains.Order;
 
 public interface MemberServiceInterface {
 	public Member fingByIdx(long idx);

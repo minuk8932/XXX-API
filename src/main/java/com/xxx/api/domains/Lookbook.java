@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class LookBook {
+public class Lookbook {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idx")
@@ -24,10 +24,10 @@ public class LookBook {
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
 	
-	public LookBook() {
+	public Lookbook() {
 	}
 
-	public LookBook(long idx, String imageName, String image, Timestamp ts) {
+	public Lookbook(long idx, String imageName, String image, Timestamp ts) {
 		this.idx = idx;
 		this.imageName = imageName;
 		this.image = image;
