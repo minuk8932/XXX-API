@@ -16,5 +16,5 @@ public interface MemberServiceInterface {
 	
 	public void delete(Member member);
 	
-	public ArrayList<Order> findOrderListByMemeberIdx(Member midx);
+	public ArrayList<Order> findOrderListByMemeberIdx(Order midx);
 }

@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -32,12 +31,15 @@ public class Order {
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
 	
+	// 연결 테이블 설정
 	@ManyToOne
-	@JoinColumn(name = "midx")		// MemberTable의 midx : 외래키가 있는쪽이 연관관계의 주인이므로
+	@JoinColumn(name = "memberIdx")
 	@JsonIgnore
 	private Member midx;
 	
-	// TODO : notice to product's info in orderList
+	@ManyToOne
+	@JoinColumn(name = "productIdx")
+	private Product pidx;
 	
 	// TODO : delivery number OneToOne join, how to?
 	
@@ -58,13 +60,15 @@ public class Order {
 	public Order() {
 	}
 
-	public Order(long idx, String orderNumber, String deliveryAddress, Type payment, Timestamp ts, Member midx) {
+	public Order(long idx, String orderNumber, String deliveryAddress, Type payment, Timestamp ts, Member midx,
+			Product pidx) {
 		this.idx = idx;
 		this.orderNumber = orderNumber;
 		this.deliveryAddress = deliveryAddress;
 		this.payment = payment;
 		this.ts = ts;
 		this.midx = midx;
+		this.pidx = pidx;
 	}
 
 	public long getIdx() {
@@ -107,11 +111,19 @@ public class Order {
 		this.ts = ts;
 	}
 
-	public Member getmidx() {
+	public Member getMidx() {
 		return midx;
 	}
 
-	public void setmidx(Member midx) {
+	public void setMidx(Member midx) {
 		this.midx = midx;
+	}
+
+	public Product getPidx() {
+		return pidx;
+	}
+
+	public void setPidx(Product pidx) {
+		this.pidx = pidx;
 	}
 }

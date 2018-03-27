@@ -4,13 +4,13 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -39,14 +39,14 @@ public class Member {
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
 	
-	@OneToMany(mappedBy = "member", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private List<Order> orderList = new ArrayList<>();
+	@OneToMany(mappedBy = "midx")
+	private List<Product> orderList = new ArrayList<>();
 
 	public Member() {
 	}
 
 	public Member(long idx, String id, String password, String address, String email, String phoneNumber, Timestamp ts,
-			List<Order> orderList) {
+			List<Product> orderList) {
 		this.idx = idx;
 		this.id = id;
 		this.password = password;
@@ -113,11 +113,11 @@ public class Member {
 		this.ts = ts;
 	}
 
-	public List<Order> getOrderList() {
+	public List<Product> getOrderList() {
 		return orderList;
 	}
 
-	public void setOrderList(List<Order> orderList) {
+	public void setOrderList(List<Product> orderList) {
 		this.orderList = orderList;
 	}
 }

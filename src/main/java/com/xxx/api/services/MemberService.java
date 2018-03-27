@@ -1,7 +1,6 @@
 package com.xxx.api.services;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -9,10 +8,9 @@ import javax.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.datasaver.api.domains.WiFi;
-import com.datasaver.api.domains.views.FindFriendWiFiView;
 import com.xxx.api.domains.Member;
 import com.xxx.api.domains.Order;
+import com.xxx.api.domains.view.FindOrderListView;
 import com.xxx.api.repositories.MemberRepository;
 import com.xxx.api.services.interfaces.MemberServiceInterface;
 
@@ -51,10 +49,10 @@ public class MemberService implements MemberServiceInterface{
 	}
 
 	@Override
-	public ArrayList<Order> findOrderListByMemeberIdx(Member midx) {
+	public ArrayList<Order> findOrderListByMemeberIdx(Order midx) {
 		Query q = em.createNativeQuery(
-				"SELECT w.idx, w.ssid, w.longitude, w.latitude FROM WiFi AS w INNER JOIN WiFiConnectionLog AS wcl ON w.idx = wcl.widx WHERE w.uidx = ? AND wcl.type = 1 ORDER BY wcl.ts DESC LIMIT 1",
-				FindFriendWiFiView.class);
+				"SELECT o.orderNumber FROM ORDER AS o INNER JOIN Product AS p ON w.idx = wcl.widx WHERE w.uidx = ? AND wcl.type = 1 ORDER BY wcl.ts DESC LIMIT 1",
+				FindOrderListView.class);
 		q.setParameter(1, midx);
 
 		return (ArrayList<Order>) q.getResultList();

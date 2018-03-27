@@ -17,6 +17,6 @@ public interface MemberRepository extends JpaRepository<Member, Long>{
 	@Query("SELECT m FROM Member AS m WHERE m.phoneNumber = ?1")
 	public Member findByPhoneNumber(String phoneNumber);
 	
-	@Query("SELECT m FROM Member AS m WHERE m.mid = ?1")
+	@Query("SELECT o FROM Order AS o WHERE o.midx = ?1")
 	public Collection<Order> findOrderListByMemeberIdx(Member midx);
 }
