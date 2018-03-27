@@ -18,6 +18,9 @@ public class Product {
 	@Column(name = "category")
 	private Category category;
 	
+	@Column(name = "productImg")
+	private String productImg;
+	
 	@Column(name = "productCode")
 	private String productCode;
 	
@@ -70,9 +73,11 @@ public class Product {
 	public Product(){
 	}
 
-	public Product(long idx, String productCode, String productName, Size size, int price, int stock,
-			String contents, Timestamp ts) {
+	public Product(long idx, Category category, String productImg, String productCode, String productName, Size size,
+			int price, int stock, String contents, Timestamp ts) {
 		this.idx = idx;
+		this.category = category;
+		this.productImg = productImg;
 		this.productCode = productCode;
 		this.productName = productName;
 		this.size = size;
@@ -88,6 +93,22 @@ public class Product {
 
 	public void setIdx(long idx) {
 		this.idx = idx;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public String getProductImg() {
+		return productImg;
+	}
+
+	public void setProductImg(String productImg) {
+		this.productImg = productImg;
 	}
 
 	public String getProductCode() {
@@ -144,5 +165,5 @@ public class Product {
 
 	public void setTs(Timestamp ts) {
 		this.ts = ts;
-	}
+	}	
 }

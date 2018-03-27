@@ -32,9 +32,9 @@ public class Order {
 	private Timestamp ts;
 	
 	@ManyToOne
-	@JoinColumn(name = "mid")		// MemberTable의 mid : 외래키가 있는쪽이 연관관계의 주인이므로
+	@JoinColumn(name = "midx")		// MemberTable의 midx : 외래키가 있는쪽이 연관관계의 주인이므로
 	@JsonIgnore
-	private Member mid;	
+	private Member midx;	
 	
 	// TODO : delivery number OneToOne join, how to?
 	
@@ -55,13 +55,13 @@ public class Order {
 	public Order() {
 	}
 
-	public Order(long idx, String orderNumber, String deliveryAddress, Type payment, Timestamp ts, Member mid) {
+	public Order(long idx, String orderNumber, String deliveryAddress, Type payment, Timestamp ts, Member midx) {
 		this.idx = idx;
 		this.orderNumber = orderNumber;
 		this.deliveryAddress = deliveryAddress;
 		this.payment = payment;
 		this.ts = ts;
-		this.mid = mid;
+		this.midx = midx;
 	}
 
 	public long getIdx() {
@@ -104,11 +104,11 @@ public class Order {
 		this.ts = ts;
 	}
 
-	public Member getMid() {
-		return mid;
+	public Member getmidx() {
+		return midx;
 	}
 
-	public void setMid(Member mid) {
-		this.mid = mid;
+	public void setmidx(Member midx) {
+		this.midx = midx;
 	}
 }

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import com.xxx.api.domains.Member;
 import com.xxx.api.domains.Order;
-import com.xxx.api.domains.QNA;
 
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long>{
@@ -18,6 +17,6 @@ public interface MemberRepository extends JpaRepository<Member, Long>{
 	@Query("SELECT m FROM Member AS m WHERE m.phoneNumber = ?1")
 	public Member findByPhoneNumber(String phoneNumber);
 	
-//	@Query("SELECT o FROM Order AS o WHERE o.idx = ?1")
-//	public Collection<Order> findOrderListByIdx(long[] idxs);
+	@Query("SELECT m FROM Member AS m WHERE m.mid = ?1")
+	public Collection<Order> findOrderListByMemeberIdx(Member midx);
 }

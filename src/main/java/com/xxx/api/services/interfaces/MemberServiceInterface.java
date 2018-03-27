@@ -1,6 +1,9 @@
 package com.xxx.api.services.interfaces;
 
+import java.util.ArrayList;
+
 import com.xxx.api.domains.Member;
+import com.xxx.api.domains.Order;
 
 public interface MemberServiceInterface {
 	public Member fingByIdx(long idx);
@@ -13,5 +16,5 @@ public interface MemberServiceInterface {
 	
 	public void delete(Member member);
 	
-//	public Collection<Order> findOrderListByIdx(long[] idxs, int page);
+	public ArrayList<Order> findOrderListByMemeberIdx(Member midx);
 }

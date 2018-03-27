@@ -41,6 +41,4 @@ public class OrderService implements OrderServiceInterface{
 	public void delete(Order order) {
 		or.delete(order);
 	}
-	
-	// how to orderList...
 }
