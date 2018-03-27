@@ -1,16 +1,11 @@
 package com.xxx.api.services;
 
-import java.util.Collection;
-
 import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.xxx.api.domains.Member;
-import com.xxx.api.domains.Order;
-import com.xxx.api.domains.QNA;
 import com.xxx.api.repositories.MemberRepository;
 import com.xxx.api.services.interfaces.MemberServiceInterface;
 

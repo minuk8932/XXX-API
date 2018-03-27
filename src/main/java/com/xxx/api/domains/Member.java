@@ -40,8 +40,8 @@ public class Member {
 	private Timestamp ts;
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "mid")
-	private Collection<Order> orderList; 
+	@JoinColumn(name = "mid")				// OrderTable의 mid (외래키)
+	private Collection<Order> orderList;
 	
 	public Member() {
 	}
