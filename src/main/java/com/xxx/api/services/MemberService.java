@@ -51,7 +51,7 @@ public class MemberService implements MemberServiceInterface{
 	@Override
 	public ArrayList<Order> findOrderListByMemeberIdx(Order midx) {
 		Query q = em.createNativeQuery(
-				"SELECT o.orderNumber FROM ORDER AS o INNER JOIN Product AS p ON w.idx = wcl.widx WHERE w.uidx = ? AND wcl.type = 1 ORDER BY wcl.ts DESC LIMIT 1",
+				"SELECT o.orderNumber FROM ORDER AS o INNER JOIN Product AS p ON p.idx = m.idx WHERE o.idx = ? ORDER BY o.idx ASC LIMIT 1",
 				FindOrderListView.class);
 		q.setParameter(1, midx);
 
