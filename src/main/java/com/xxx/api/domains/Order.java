@@ -32,7 +32,7 @@ public class Order {
 	private Timestamp ts;
 	
 	@ManyToOne
-	@JoinColumn(name = "mid", insertable = false, updatable = false)		// MemberTable의 mid : 다대일 관계에선 항상 '다'쪽에 외래키가 존재
+	@JoinColumn(name = "mid")		// MemberTable의 mid : 외래키가 있는쪽이 연관관계의 주인이므로
 	@JsonIgnore
 	private Member mid;	
 	

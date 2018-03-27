@@ -1,7 +1,8 @@
 package com.xxx.api.domains;
 
 import java.sql.Timestamp;
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,7 +11,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -39,14 +39,14 @@ public class Member {
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
 	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "mid")				// OrderTable의 mid (외래키)
-	private Collection<Order> orderList;
-	
+	@OneToMany(mappedBy = "member", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private List<Order> orderList = new ArrayList<>();
+
 	public Member() {
 	}
-	
-	public Member(long idx, String id, String password, String address, String email, String phoneNumber, Timestamp ts) {
+
+	public Member(long idx, String id, String password, String address, String email, String phoneNumber, Timestamp ts,
+			List<Order> orderList) {
 		this.idx = idx;
 		this.id = id;
 		this.password = password;
@@ -54,6 +54,7 @@ public class Member {
 		this.email = email;
 		this.phoneNumber = phoneNumber;
 		this.ts = ts;
+		this.orderList = orderList;
 	}
 
 	public long getIdx() {
@@ -110,5 +111,13 @@ public class Member {
 
 	public void setTs(Timestamp ts) {
 		this.ts = ts;
+	}
+
+	public List<Order> getOrderList() {
+		return orderList;
+	}
+
+	public void setOrderList(List<Order> orderList) {
+		this.orderList = orderList;
 	}
 }
