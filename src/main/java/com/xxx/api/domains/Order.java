@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -34,7 +35,9 @@ public class Order {
 	@ManyToOne
 	@JoinColumn(name = "midx")		// MemberTable의 midx : 외래키가 있는쪽이 연관관계의 주인이므로
 	@JsonIgnore
-	private Member midx;	
+	private Member midx;
+	
+	// TODO : notice to product's info in orderList
 	
 	// TODO : delivery number OneToOne join, how to?
 	
