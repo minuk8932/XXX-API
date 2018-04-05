@@ -1,17 +1,12 @@
 package com.xxx.api.domains;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 
 @Entity
 public class Product {
@@ -45,7 +40,7 @@ public class Product {
 	private String contents;
 	
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-	private Timestamp ts;	
+	private Timestamp ts;
 	
 	public enum Category {
 		TOP("Top"), BOTTOM("Bottom"), OUTER("Outer"), Accessory("accessory");

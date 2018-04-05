@@ -18,7 +18,6 @@ public class Member {
 	@Column(name = "idx")
 	private long idx;
 	
-	@OneToMany
 	@Column(name = "id", unique = true)
 	private String id;
 	
@@ -38,13 +37,13 @@ public class Member {
 	private Timestamp ts;
 	
 	@OneToMany(mappedBy = "midx")
-	private List<Product> orderList = new ArrayList<>();
+	private List<Order> orderList = new ArrayList<>();
 
 	public Member() {
 	}
 
 	public Member(long idx, String id, String password, String address, String email, String phoneNumber, Timestamp ts,
-			List<Product> orderList) {
+			List<Order> orderList) {
 		this.idx = idx;
 		this.id = id;
 		this.password = password;
@@ -111,11 +110,11 @@ public class Member {
 		this.ts = ts;
 	}
 
-	public List<Product> getOrderList() {
+	public List<Order> getOrderList() {
 		return orderList;
 	}
 
-	public void setOrderList(List<Product> orderList) {
+	public void setOrderList(List<Order> orderList) {
 		this.orderList = orderList;
 	}
 }
