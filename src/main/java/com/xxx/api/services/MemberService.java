@@ -48,10 +48,11 @@ public class MemberService implements MemberServiceInterface{
 		mr.delete(member);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public ArrayList<Order> findOrderListByMemeberIdx(Order midx) {
 		Query q = em.createNativeQuery(
-				"SELECT o.orderNumber FROM ORDER AS o INNER JOIN Product AS p ON p.idx = m.idx WHERE o.idx = ? ORDER BY o.idx ASC LIMIT 1",
+				"SELECT o.orderNumber FROM ORDER AS o INNER JOIN MEMBER AS m ON m.idx = o.midx ORDER BY m.idx ASC LIMIT 1",
 				FindOrderListView.class);
 		q.setParameter(1, midx);
 
