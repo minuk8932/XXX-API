@@ -24,8 +24,13 @@ public class LookbookService implements LookbookServiceInterface{
 	}
 
 	@Override
-	public Lookbook findByImageName(String imageName) {
-		return lr.findByImageName(imageName);
+	public void save(Lookbook lookbook) {
+		lr.save(lookbook);
+	}
+
+	@Override
+	public void delete(Lookbook lookbook) {
+		lr.delete(lookbook);
 	}
 
 }

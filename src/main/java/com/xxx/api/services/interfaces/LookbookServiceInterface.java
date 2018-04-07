@@ -5,9 +5,9 @@ import com.xxx.api.domains.Lookbook;
 public interface LookbookServiceInterface {
 	public Lookbook findByIdx(long idx);
 	
-	public Lookbook findByImageName(String imageName);
+	public void save(Lookbook lookbook);
 	
-	
+	public void delete(Lookbook lookbook);
 	
 	// need find view
 }
