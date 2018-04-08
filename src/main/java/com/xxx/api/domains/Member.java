@@ -33,23 +33,41 @@ public class Member {
 	@Column(name = "phoneNumber", unique = true)
 	private String phoneNumber;
 	
+	@Column(name = "type")
+	private Type type;
+	
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
 	
 	@OneToMany(mappedBy = "midx")
 	private List<Order> orderList = new ArrayList<>();
+	
+	public enum Type {
+		NORMAL(0), ADMINISTRATOR(1);
+
+		private int code;
+
+		private Type(int code) {
+			this.code = code;
+		}
+
+		public int getCode() {
+			return code;
+		}
+	}
 
 	public Member() {
 	}
 
-	public Member(long idx, String id, String password, String address, String email, String phoneNumber, Timestamp ts,
-			List<Order> orderList) {
+	public Member(long idx, String id, String password, String address, String email, String phoneNumber, Type type,
+			Timestamp ts, List<Order> orderList) {
 		this.idx = idx;
 		this.id = id;
 		this.password = password;
 		this.address = address;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
+		this.type = type;
 		this.ts = ts;
 		this.orderList = orderList;
 	}
@@ -100,6 +118,14 @@ public class Member {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+	public Type getType() {
+		return type;
+	}
+
+	public void setType(Type type) {
+		this.type = type;
 	}
 
 	public Timestamp getTs() {
