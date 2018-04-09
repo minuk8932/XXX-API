@@ -9,7 +9,7 @@ import com.xxx.api.utils.res.Strings;
  * 
  * @author minchoba
  *
- * Encryptor class : 암호화 알고리즘을 통한 암호생성기
+ * Encryptor class : 암호화 알고리즘을 통한 암호생성 클래스
  * -------------------------------------------
  * 비밀번호 보안의 대표적인 모듈인 SHA-256을 통해 사용자의
  * 비밀번호를 입력으로 받아 해당 값을 암호화 해주는 클래스
