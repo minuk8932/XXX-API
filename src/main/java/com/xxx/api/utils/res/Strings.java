@@ -18,4 +18,5 @@ public class Strings {
 	public static final String NEED_APPROPRIATE_AUTHORIZATION = "Need appropriate authorization.";
 	public static final String NOT_IMAGE_FILE_IS_PROHIBITED = "Not image file is prohibited.";
 	public static final String CAN_NOT_CREATE_HTTP_URL_CONNECTION = "Can not create http url connection.";
+	public static final String NO_CORRESPONDING_ALGORITHM_WAS_FOUND = "No corresponding algorithm was found.";
 }
