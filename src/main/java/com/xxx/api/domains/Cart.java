@@ -10,9 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Cart {
@@ -27,7 +26,7 @@ public class Cart {
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
 	
-	@ManyToMany(fetch = FetchType.EAGER , cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER , cascade = CascadeType.ALL)
 	@JoinTable(name = "CartList")
 	private Collection<Product> cartList;
 	

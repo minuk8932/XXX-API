@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Product {
@@ -38,6 +40,10 @@ public class Product {
 	
 	@Column(name = "contents")
 	private String contents;
+	
+	@ManyToOne
+	@JoinColumn(name = "cartIdx")
+	private Cart cidx;
 	
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
