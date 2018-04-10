@@ -35,7 +35,7 @@ import com.xxx.api.utils.res.Strings;
  *
  */
 
-@Component
+@Component				// 개발자가 직접 컨트롤 가능한 class
 @Aspect
 public class AuthAspect {
 	@Autowired
