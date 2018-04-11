@@ -30,7 +30,7 @@ public class Member {
 	@Column(name = "email", unique = true)
 	private String email;
 	
-	@Column(name = "phoneNumber", unique = true)
+	@Column(name = "phone_number", unique = true)
 	private String phoneNumber;
 	
 	@Column(name = "type")

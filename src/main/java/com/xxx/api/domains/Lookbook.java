@@ -15,7 +15,7 @@ public class Lookbook {
 	@Column(name = "idx")
 	private long idx;
 	
-	@Column(name = "imageName")
+	@Column(name = "image_name")
 	private String imageName;
 	
 	@Column(name = "image")

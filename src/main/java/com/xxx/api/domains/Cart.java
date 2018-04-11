@@ -20,18 +20,18 @@ public class Cart {
 	@Column(name = "idx")
 	private long idx;
 	
-	@Column(name = "statusSet")
+	@Column(name = "status_set")
 	private StatusSet statusSet;
 	
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
 	
 	@OneToMany(fetch = FetchType.EAGER , cascade = CascadeType.ALL)
-	@JoinTable(name = "CartList")
+	@JoinTable(name = "cart_list")
 	private Collection<Product> cartList;
 	
 	public enum StatusSet {
-		DELETE(0), NORMAL(1);
+		DELETE(0), SAVE(1);
 
 		private int setting;
 

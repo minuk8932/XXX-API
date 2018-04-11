@@ -19,10 +19,10 @@ public class Order {
 	@Column(name = "idx")
 	private long idx;
 	
-	@Column(name = "orderNumber", unique = true)
+	@Column(name = "order_number", unique = true)
 	private String orderNumber;
 	
-	@Column(name = "deliveryAddress")
+	@Column(name = "delivery_address")
 	private String deliveryAddress;
 	
 	@Column(name = "payment")
@@ -33,12 +33,12 @@ public class Order {
 	
 	// 연결 테이블 설정
 	@ManyToOne
-	@JoinColumn(name = "memberIdx")
+	@JoinColumn(name = "member_idx")
 	@JsonIgnore
 	private Member midx;
 	
 	@ManyToOne
-	@JoinColumn(name = "productIdx")
+	@JoinColumn(name = "product_idx")
 	private Product pidx;
 	
 	// TODO : delivery number OneToOne join, how to?

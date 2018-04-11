@@ -20,13 +20,13 @@ public class Product {
 	@Column(name = "category")
 	private Category category;
 	
-	@Column(name = "productImg")
+	@Column(name = "product_img")
 	private String productImg;
 	
-	@Column(name = "productCode")
+	@Column(name = "product_code")
 	private String productCode;
 	
-	@Column(name = "productName")
+	@Column(name = "product_name")
 	private String productName;
 	
 	@Column(name = "size")
@@ -42,7 +42,7 @@ public class Product {
 	private String contents;
 	
 	@ManyToOne
-	@JoinColumn(name = "cartIdx")
+	@JoinColumn(name = "cart_idx")
 	private Cart cidx;
 	
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
@@ -80,7 +80,7 @@ public class Product {
 	}
 
 	public Product(long idx, Category category, String productImg, String productCode, String productName, Size size,
-			int price, int stock, String contents, Timestamp ts) {
+			int price, int stock, String contents, Cart cidx, Timestamp ts) {
 		this.idx = idx;
 		this.category = category;
 		this.productImg = productImg;
@@ -90,6 +90,7 @@ public class Product {
 		this.price = price;
 		this.stock = stock;
 		this.contents = contents;
+		this.cidx = cidx;
 		this.ts = ts;
 	}
 
@@ -163,6 +164,14 @@ public class Product {
 
 	public void setContents(String contents) {
 		this.contents = contents;
+	}
+
+	public Cart getCidx() {
+		return cidx;
+	}
+
+	public void setCidx(Cart cidx) {
+		this.cidx = cidx;
 	}
 
 	public Timestamp getTs() {
