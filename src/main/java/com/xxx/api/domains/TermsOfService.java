@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class TermOfService {
+public class TermsOfService {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idx")
@@ -21,10 +21,10 @@ public class TermOfService {
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
 	
-	public TermOfService() {
+	public TermsOfService() {
 	}
 
-	public TermOfService(long idx, String contents, Timestamp ts) {
+	public TermsOfService(long idx, String contents, Timestamp ts) {
 		this.idx = idx;
 		this.contents = contents;
 		this.ts = ts;
