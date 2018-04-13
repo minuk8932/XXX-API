@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.xxx.api.domains.Member;
 import com.xxx.api.domains.Order;
-import com.xxx.api.domains.view.FindOrderListView;
+import com.xxx.api.domains.view.OrderProductView;
 import com.xxx.api.repositories.MemberRepository;
 import com.xxx.api.services.interfaces.MemberServiceInterface;
 
@@ -53,7 +53,7 @@ public class MemberService implements MemberServiceInterface{
 	public ArrayList<Order> findOrderListByMemeberIdx(Order midx) {
 		Query q = em.createNativeQuery(
 				"SELECT o.orderNumber FROM ORDER AS o INNER JOIN MEMBER AS m ON m.idx = o.midx ORDER BY m.idx ASC LIMIT 1",
-				FindOrderListView.class);
+				OrderProductView.class);
 		q.setParameter(1, midx);
 
 		return (ArrayList<Order>) q.getResultList();
