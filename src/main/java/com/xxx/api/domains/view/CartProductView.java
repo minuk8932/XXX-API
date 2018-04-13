@@ -4,25 +4,25 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class OrderProductView {
+public class CartProductView {
 	@Id
-	private long oidx;
+	private long cidx;
 	private long pidx;
-		
-	public OrderProductView() {
+	
+	public CartProductView() {
 	}
 
-	public OrderProductView(long oidx, long pidx) {
-		this.oidx = oidx;
+	public CartProductView(long cidx, long pidx) {
+		this.cidx = cidx;
 		this.pidx = pidx;
 	}
 
-	public long getIdx() {
-		return oidx;
+	public long getCidx() {
+		return cidx;
 	}
 
-	public void setIdx(long oidx) {
-		this.oidx = oidx;
+	public void setCidx(long cidx) {
+		this.cidx = cidx;
 	}
 
 	public long getPidx() {
