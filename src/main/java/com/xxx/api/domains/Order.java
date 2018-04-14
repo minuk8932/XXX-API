@@ -4,11 +4,13 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -22,9 +24,6 @@ public class Order {
 	@Column(name = "order_number", unique = true)
 	private String orderNumber;
 	
-	@Column(name = "delivery_address")
-	private String deliveryAddress;
-	
 	@Column(name = "payment")
 	private Type payment;
 	
@@ -36,6 +35,10 @@ public class Order {
 	@JoinColumn(name = "member_idx")
 	@JsonIgnore
 	private Member midx;
+	
+	@OneToOne(fetch = FetchType.LAZY)					// 1:1 단방향
+	@JoinColumn(name = "member_address", nullable = false)
+	private Member deliveryAddress;
 	
 	// TODO : delivery number OneToOne join, how to?
 	
@@ -56,13 +59,13 @@ public class Order {
 	public Order() {
 	}
 
-	public Order(long idx, String orderNumber, String deliveryAddress, Type payment, Timestamp ts, Member midx) {
+	public Order(long idx, String orderNumber, Type payment, Timestamp ts, Member midx, Member deliveryAddress) {
 		this.idx = idx;
 		this.orderNumber = orderNumber;
-		this.deliveryAddress = deliveryAddress;
 		this.payment = payment;
 		this.ts = ts;
 		this.midx = midx;
+		this.deliveryAddress = deliveryAddress;
 	}
 
 	public long getIdx() {
@@ -79,14 +82,6 @@ public class Order {
 
 	public void setOrderNumber(String orderNumber) {
 		this.orderNumber = orderNumber;
-	}
-
-	public String getDeliveryAddress() {
-		return deliveryAddress;
-	}
-
-	public void setDeliveryAddress(String deliveryAddress) {
-		this.deliveryAddress = deliveryAddress;
 	}
 
 	public Type getPayment() {
@@ -111,5 +106,13 @@ public class Order {
 
 	public void setMidx(Member midx) {
 		this.midx = midx;
+	}
+
+	public Member getDeliveryAddress() {
+		return deliveryAddress;
+	}
+
+	public void setDeliveryAddress(Member deliveryAddress) {
+		this.deliveryAddress = deliveryAddress;
 	}
 }
