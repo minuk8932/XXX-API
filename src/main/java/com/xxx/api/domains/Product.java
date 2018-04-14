@@ -1,13 +1,17 @@
 package com.xxx.api.domains;
 
 import java.sql.Timestamp;
+import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -47,6 +51,14 @@ public class Product {
 	
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "Order", joinColumns = @JoinColumn(name = "pidx", referencedColumnName = "idx"), inverseJoinColumns = @JoinColumn(name = "oidx", referencedColumnName = "idx"))
+	private Collection<Order> orderProduct;
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "Cart", joinColumns = @JoinColumn(name = "pidx", referencedColumnName = "idx"), inverseJoinColumns = @JoinColumn(name = "cidx", referencedColumnName = "idx"))
+	private Collection<Cart> cartProduct;
 	
 	public enum Category {
 		TOP("Top"), BOTTOM("Bottom"), OUTER("Outer"), Accessory("accessory");

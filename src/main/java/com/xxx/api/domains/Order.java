@@ -37,10 +37,6 @@ public class Order {
 	@JsonIgnore
 	private Member midx;
 	
-	@ManyToOne
-	@JoinColumn(name = "product_idx")
-	private Product pidx;
-	
 	// TODO : delivery number OneToOne join, how to?
 	
 	public enum Type {
@@ -60,15 +56,13 @@ public class Order {
 	public Order() {
 	}
 
-	public Order(long idx, String orderNumber, String deliveryAddress, Type payment, Timestamp ts, Member midx,
-			Product pidx) {
+	public Order(long idx, String orderNumber, String deliveryAddress, Type payment, Timestamp ts, Member midx) {
 		this.idx = idx;
 		this.orderNumber = orderNumber;
 		this.deliveryAddress = deliveryAddress;
 		this.payment = payment;
 		this.ts = ts;
 		this.midx = midx;
-		this.pidx = pidx;
 	}
 
 	public long getIdx() {
@@ -117,13 +111,5 @@ public class Order {
 
 	public void setMidx(Member midx) {
 		this.midx = midx;
-	}
-
-	public Product getPidx() {
-		return pidx;
-	}
-
-	public void setPidx(Product pidx) {
-		this.pidx = pidx;
 	}
 }
