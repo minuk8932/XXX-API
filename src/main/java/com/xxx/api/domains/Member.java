@@ -39,10 +39,10 @@ public class Member {
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
 	
-	@OneToMany(mappedBy = "member_idx")
+	@OneToMany(mappedBy = "midx")
 	private List<Order> orderList = new ArrayList<>();
 	
-	@OneToMany(mappedBy = "member_idx")
+	@OneToMany(mappedBy = "midx")
 	private List<Cart> cartList = new ArrayList<>();
 	
 	public enum Type {
